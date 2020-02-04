@@ -1,7 +1,7 @@
 # Личный проект «Что посмотреть» [![Build status][travis-image]][travis-url]
 
 * Студент: [Александр Федюнин](https://up.htmlacademy.ru/react/3/user/930699).
-* Наставник: `Неизвестно`.
+* Наставник: [Александр Белокур](https://up.htmlacademy.ru/react/3/user/256757).
 
 ---
 
