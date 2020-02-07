@@ -8,11 +8,14 @@ const Settings = {
   FILM_YEAR: `2014`
 };
 
+const FilmsList = [`Fantastic Beasts`, `Bohemian Rhapsody`, `Macbeth`];
+
 ReactDOM.render(
     <App
       filmName={Settings.FILM_NAME}
       filmGenre={Settings.FILM_GENRE}
       filmYear={Settings.FILM_YEAR}
+      filmsList={FilmsList}
     />,
     document.querySelector(`#root`)
 );
