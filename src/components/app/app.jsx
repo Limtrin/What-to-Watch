@@ -2,6 +2,8 @@ import React from "react";
 import Main from "../main/main.jsx";
 import PropTypes from "prop-types";
 
+const headerClickHandler = () => {};
+
 const App = ({filmName, filmGenre, filmYear, filmsList}) => {
   return (
     <Main
@@ -9,6 +11,7 @@ const App = ({filmName, filmGenre, filmYear, filmsList}) => {
       filmGenre={filmGenre}
       filmYear={filmYear}
       filmsList={filmsList}
+      onHeaderClickHandler={headerClickHandler}
     />
   );
 };
