@@ -2,41 +2,73 @@ export const FilmsList = [
   {
     id: `bohemian-rhapsody`,
     name: `Bohemian Rhapsody`,
-    image: `img/bohemian-rhapsody.jpg`
+    genre: `drama`,
+    year: 2019,
+    image: `img/bohemian-rhapsody.jpg`,
+    poster: `img/the-grand-budapest-hotel-poster.jpg`,
+    cover: `img/bg-the-grand-budapest-hotel.jpg`
   },
   {
     id: `aviator`,
     name: `Aviator`,
-    image: `img/aviator.jpg`
+    genre: `dama`,
+    year: 2010,
+    image: `img/aviator.jpg`,
+    poster: `img/the-grand-budapest-hotel-poster.jpg`,
+    cover: `img/bg-the-grand-budapest-hotel.jpg`
   },
   {
     id: `johnny-english`,
     name: `Johnny English`,
-    image: `img/johnny-english.jpg`
+    genre: `comedy`,
+    year: 2013,
+    image: `img/johnny-english.jpg`,
+    poster: `img/the-grand-budapest-hotel-poster.jpg`,
+    cover: `img/bg-the-grand-budapest-hotel.jpg`
   },
   {
     id: `shutter-island`,
     name: `Shutter Island`,
-    image: `img/shutter-island.jpg`
+    genre: `detective`,
+    year: 2010,
+    image: `img/shutter-island.jpg`,
+    poster: `img/the-grand-budapest-hotel-poster.jpg`,
+    cover: `img/bg-the-grand-budapest-hotel.jpg`
   },
   {
     id: `snatch`,
     name: `Snatch`,
-    image: `img/snatch.jpg`
+    genre: `comedy`,
+    year: 2009,
+    image: `img/snatch.jpg`,
+    poster: `img/the-grand-budapest-hotel-poster.jpg`,
+    cover: `img/bg-the-grand-budapest-hotel.jpg`
   },
   {
     id: `war-of-the-worlds`,
     name: `War of the Worlds`,
-    image: `img/war-of-the-worlds.jpg`
+    genre: `action`,
+    year: 2008,
+    image: `img/war-of-the-worlds.jpg`,
+    poster: `img/the-grand-budapest-hotel-poster.jpg`,
+    cover: `img/bg-the-grand-budapest-hotel.jpg`
   },
   {
     id: `mindhunter`,
     name: `Mindhunter`,
-    image: `img/mindhunter.jpg`
+    genre: `drama`,
+    year: 2015,
+    image: `img/mindhunter.jpg`,
+    poster: `img/the-grand-budapest-hotel-poster.jpg`,
+    cover: `img/bg-the-grand-budapest-hotel.jpg`
   },
   {
     id: `orlando`,
     name: `Orlando`,
-    image: `img/orlando.jpg`
+    genre: `drama`,
+    year: 2011,
+    image: `img/orlando.jpg`,
+    poster: `img/the-grand-budapest-hotel-poster.jpg`,
+    cover: `img/bg-the-grand-budapest-hotel.jpg`
   }
 ];

@@ -3,6 +3,7 @@
 exports[`<FilmCard /> should render correctly 1`] = `
 <article
   className="small-movie-card catalog__movies-card"
+  onClick={[Function]}
   onMouseEnter={[Function]}
   onMouseLeave={[Function]}
 >
@@ -10,9 +11,9 @@ exports[`<FilmCard /> should render correctly 1`] = `
     className="small-movie-card__image"
   >
     <img
-      alt="We need to talk about Kevin"
+      alt="War of the Worlds"
       height="175"
-      src="img/we-need-to-talk-about-kevin.jpg"
+      src="img/war-of-the-worlds.jpg"
       width="280"
     />
   </div>
@@ -24,7 +25,7 @@ exports[`<FilmCard /> should render correctly 1`] = `
       className="small-movie-card__link"
       href="movie-page.html"
     >
-      We need to talk about Kevin
+      War of the Worlds
     </a>
   </h3>
 </article>
