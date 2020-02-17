@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import FilmsList from "../films-list/films-list.jsx";
 
 const Main = ({filmName, filmGenre, filmYear, filmsList, onHeaderClickHandler}) => {
 
@@ -97,20 +98,10 @@ const Main = ({filmName, filmGenre, filmYear, filmsList, onHeaderClickHandler}) 
             </li>
           </ul>
 
-          <div className="catalog__movies-list">
-            {filmsList.map((film, index) => (
-              <article key={index + film} className="small-movie-card catalog__movies-card">
-                <div className="small-movie-card__image">
-                  <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175" />
-                </div>
-                <h3
-                  onClick={onHeaderClickHandler}
-                  className="small-movie-card__title">
-                  <a className="small-movie-card__link" href="movie-page.html">{film}</a>
-                </h3>
-              </article>
-            ))}
-          </div>
+          <FilmsList
+            onHeaderClickHandler={onHeaderClickHandler}
+            filmsList={filmsList}
+          />
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
@@ -139,7 +130,11 @@ Main.propTypes = {
   filmName: PropTypes.string.isRequired,
   filmGenre: PropTypes.string.isRequired,
   filmYear: PropTypes.string.isRequired,
-  filmsList: PropTypes.arrayOf(PropTypes.string),
+  filmsList: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired
+  })).isRequired,
   onHeaderClickHandler: PropTypes.func.isRequired
 };
 

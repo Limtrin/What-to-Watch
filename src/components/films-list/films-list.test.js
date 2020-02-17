@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import App from "./app.jsx";
+import FilmsList from "./films-list.jsx";
 
 const filmsList = [
   {
@@ -15,16 +15,13 @@ const filmsList = [
   }
 ];
 
-it(`Render App`, () => {
+it(`<FilmsList /> should render correctly`, () => {
   const tree = renderer
     .create(
-        <App
-          filmName={`Grand Budapest`}
-          filmGenre={`Drama`}
-          filmYear={`1985`}
+        <FilmsList
           filmsList={filmsList}
-        />
-    )
+          onHeaderClickHandler = {() => {}}
+        />)
     .toJSON();
 
   expect(tree).toMatchSnapshot();
