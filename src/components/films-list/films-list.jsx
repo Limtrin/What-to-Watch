@@ -30,6 +30,7 @@ class FilmsList extends React.PureComponent {
             key={item.id}
             film={item}
             onHeaderClickHandler={this.props.onHeaderClickHandler}
+            onFilmCardClickHandler={this.props.onFilmCardClickHandler}
             onCardMouseEnterHandler={this._onCardMouseEnterHandler}
             onCardMouseLeaveHandler={this._onCardMouseLeaveHandler}
           />
@@ -43,9 +44,14 @@ FilmsList.propTypes = {
   filmsList: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired
+    genre: PropTypes.string.isRequired,
+    year: PropTypes.number.isRequired,
+    image: PropTypes.string.isRequired,
+    poster: PropTypes.string.isRequired,
+    cover: PropTypes.string.isRequired
   })).isRequired,
-  onHeaderClickHandler: PropTypes.func.isRequired
+  onHeaderClickHandler: PropTypes.func.isRequired,
+  onFilmCardClickHandler: PropTypes.func.isRequired
 };
 
 export default FilmsList;

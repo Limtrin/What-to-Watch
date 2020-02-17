@@ -2,16 +2,11 @@ import React from "react";
 import Enzyme, {shallow} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import FilmCard from "./film-card.jsx";
+import {film} from "../../mocks/test-mocks.js";
 
 Enzyme.configure({
   adapter: new Adapter()
 });
-
-const film = {
-  id: `we-need-to-talk-about-kevin`,
-  name: `We need to talk about Kevin`,
-  image: `img/we-need-to-talk-about-kevin.jpg`
-};
 
 it(`Should header be pressed`, () => {
   const onHeaderClick = jest.fn();
@@ -22,6 +17,7 @@ it(`Should header be pressed`, () => {
         onCardMouseLeaveHandler={() => {}}
         film={film}
         onHeaderClickHandler={onHeaderClick}
+        onFilmCardClickHandler={() => {}}
       />
   );
 
@@ -39,6 +35,7 @@ it(`HandlerOnMouseEnter get correct data`, () => {
         onCardMouseLeaveHandler={() => {}}
         film={film}
         onHeaderClickHandler={() => {}}
+        onFilmCardClickHandler={() => {}}
       />
   );
 
@@ -46,4 +43,23 @@ it(`HandlerOnMouseEnter get correct data`, () => {
 
   expect(onCardMouseEnter.mock.calls.length).toBe(1);
   expect(onCardMouseEnter.mock.calls[0][0]).toMatchObject(film);
+});
+
+it(`Should film card be pressed`, () => {
+  const onFilmCardClick = jest.fn((...args) => [...args]);
+
+  const main = shallow(
+      <FilmCard
+        onCardMouseEnterHandler={() => {}}
+        onCardMouseLeaveHandler={() => {}}
+        film={film}
+        onHeaderClickHandler={() => {}}
+        onFilmCardClickHandler={onFilmCardClick}
+      />
+  );
+
+  main.find(`article`).simulate(`click`);
+
+  expect(onFilmCardClick.mock.calls.length).toBe(1);
+  expect(onFilmCardClick.mock.calls[0][0]).toMatchObject(film);
 });

@@ -1,19 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import App from "./app.jsx";
-
-const filmsList = [
-  {
-    id: `bohemian-rhapsody`,
-    name: `Bohemian Rhapsody`,
-    image: `img/bohemian-rhapsody.jpg`
-  },
-  {
-    id: `aviator`,
-    name: `Aviator`,
-    image: `img/aviator.jpg`
-  }
-];
+import {filmsList} from "../../mocks/test-mocks.js";
 
 it(`Render App`, () => {
   const tree = renderer

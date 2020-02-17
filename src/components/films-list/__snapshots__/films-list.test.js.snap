@@ -6,6 +6,7 @@ exports[`<FilmsList /> should render correctly 1`] = `
 >
   <article
     className="small-movie-card catalog__movies-card"
+    onClick={[Function]}
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
   >
@@ -13,9 +14,9 @@ exports[`<FilmsList /> should render correctly 1`] = `
       className="small-movie-card__image"
     >
       <img
-        alt="Bohemian Rhapsody"
+        alt="Shutter Island"
         height="175"
-        src="img/bohemian-rhapsody.jpg"
+        src="img/shutter-island.jpg"
         width="280"
       />
     </div>
@@ -27,12 +28,13 @@ exports[`<FilmsList /> should render correctly 1`] = `
         className="small-movie-card__link"
         href="movie-page.html"
       >
-        Bohemian Rhapsody
+        Shutter Island
       </a>
     </h3>
   </article>
   <article
     className="small-movie-card catalog__movies-card"
+    onClick={[Function]}
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
   >
@@ -40,9 +42,9 @@ exports[`<FilmsList /> should render correctly 1`] = `
       className="small-movie-card__image"
     >
       <img
-        alt="Aviator"
+        alt="Snatch"
         height="175"
-        src="img/aviator.jpg"
+        src="img/snatch.jpg"
         width="280"
       />
     </div>
@@ -54,7 +56,7 @@ exports[`<FilmsList /> should render correctly 1`] = `
         className="small-movie-card__link"
         href="movie-page.html"
       >
-        Aviator
+        Snatch
       </a>
     </h3>
   </article>

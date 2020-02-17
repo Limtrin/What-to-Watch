@@ -1,12 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import FilmCard from "./film-card.jsx";
-
-const film = {
-  id: `we-need-to-talk-about-kevin`,
-  name: `We need to talk about Kevin`,
-  image: `img/we-need-to-talk-about-kevin.jpg`
-};
+import {film} from "../../mocks/test-mocks.js";
 
 it(`<FilmCard /> should render correctly`, () => {
   const tree = renderer
@@ -16,6 +11,7 @@ it(`<FilmCard /> should render correctly`, () => {
           onCardMouseEnterHandler={() => {}}
           onCardMouseLeaveHandler={() => {}}
           onHeaderClickHandler={() => {}}
+          onFilmCardClickHandler={() => {}}
         />
     )
     .toJSON();

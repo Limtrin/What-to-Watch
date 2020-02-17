@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import FilmsList from "../films-list/films-list.jsx";
 
-const Main = ({filmName, filmGenre, filmYear, filmsList, onHeaderClickHandler}) => {
+const Main = ({filmName, filmGenre, filmYear, filmsList, onHeaderClickHandler, onFilmCardClickHandler}) => {
 
   return (
     <React.Fragment>
@@ -100,6 +100,7 @@ const Main = ({filmName, filmGenre, filmYear, filmsList, onHeaderClickHandler}) 
 
           <FilmsList
             onHeaderClickHandler={onHeaderClickHandler}
+            onFilmCardClickHandler={onFilmCardClickHandler}
             filmsList={filmsList}
           />
 
@@ -133,9 +134,14 @@ Main.propTypes = {
   filmsList: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired
+    genre: PropTypes.string.isRequired,
+    year: PropTypes.number.isRequired,
+    image: PropTypes.string.isRequired,
+    poster: PropTypes.string.isRequired,
+    cover: PropTypes.string.isRequired
   })).isRequired,
-  onHeaderClickHandler: PropTypes.func.isRequired
+  onHeaderClickHandler: PropTypes.func.isRequired,
+  onFilmCardClickHandler: PropTypes.func.isRequired
 };
 
 export default Main;
