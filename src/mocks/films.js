@@ -6,7 +6,8 @@ export const FilmsList = [
     year: 2019,
     image: `img/bohemian-rhapsody.jpg`,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
-    cover: `img/bg-the-grand-budapest-hotel.jpg`
+    cover: `img/bg-the-grand-budapest-hotel.jpg`,
+    preview: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`
   },
   {
     id: `aviator`,
@@ -15,7 +16,8 @@ export const FilmsList = [
     year: 2010,
     image: `img/aviator.jpg`,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
-    cover: `img/bg-the-grand-budapest-hotel.jpg`
+    cover: `img/bg-the-grand-budapest-hotel.jpg`,
+    preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`
   },
   {
     id: `johnny-english`,
@@ -24,7 +26,8 @@ export const FilmsList = [
     year: 2013,
     image: `img/johnny-english.jpg`,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
-    cover: `img/bg-the-grand-budapest-hotel.jpg`
+    cover: `img/bg-the-grand-budapest-hotel.jpg`,
+    preview: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`
   },
   {
     id: `shutter-island`,
@@ -33,7 +36,8 @@ export const FilmsList = [
     year: 2010,
     image: `img/shutter-island.jpg`,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
-    cover: `img/bg-the-grand-budapest-hotel.jpg`
+    cover: `img/bg-the-grand-budapest-hotel.jpg`,
+    preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`
   },
   {
     id: `snatch`,
@@ -42,7 +46,8 @@ export const FilmsList = [
     year: 2009,
     image: `img/snatch.jpg`,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
-    cover: `img/bg-the-grand-budapest-hotel.jpg`
+    cover: `img/bg-the-grand-budapest-hotel.jpg`,
+    preview: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`
   },
   {
     id: `war-of-the-worlds`,
@@ -51,7 +56,8 @@ export const FilmsList = [
     year: 2008,
     image: `img/war-of-the-worlds.jpg`,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
-    cover: `img/bg-the-grand-budapest-hotel.jpg`
+    cover: `img/bg-the-grand-budapest-hotel.jpg`,
+    preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`
   },
   {
     id: `mindhunter`,
@@ -60,7 +66,8 @@ export const FilmsList = [
     year: 2015,
     image: `img/mindhunter.jpg`,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
-    cover: `img/bg-the-grand-budapest-hotel.jpg`
+    cover: `img/bg-the-grand-budapest-hotel.jpg`,
+    preview: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`
   },
   {
     id: `orlando`,
@@ -69,6 +76,7 @@ export const FilmsList = [
     year: 2011,
     image: `img/orlando.jpg`,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
-    cover: `img/bg-the-grand-budapest-hotel.jpg`
+    cover: `img/bg-the-grand-budapest-hotel.jpg`,
+    preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`
   }
 ];

@@ -11,7 +11,11 @@ it(`Render App`, () => {
           filmGenre={`Drama`}
           filmYear={`1985`}
           filmsList={filmsList}
-        />
+        />, {
+          createNodeMock: () => {
+            return {};
+          }
+        }
     )
     .toJSON();
 

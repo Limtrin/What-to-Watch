@@ -10,7 +10,11 @@ it(`<FilmsList /> should render correctly`, () => {
           filmsList={filmsList}
           onHeaderClickHandler = {() => {}}
           onFilmCardClickHandler = {() => {}}
-        />)
+        />, {
+          createNodeMock: () => {
+            return {};
+          }
+        })
     .toJSON();
 
   expect(tree).toMatchSnapshot();

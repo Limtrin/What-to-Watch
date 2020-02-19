@@ -10,10 +10,12 @@ exports[`<FilmCard /> should render correctly 1`] = `
   <div
     className="small-movie-card__image"
   >
-    <img
-      alt="War of the Worlds"
+    <video
       height="175"
-      src="img/war-of-the-worlds.jpg"
+      onLoadStart={[Function]}
+      onPlay={[Function]}
+      poster="img/war-of-the-worlds.jpg"
+      src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
       width="280"
     />
   </div>

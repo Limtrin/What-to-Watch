@@ -12,8 +12,11 @@ it(`<FilmCard /> should render correctly`, () => {
           onCardMouseLeaveHandler={() => {}}
           onHeaderClickHandler={() => {}}
           onFilmCardClickHandler={() => {}}
-        />
-    )
+        />, {
+          createNodeMock: () => {
+            return {};
+          }
+        })
     .toJSON();
 
   expect(tree).toMatchSnapshot();

@@ -67,7 +67,8 @@ App.propTypes = {
     year: PropTypes.number.isRequired,
     image: PropTypes.string.isRequired,
     poster: PropTypes.string.isRequired,
-    cover: PropTypes.string.isRequired
+    cover: PropTypes.string.isRequired,
+    preview: PropTypes.string.isRequired,
   })).isRequired
 };
 
