@@ -13,10 +13,12 @@ exports[`<FilmsList /> should render correctly 1`] = `
     <div
       className="small-movie-card__image"
     >
-      <img
-        alt="Shutter Island"
+      <video
         height="175"
-        src="img/shutter-island.jpg"
+        onLoadStart={[Function]}
+        onPlay={[Function]}
+        poster="img/shutter-island.jpg"
+        src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
         width="280"
       />
     </div>
@@ -41,10 +43,12 @@ exports[`<FilmsList /> should render correctly 1`] = `
     <div
       className="small-movie-card__image"
     >
-      <img
-        alt="Snatch"
+      <video
         height="175"
-        src="img/snatch.jpg"
+        onLoadStart={[Function]}
+        onPlay={[Function]}
+        poster="img/snatch.jpg"
+        src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
         width="280"
       />
     </div>

@@ -13,7 +13,11 @@ it(`Render Main`, () => {
           filmsList={filmsList}
           onHeaderClickHandler={() => {}}
           onFilmCardClickHandler={() => {}}
-        />
+        />, {
+          createNodeMock: () => {
+            return {};
+          }
+        }
     )
     .toJSON();
 
