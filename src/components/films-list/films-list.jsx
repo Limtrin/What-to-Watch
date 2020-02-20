@@ -50,6 +50,20 @@ FilmsList.propTypes = {
     poster: PropTypes.string.isRequired,
     cover: PropTypes.string.isRequired,
     preview: PropTypes.string.isRequired,
+    time: PropTypes.string.isRequired,
+    rating: PropTypes.number.isRequired,
+    votes: PropTypes.number.isRequired,
+    director: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    reviews: PropTypes.arrayOf(
+        PropTypes.shape({
+          rating: PropTypes.number.isRequired,
+          date: PropTypes.string.isRequired,
+          author: PropTypes.string.isRequired,
+          text: PropTypes.string.isRequired
+        }).isRequired
+    ).isRequired,
+    starring: PropTypes.arrayOf(PropTypes.string).isRequired,
   })).isRequired,
   onHeaderClickHandler: PropTypes.func.isRequired,
   onFilmCardClickHandler: PropTypes.func.isRequired
