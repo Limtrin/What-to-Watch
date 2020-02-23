@@ -11,6 +11,9 @@ class FilmCard extends React.PureComponent {
     };
   }
 
+  componentWillUnmount() {
+    clearTimeout(this.timeoutOnMouseOver);
+  }
 
   render() {
     const {film, onHeaderClickHandler, onCardMouseEnterHandler, onCardMouseLeaveHandler, onFilmCardClickHandler} = this.props;
