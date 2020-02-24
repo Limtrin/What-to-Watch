@@ -2,6 +2,7 @@ import React from "react";
 import Main from "../main/main.jsx";
 import FilmPage from "../film-page/film-page.jsx";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 
 const headerClickHandler = () => {};
@@ -91,4 +92,10 @@ App.propTypes = {
   })).isRequired
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  filmsList: state.filmsList
+});
+
+export {App};
+
+export default connect(mapStateToProps)(App);

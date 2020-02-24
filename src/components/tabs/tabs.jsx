@@ -7,7 +7,7 @@ const TAB_NAME = {
   reviews: `Reviews`
 };
 
-const TAB_LIST = [`Overview`, `Details`, `Reviews`];
+const TAB_LIST = [TAB_NAME.overview, TAB_NAME.details, TAB_NAME.reviews];
 
 class Tabs extends React.PureComponent {
   constructor(props) {
