@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import FilmsList from "../films-list/films-list.jsx";
+import {connect} from "react-redux";
+import {FilmsList} from "../films-list/films-list.jsx";
 
 
 const SimilarFilms = ({film, filmsList, onFilmCardClickHandler, onHeaderClickHandler}) => {
@@ -68,4 +69,10 @@ SimilarFilms.propTypes = {
   onFilmCardClickHandler: PropTypes.func.isRequired
 };
 
-export default SimilarFilms;
+const mapStateToProps = (state) => ({
+  filmsList: state.filmsCurrent
+});
+
+export {SimilarFilms};
+
+export default connect(mapStateToProps)(SimilarFilms);

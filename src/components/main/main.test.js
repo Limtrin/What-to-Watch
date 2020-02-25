@@ -20,7 +20,6 @@ it(`Render Main`, () => {
             filmName={`Grand Budapest`}
             filmGenre={`Drama`}
             filmYear={`1985`}
-            filmsList={filmsList}
             onHeaderClickHandler={() => {}}
             onFilmCardClickHandler={() => {}}
           />
