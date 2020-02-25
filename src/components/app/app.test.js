@@ -22,7 +22,6 @@ it(`Render App`, () => {
             filmName={`Grand Budapest`}
             filmGenre={`Drama`}
             filmYear={`1985`}
-            filmsList={filmsList}
           />
         </Provider>
         , {

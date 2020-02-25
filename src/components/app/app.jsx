@@ -38,7 +38,6 @@ class App extends React.PureComponent {
         filmName={filmName}
         filmGenre={filmGenre}
         filmYear={filmYear}
-        filmsList={filmsList}
         onHeaderClickHandler={headerClickHandler}
         onFilmCardClickHandler={this._onFilmCardClickHandler}
       />

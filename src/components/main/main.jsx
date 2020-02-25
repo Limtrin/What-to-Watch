@@ -75,7 +75,6 @@ const Main = (props) => {
           <FilmsList
             onHeaderClickHandler={onHeaderClickHandler}
             onFilmCardClickHandler={onFilmCardClickHandler}
-            filmsList={props.filmsList}
           />
 
           <ShowMoreButton />
@@ -103,24 +102,9 @@ Main.propTypes = {
   filmName: PropTypes.string.isRequired,
   filmGenre: PropTypes.string.isRequired,
   filmYear: PropTypes.string.isRequired,
-  filmsList: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired,
-    image: PropTypes.string.isRequired,
-    poster: PropTypes.string.isRequired,
-    cover: PropTypes.string.isRequired
-  })).isRequired,
   onHeaderClickHandler: PropTypes.func.isRequired,
   onFilmCardClickHandler: PropTypes.func.isRequired
 };
 
 
-const mapStateToProps = (state) => ({
-  filmsList: state.showedFilms
-});
-
-export {Main};
-
-export default connect(mapStateToProps)(Main);
+export default Main;

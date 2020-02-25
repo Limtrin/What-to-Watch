@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Should render SimilarMovies component 1`] = `
+exports[`Should render SimilarFilms component 1`] = `
 <div
   className="catalog__movies-list"
 />

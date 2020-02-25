@@ -11,9 +11,7 @@ it(`Render Main`, () => {
   const store = mockStore({
     genre: `All genres`,
     filmsList,
-    filmsCurrent: filmsList,
-    showedFilms: filmsList.slice(0, 8),
-    filmsCount: 8,
+    filmsCurrent: filmsList
   });
   const main = renderer
     .create(
@@ -22,7 +20,6 @@ it(`Render Main`, () => {
             filmName={`Grand Budapest`}
             filmGenre={`Drama`}
             filmYear={`1985`}
-            filmsList={filmsList}
             onHeaderClickHandler={() => {}}
             onFilmCardClickHandler={() => {}}
           />

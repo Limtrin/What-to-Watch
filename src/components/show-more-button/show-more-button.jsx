@@ -27,7 +27,7 @@ ShowMoreButton.propTypes = {
     poster: PropTypes.string.isRequired,
     cover: PropTypes.string.isRequired
   })).isRequired,
-  filmsCount: PropTypes.number.isRequired,
+  filmsCount: PropTypes.number,
   onShowMoreButtonClick: PropTypes.func.isRequired,
 };
 
