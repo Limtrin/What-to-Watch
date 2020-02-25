@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import FilmsList from "../films-list/films-list.jsx";
 import GenresList from "../genres-list/genres-list.jsx";
+import ShowMoreButton from "../show-more-button/show-more-button.jsx";
 
 const Main = (props) => {
 
@@ -77,9 +78,7 @@ const Main = (props) => {
             filmsList={props.filmsList}
           />
 
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          <ShowMoreButton />
         </section>
 
         <footer className="page-footer">
@@ -119,7 +118,7 @@ Main.propTypes = {
 
 
 const mapStateToProps = (state) => ({
-  filmsList: state.filmsCurrent
+  filmsList: state.showedFilms
 });
 
 export {Main};
