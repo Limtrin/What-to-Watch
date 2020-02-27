@@ -97,7 +97,7 @@ it(`Reducer should change genre`, () => {
   });
 });
 
-it(`Reducer should change films count`, () => {
+it(`Reducer should show more films`, () => {
   expect(reducer({
     genre: `Documentary`,
     filmsList: FilmsList,
@@ -105,13 +105,13 @@ it(`Reducer should change films count`, () => {
     showedFilms: FilmsList.slice(0, 8),
     filmsCount: 8,
   }, {
-    type: ActionType.CHANGE_FILMS_COUNT,
+    type: ActionType.SHOW_MORE_FILMS,
     payload: 8,
   })).toEqual({
     genre: `Documentary`,
     filmsList: FilmsList,
     filmsCurrent: FilmsList,
-    showedFilms: FilmsList.slice(0, 8),
+    showedFilms: FilmsList.slice(0, 16),
     filmsCount: 16,
   });
 });
@@ -131,7 +131,7 @@ it(`Reducer should reset films count`, () => {
     filmsList: FilmsList,
     filmsCurrent: FilmsList,
     showedFilms: FilmsList.slice(0, 8),
-    filmsCount: 8,
+    filmsCount: 0,
   });
 });
 
