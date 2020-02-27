@@ -11,13 +11,13 @@ it(`<FilmsList /> should render correctly`, () => {
   const store = mockStore({
     genre: `All genres`,
     filmsList,
-    filmsCurrent: filmsList
+    filmsCurrent: filmsList,
+    showedFilms: filmsList
   });
   const tree = renderer
     .create(
         <Provider store={store}>
           <FilmsList
-            filmsList={filmsList}
             onHeaderClickHandler = {() => {}}
             onFilmCardClickHandler = {() => {}}
           />

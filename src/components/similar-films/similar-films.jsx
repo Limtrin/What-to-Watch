@@ -6,7 +6,7 @@ import {FilmsList} from "../films-list/films-list.jsx";
 
 const SimilarFilms = ({film, filmsList, onFilmCardClickHandler, onHeaderClickHandler}) => {
 
-  const similarFilms = filmsList.filter((filmItem) => filmItem.genre === film.genre && filmItem.name !== film.name);
+  const similarFilms = filmsList.filter((filmItem) => filmItem.genre === film.genre && filmItem.name !== film.name).slice(0, 4);
 
   return (
     <FilmsList

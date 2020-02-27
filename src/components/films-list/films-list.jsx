@@ -71,7 +71,7 @@ FilmsList.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  filmsList: state.filmsList
+  filmsList: state.showedFilms
 });
 
 export {FilmsList};

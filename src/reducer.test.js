@@ -5,7 +5,9 @@ it(`Reducer without additional parameters should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual({
     genre: `All genres`,
     filmsList: FilmsList,
-    filmsCurrent: FilmsList
+    filmsCurrent: FilmsList,
+    showedFilms: FilmsList.slice(0, 8),
+    filmsCount: 8,
   });
 });
 
@@ -13,7 +15,9 @@ it(`Reducer should change film list`, () => {
   expect(reducer({
     genre: `Documentary`,
     filmsList: FilmsList,
-    filmsCurrent: FilmsList
+    filmsCurrent: FilmsList,
+    showedFilms: FilmsList.slice(0, 8),
+    filmsCount: 8,
   }, {
     type: ActionType.CHANGE_FILMS_LIST,
   })).toEqual({
@@ -68,7 +72,9 @@ it(`Reducer should change film list`, () => {
         `Maggie Gyllenhaal`,
         `Morgan Freeman`
       ],
-    }]
+    }],
+    showedFilms: FilmsList.slice(0, 8),
+    filmsCount: 8,
   });
 });
 
@@ -76,13 +82,56 @@ it(`Reducer should change genre`, () => {
   expect(reducer({
     genre: `Documentary`,
     filmsList: FilmsList,
-    filmsCurrent: FilmsList
+    filmsCurrent: FilmsList,
+    showedFilms: FilmsList.slice(0, 8),
+    filmsCount: 8,
   }, {
     type: ActionType.CHANGE_GENRE,
     payload: `Comedies`,
   })).toEqual({
     genre: `Comedies`,
     filmsList: FilmsList,
-    filmsCurrent: FilmsList
+    filmsCurrent: FilmsList,
+    showedFilms: FilmsList.slice(0, 8),
+    filmsCount: 8,
   });
 });
+
+it(`Reducer should show more films`, () => {
+  expect(reducer({
+    genre: `Documentary`,
+    filmsList: FilmsList,
+    filmsCurrent: FilmsList,
+    showedFilms: FilmsList.slice(0, 8),
+    filmsCount: 8,
+  }, {
+    type: ActionType.SHOW_MORE_FILMS,
+    payload: 8,
+  })).toEqual({
+    genre: `Documentary`,
+    filmsList: FilmsList,
+    filmsCurrent: FilmsList,
+    showedFilms: FilmsList.slice(0, 16),
+    filmsCount: 16,
+  });
+});
+
+
+it(`Reducer should reset films count`, () => {
+  expect(reducer({
+    genre: `Documentary`,
+    filmsList: FilmsList,
+    filmsCurrent: FilmsList,
+    showedFilms: FilmsList.slice(0, 8),
+    filmsCount: 16,
+  }, {
+    type: ActionType.RESET_FILMS_COUNT,
+  })).toEqual({
+    genre: `Documentary`,
+    filmsList: FilmsList,
+    filmsCurrent: FilmsList,
+    showedFilms: FilmsList.slice(0, 8),
+    filmsCount: 0,
+  });
+});
+

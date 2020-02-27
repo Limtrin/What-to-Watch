@@ -4,12 +4,16 @@ import {FilmsList} from "./mocks/films.js";
 const initialState = {
   genre: `All genres`,
   filmsList: FilmsList,
-  filmsCurrent: FilmsList
+  filmsCurrent: FilmsList,
+  showedFilms: FilmsList.slice(0, 8),
+  filmsCount: 8,
 };
 
 const ActionType = {
   CHANGE_GENRE: `CHANGE_GENRE`,
   CHANGE_FILMS_LIST: `CHANGE_FILMS_LIST`,
+  SHOW_MORE_FILMS: `SHOW_MORE_FILMS`,
+  RESET_FILMS_COUNT: `RESET_FILMS_COUNT`,
 };
 
 const ActionCreator = {
@@ -20,6 +24,15 @@ const ActionCreator = {
 
   changeFilmsList: () => ({
     type: ActionType.CHANGE_FILMS_LIST
+  }),
+
+  showMoreFilms: () => ({
+    type: ActionType.SHOW_MORE_FILMS,
+    payload: 8,
+  }),
+
+  resetFilmsCount: () => ({
+    type: ActionType.RESET_FILMS_COUNT,
   }),
 };
 
@@ -41,6 +54,18 @@ const reducer = (state = initialState, action) => {
 
       return extend(state, {
         filmsCurrent: filmsList.filter((film) => film.genre === genre),
+      });
+
+    case ActionType.SHOW_MORE_FILMS:
+      const filmsCount = state.filmsCount + action.payload;
+      return extend(state, {
+        filmsCount,
+        showedFilms: state.filmsCurrent.slice(0, filmsCount),
+      });
+
+    case ActionType.RESET_FILMS_COUNT:
+      return extend(state, {
+        filmsCount: 0
       });
   }
 
