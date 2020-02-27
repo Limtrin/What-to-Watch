@@ -12,8 +12,7 @@ const initialState = {
 const ActionType = {
   CHANGE_GENRE: `CHANGE_GENRE`,
   CHANGE_FILMS_LIST: `CHANGE_FILMS_LIST`,
-  CHANGE_FILMS_COUNT: `CHANGE_FILMS_COUNT`,
-  CHANGE_SHOWED_FILMS: `CHANGE_SHOWED_FILMS`,
+  SHOW_MORE_FILMS: `SHOW_MORE_FILMS`,
   RESET_FILMS_COUNT: `RESET_FILMS_COUNT`,
 };
 
@@ -27,12 +26,8 @@ const ActionCreator = {
     type: ActionType.CHANGE_FILMS_LIST
   }),
 
-  changeShowedFilms: () => ({
-    type: ActionType.CHANGE_SHOWED_FILMS,
-  }),
-
-  changeFilmsCount: () => ({
-    type: ActionType.CHANGE_FILMS_COUNT,
+  showMoreFilms: () => ({
+    type: ActionType.SHOW_MORE_FILMS,
     payload: 8,
   }),
 
@@ -61,19 +56,16 @@ const reducer = (state = initialState, action) => {
         filmsCurrent: filmsList.filter((film) => film.genre === genre),
       });
 
-    case ActionType.CHANGE_FILMS_COUNT:
+    case ActionType.SHOW_MORE_FILMS:
+      const filmsCount = state.filmsCount + action.payload;
       return extend(state, {
-        filmsCount: state.filmsCount + action.payload,
-      });
-
-    case ActionType.CHANGE_SHOWED_FILMS:
-      return extend(state, {
-        showedFilms: state.filmsCurrent.slice(0, state.filmsCount),
+        filmsCount,
+        showedFilms: state.filmsCurrent.slice(0, filmsCount),
       });
 
     case ActionType.RESET_FILMS_COUNT:
       return extend(state, {
-        filmsCount: 8
+        filmsCount: 0
       });
   }
 
