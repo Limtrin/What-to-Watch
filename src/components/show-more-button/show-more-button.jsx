@@ -39,8 +39,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onShowMoreButtonClick: () => {
-    dispatch(ActionCreator.changeFilmsCount());
-    dispatch(ActionCreator.changeShowedFilms());
+    dispatch(ActionCreator.showMoreFilms());
   }
 });
 
