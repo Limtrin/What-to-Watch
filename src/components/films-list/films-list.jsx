@@ -2,44 +2,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
 import FilmCard from '../film-card/film-card.jsx';
+import withVideo from '../../hocs/with-video/with-video.js';
 
-class FilmsList extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {activeCard: null};
-    this._onCardMouseEnterHandler = this._onCardMouseEnterHandler.bind(this);
-    this._onCardMouseLeaveHandler = this._onCardMouseLeaveHandler.bind(this);
-  }
+const FilmCardWrapper = withVideo(FilmCard);
 
-  _onCardMouseEnterHandler(item) {
-    this.setState({
-      activeCard: item
-    });
-  }
+const FilmsList = (props) => {
+  const {onHeaderClickHandler, onFilmCardClickHandler, onItemEnterHandler, onItemLeaveHandler} = props;
 
-  _onCardMouseLeaveHandler() {
-    this.setState({
-      activeCard: null
-    });
-  }
-
-  render() {
-    return (
-      <div className="catalog__movies-list">
-        {this.props.filmsList.map((item) => (
-          <FilmCard
-            key={item.id}
-            film={item}
-            onHeaderClickHandler={this.props.onHeaderClickHandler}
-            onFilmCardClickHandler={this.props.onFilmCardClickHandler}
-            onCardMouseEnterHandler={this._onCardMouseEnterHandler}
-            onCardMouseLeaveHandler={this._onCardMouseLeaveHandler}
-          />
-        ))}
-      </div>
-    );
-  }
-}
+  return (
+    <div className="catalog__movies-list">
+      {props.filmsList.map((item) => (
+        <FilmCardWrapper
+          key={item.id}
+          film={item}
+          onHeaderClickHandler={onHeaderClickHandler}
+          onFilmCardClickHandler={onFilmCardClickHandler}
+          onCardMouseEnterHandler={onItemEnterHandler}
+          onCardMouseLeaveHandler={onItemLeaveHandler}
+        />
+      ))}
+    </div>
+  );
+};
 
 FilmsList.propTypes = {
   filmsList: PropTypes.arrayOf(PropTypes.shape({
@@ -67,7 +51,9 @@ FilmsList.propTypes = {
     starring: PropTypes.arrayOf(PropTypes.string).isRequired,
   })).isRequired,
   onHeaderClickHandler: PropTypes.func.isRequired,
-  onFilmCardClickHandler: PropTypes.func.isRequired
+  onFilmCardClickHandler: PropTypes.func.isRequired,
+  onItemEnterHandler: PropTypes.func.isRequired,
+  onItemLeaveHandler: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

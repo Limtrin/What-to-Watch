@@ -8,10 +8,11 @@ it(`<FilmCard /> should render correctly`, () => {
     .create(
         <FilmCard
           film={film}
-          onCardMouseEnterHandler={() => {}}
-          onCardMouseLeaveHandler={() => {}}
+          handleMouseEnter={() => {}}
+          handleMouseLeave={() => {}}
           onHeaderClickHandler={() => {}}
           onFilmCardClickHandler={() => {}}
+          renderPlayer={()=>{}}
         />, {
           createNodeMock: () => {
             return {};

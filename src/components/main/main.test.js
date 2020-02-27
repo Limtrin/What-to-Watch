@@ -11,7 +11,8 @@ it(`Render Main`, () => {
   const store = mockStore({
     genre: `All genres`,
     filmsList,
-    filmsCurrent: filmsList
+    filmsCurrent: filmsList,
+    showedFilms: filmsList
   });
   const main = renderer
     .create(
