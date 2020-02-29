@@ -2,7 +2,7 @@ import React from "react";
 import renderer from "react-test-renderer";
 import Main from "./main.jsx";
 import {Provider} from "react-redux";
-import {filmsList} from "../../mocks/test-mocks.js";
+import {filmsList, film} from "../../mocks/test-mocks.js";
 import configureStore from "redux-mock-store";
 
 const mockStore = configureStore([]);
@@ -18,11 +18,12 @@ it(`Render Main`, () => {
     .create(
         <Provider store={store}>
           <Main
-            filmName={`Grand Budapest`}
-            filmGenre={`Drama`}
-            filmYear={`1985`}
+            film={film}
             onHeaderClickHandler={() => {}}
             onFilmCardClickHandler={() => {}}
+            onItemEnterHandler={() => {}}
+            onItemLeaveHandler={() => {}}
+            activeItem={null}
           />
         </Provider>, {
           createNodeMock: () => {

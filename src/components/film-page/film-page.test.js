@@ -21,6 +21,9 @@ it(`<FilmPage /> should render correctly`, () => {
             filmsList={filmsList}
             onFilmCardClickHandler={() => {}}
             onHeaderClickHandler={() => {}}
+            onItemEnterHandler={() => {}}
+            onItemLeaveHandler={() => {}}
+            activeItem={null}
           />
         </Provider>, {
           createNodeMock: () => {
