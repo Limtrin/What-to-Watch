@@ -9,7 +9,7 @@ it(`<ShowMoreButton /> should render correctly`, () => {
     .create(
         <ShowMoreButton
           filmsCurrent={filmsList}
-          filmsCount={8}
+          filmsCount={1}
           onShowMoreButtonClick={() => {}}
         />
     )

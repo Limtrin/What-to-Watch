@@ -8,6 +8,7 @@ import withActiveItem from "../../hocs/with-active-item/with-active-item.js";
 const FilmsListWrapped = withActiveItem(FilmsList);
 const GenresListWrapped = withActiveItem(GenresList);
 
+
 const Main = (props) => {
 
   const {filmName, filmGenre, filmYear, onHeaderClickHandler, onFilmCardClickHandler} = props;
