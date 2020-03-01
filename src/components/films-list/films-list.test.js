@@ -20,6 +20,8 @@ it(`<FilmsList /> should render correctly`, () => {
           <FilmsList
             onHeaderClickHandler = {() => {}}
             onFilmCardClickHandler = {() => {}}
+            onItemEnterHandler = {() => {}}
+            onItemLeaveHandler = {() => {}}
           />
         </Provider>, {
           createNodeMock: () => {

@@ -2,14 +2,17 @@ import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {FilmsList} from "../films-list/films-list.jsx";
+import withActiveItem from "../../hocs/with-active-item/with-active-item.js";
 
+
+const FilmsListWrapped = withActiveItem(FilmsList);
 
 const SimilarFilms = ({film, filmsList, onFilmCardClickHandler, onHeaderClickHandler}) => {
 
   const similarFilms = filmsList.filter((filmItem) => filmItem.genre === film.genre && filmItem.name !== film.name).slice(0, 4);
 
   return (
-    <FilmsList
+    <FilmsListWrapped
       onHeaderClickHandler={onHeaderClickHandler}
       onFilmCardClickHandler={onFilmCardClickHandler}
       filmsList={similarFilms}

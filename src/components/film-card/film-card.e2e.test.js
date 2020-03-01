@@ -13,11 +13,12 @@ it(`Should header be pressed`, () => {
 
   const main = shallow(
       <FilmCard
-        onCardMouseEnterHandler={() => {}}
-        onCardMouseLeaveHandler={() => {}}
+        handleMouseEnter={() => {}}
+        handleMouseLeave={() => {}}
         film={film}
         onHeaderClickHandler={onHeaderClick}
         onFilmCardClickHandler={() => {}}
+        renderPlayer={() => {}}
       />
   );
 
@@ -26,16 +27,17 @@ it(`Should header be pressed`, () => {
   expect(onHeaderClick.mock.calls.length).toBe(1);
 });
 
-it(`HandlerOnMouseEnter get correct data`, () => {
+it(`HandleMouseEnter get correct data`, () => {
   const onCardMouseEnter = jest.fn((...args) => [...args]);
 
   const filmCard = shallow(
       <FilmCard
-        onCardMouseEnterHandler={onCardMouseEnter}
-        onCardMouseLeaveHandler={() => {}}
+        handleMouseEnter={onCardMouseEnter}
+        handleMouseLeave={() => {}}
         film={film}
         onHeaderClickHandler={() => {}}
         onFilmCardClickHandler={() => {}}
+        renderPlayer={() => {}}
       />
   );
 
@@ -50,11 +52,12 @@ it(`Should film card be pressed`, () => {
 
   const main = shallow(
       <FilmCard
-        onCardMouseEnterHandler={() => {}}
-        onCardMouseLeaveHandler={() => {}}
+        handleMouseEnter={() => {}}
+        handleMouseLeave={() => {}}
         film={film}
         onHeaderClickHandler={() => {}}
         onFilmCardClickHandler={onFilmCardClick}
+        renderPlayer={() => {}}
       />
   );
 
