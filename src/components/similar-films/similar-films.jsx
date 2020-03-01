@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import {FilmsList} from "../films-list/films-list.jsx";
 import withActiveItem from "../../hocs/with-active-item/with-active-item.js";
 
+
 const FilmsListWrapped = withActiveItem(FilmsList);
 
 const SimilarFilms = ({film, filmsList, onFilmCardClickHandler, onHeaderClickHandler}) => {

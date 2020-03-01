@@ -9,6 +9,7 @@ import FullVideoPlayer from "../full-video-player/full-video-player.jsx";
 const FilmsListWrapped = withActiveItem(FilmsList);
 const GenresListWrapped = withActiveItem(GenresList);
 
+
 const Main = (props) => {
 
   const {film, onHeaderClickHandler, onFilmCardClickHandler, onItemEnterHandler, onItemLeaveHandler, activeItem} = props;
