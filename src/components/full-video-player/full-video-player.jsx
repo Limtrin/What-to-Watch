@@ -8,37 +8,13 @@ class FullVideoPlayer extends React.PureComponent {
     this._videoRef = React.createRef();
 
     this.state = {
-      isPlaying: true,
+      isPlaying: false,
       progress: ``,
       progressValue: 0
     };
   }
 
-  componentDidMount() {
-    const video = this._videoRef.current;
-
-    video.src = this.props.film.preview;
-
-    video.onended = () => this.setState({
-      isPlaying: false,
-    });
-
-    video.ontimeupdate = () => this.setState({
-      progress: Math.floor(video.duration - video.currentTime),
-      progressValue: Math.floor((100 / video.duration) *
-      video.currentTime),
-    });
-  }
-
-  componentWillUnmount() {
-    const video = this._videoRef.current;
-
-    video.src = ``;
-    video.ontimeupdate = null;
-    video.onended = null;
-  }
-
-  componentDidUpdate() {
+  play() {
     const video = this._videoRef.current;
 
     if (this.state.isPlaying) {
@@ -48,8 +24,45 @@ class FullVideoPlayer extends React.PureComponent {
     }
   }
 
+  componentDidMount() {
+    const video = this._videoRef.current;
+
+    video.src = this.props.film.preview;
+
+    video.onended = () => {
+      video.pause();
+    };
+
+    video.onpause = () => {
+      this.setState({
+        isPlaying: false,
+      });
+    };
+
+    video.onplay = () => {
+      this.setState({
+        isPlaying: true,
+      });
+    };
+
+    video.ontimeupdate = () => this.setState({
+      progress: Math.floor(video.duration - video.currentTime),
+      progressValue: (100 / video.duration) * video.currentTime,
+    });
+  }
+
+  componentWillUnmount() {
+    const video = this._videoRef.current;
+
+    video.src = ``;
+    video.ontimeupdate = null;
+    video.onended = null;
+    video.onplay = null;
+    video.onpause = null;
+  }
+
   render() {
-    const timer = `0:00:${(this.state.progress < 10) ? `0` + this.state.progress : this.state.progress}`;
+    const timer = this.state.progress ? `0:00:${(this.state.progress < 10) ? `0` + this.state.progress : this.state.progress}` : `0:00:00`;
     const progressBar = {
       left: this.state.progressValue + `%`,
     };
@@ -74,7 +87,7 @@ class FullVideoPlayer extends React.PureComponent {
         <div className="player__controls">
           <div className="player__controls-row">
             <div className="player__time">
-              <progress className="player__progress" value={this.state.progressValue} max="100"></progress>
+              <progress className="player__progress" value={this.state.progressValue ? this.state.progressValue : `0`} max="100"></progress>
               <div className="player__toggler" style={progressBar}>Toggler</div>
             </div>
             <div className="player__time-value">{timer}</div>
@@ -85,7 +98,7 @@ class FullVideoPlayer extends React.PureComponent {
               type="button"
               className="player__play"
               onClick={() => {
-                this.setState({isPlaying: !this.state.isPlaying});
+                this.setState({isPlaying: !this.state.isPlaying}, this.play);
               }}
             >
               {this.state.isPlaying ? (

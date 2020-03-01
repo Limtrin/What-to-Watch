@@ -15,15 +15,15 @@ it(`Should change state isPlaying`, () => {
         onItemLeaveHandler={() => {}}
       />);
 
-  window.HTMLMediaElement.prototype.pause = () => {};
+  window.HTMLMediaElement.prototype.play = () => {};
 
   const {_videoRef} = videoPlayer.instance();
 
-  jest.spyOn(_videoRef.current, `pause`);
+  jest.spyOn(_videoRef.current, `play`);
 
   videoPlayer.instance().componentDidMount();
 
   videoPlayer.find(`button.player__play`).simulate(`click`);
 
-  expect(videoPlayer.state(`isPlaying`)).toBe(false);
+  expect(videoPlayer.state(`isPlaying`)).toBe(true);
 });
