@@ -1,4 +1,4 @@
-export const film = {
+export const Film = {
   id: `grand-budapest`,
   name: `The Grand Budapest Hotel`,
   genre: `Dramas`,
