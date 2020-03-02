@@ -14,6 +14,7 @@ it(`Render App`, () => {
     filmsCurrent: filmsList,
     showedFilms: filmsList.slice(0, 8),
     filmsCount: 8,
+    film,
   });
   const tree = renderer
     .create(
