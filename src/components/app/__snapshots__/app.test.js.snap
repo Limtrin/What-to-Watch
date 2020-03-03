@@ -81,7 +81,7 @@ Array [
           <h2
             className="movie-card__title"
           >
-            Grand Budapest
+            War of the Worlds
           </h2>
           <p
             className="movie-card__meta"
@@ -89,12 +89,12 @@ Array [
             <span
               className="movie-card__genre"
             >
-              Drama
+              action
             </span>
             <span
               className="movie-card__year"
             >
-              1985
+              2008
             </span>
           </p>
           <div
@@ -102,6 +102,7 @@ Array [
           >
             <button
               className="btn btn--play movie-card__button"
+              onClick={[Function]}
               type="button"
             >
               <svg

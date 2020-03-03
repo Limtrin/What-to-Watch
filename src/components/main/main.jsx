@@ -4,6 +4,7 @@ import FilmsList from "../films-list/films-list.jsx";
 import GenresList from "../genres-list/genres-list.jsx";
 import ShowMoreButton from "../show-more-button/show-more-button.jsx";
 import withActiveItem from "../../hocs/with-active-item/with-active-item.js";
+import FullVideoPlayer from "../full-video-player/full-video-player.jsx";
 
 const FilmsListWrapped = withActiveItem(FilmsList);
 const GenresListWrapped = withActiveItem(GenresList);
@@ -11,10 +12,11 @@ const GenresListWrapped = withActiveItem(GenresList);
 
 const Main = (props) => {
 
-  const {filmName, filmGenre, filmYear, onHeaderClickHandler, onFilmCardClickHandler} = props;
+  const {film, onHeaderClickHandler, onFilmCardClickHandler, onItemEnterHandler, onItemLeaveHandler, activeItem} = props;
+  const {name: filmName, genre: filmGenre, year: filmYear} = film;
 
   return (
-    <React.Fragment>
+    <>
       <section className="movie-card">
         <div className="movie-card__bg">
           <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
@@ -52,7 +54,13 @@ const Main = (props) => {
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
+                <button
+                  onClick={() => {
+                    onItemEnterHandler(film);
+                  }}
+                  className="btn btn--play movie-card__button"
+                  type="button"
+                >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
@@ -98,16 +106,41 @@ const Main = (props) => {
           </div>
         </footer>
       </div>
-    </React.Fragment>
+      {activeItem && (<FullVideoPlayer film={film} onItemLeaveHandler={onItemLeaveHandler}/>)}
+    </>
   );
 };
 
 Main.propTypes = {
-  filmName: PropTypes.string.isRequired,
-  filmGenre: PropTypes.string.isRequired,
-  filmYear: PropTypes.string.isRequired,
+  film: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    year: PropTypes.number.isRequired,
+    image: PropTypes.string.isRequired,
+    poster: PropTypes.string.isRequired,
+    cover: PropTypes.string.isRequired,
+    preview: PropTypes.string.isRequired,
+    time: PropTypes.string.isRequired,
+    rating: PropTypes.number.isRequired,
+    votes: PropTypes.number.isRequired,
+    director: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    reviews: PropTypes.arrayOf(
+        PropTypes.shape({
+          rating: PropTypes.number.isRequired,
+          date: PropTypes.string.isRequired,
+          author: PropTypes.string.isRequired,
+          text: PropTypes.string.isRequired
+        }).isRequired
+    ).isRequired,
+    starring: PropTypes.arrayOf(PropTypes.string).isRequired,
+  }),
   onHeaderClickHandler: PropTypes.func.isRequired,
-  onFilmCardClickHandler: PropTypes.func.isRequired
+  onFilmCardClickHandler: PropTypes.func.isRequired,
+  onItemEnterHandler: PropTypes.func,
+  onItemLeaveHandler: PropTypes.func,
+  activeItem: PropTypes.any,
 };
 
 

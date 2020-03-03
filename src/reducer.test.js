@@ -1,5 +1,6 @@
 import {reducer, ActionType} from "./reducer.js";
 import {FilmsList} from "./mocks/films.js";
+import {Film} from "./mocks/film.js";
 
 it(`Reducer without additional parameters should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual({
@@ -8,6 +9,7 @@ it(`Reducer without additional parameters should return initial state`, () => {
     filmsCurrent: FilmsList,
     showedFilms: FilmsList.slice(0, 8),
     filmsCount: 8,
+    film: Film,
   });
 });
 
@@ -18,6 +20,7 @@ it(`Reducer should change film list`, () => {
     filmsCurrent: FilmsList,
     showedFilms: FilmsList.slice(0, 8),
     filmsCount: 8,
+    film: Film,
   }, {
     type: ActionType.CHANGE_FILMS_LIST,
   })).toEqual({
@@ -75,6 +78,7 @@ it(`Reducer should change film list`, () => {
     }],
     showedFilms: FilmsList.slice(0, 8),
     filmsCount: 8,
+    film: Film,
   });
 });
 
@@ -85,6 +89,7 @@ it(`Reducer should change genre`, () => {
     filmsCurrent: FilmsList,
     showedFilms: FilmsList.slice(0, 8),
     filmsCount: 8,
+    film: Film,
   }, {
     type: ActionType.CHANGE_GENRE,
     payload: `Comedies`,
@@ -94,6 +99,7 @@ it(`Reducer should change genre`, () => {
     filmsCurrent: FilmsList,
     showedFilms: FilmsList.slice(0, 8),
     filmsCount: 8,
+    film: Film,
   });
 });
 
@@ -104,6 +110,7 @@ it(`Reducer should show more films`, () => {
     filmsCurrent: FilmsList,
     showedFilms: FilmsList.slice(0, 8),
     filmsCount: 8,
+    film: Film,
   }, {
     type: ActionType.SHOW_MORE_FILMS,
     payload: 8,
@@ -113,6 +120,7 @@ it(`Reducer should show more films`, () => {
     filmsCurrent: FilmsList,
     showedFilms: FilmsList.slice(0, 16),
     filmsCount: 16,
+    film: Film,
   });
 });
 
@@ -124,6 +132,7 @@ it(`Reducer should reset films count`, () => {
     filmsCurrent: FilmsList,
     showedFilms: FilmsList.slice(0, 8),
     filmsCount: 16,
+    film: Film,
   }, {
     type: ActionType.RESET_FILMS_COUNT,
   })).toEqual({
@@ -132,6 +141,7 @@ it(`Reducer should reset films count`, () => {
     filmsCurrent: FilmsList,
     showedFilms: FilmsList.slice(0, 8),
     filmsCount: 0,
+    film: Film,
   });
 });
 

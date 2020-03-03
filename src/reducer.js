@@ -1,5 +1,6 @@
 import {extend} from "./utils.js";
 import {FilmsList} from "./mocks/films.js";
+import {Film} from "./mocks/film.js";
 
 const initialState = {
   genre: `All genres`,
@@ -7,6 +8,7 @@ const initialState = {
   filmsCurrent: FilmsList,
   showedFilms: FilmsList.slice(0, 8),
   filmsCount: 8,
+  film: Film,
 };
 
 const ActionType = {

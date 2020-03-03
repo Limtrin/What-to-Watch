@@ -13,4 +13,3 @@ exports[`<ShowMoreButton /> should render correctly 1`] = `
   </button>
 </div>
 `;
-

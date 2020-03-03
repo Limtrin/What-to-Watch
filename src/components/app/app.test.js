@@ -1,7 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import App from "./app.jsx";
-import {filmsList} from "../../mocks/test-mocks.js";
+import {filmsList, film} from "../../mocks/test-mocks.js";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 
@@ -14,14 +14,13 @@ it(`Render App`, () => {
     filmsCurrent: filmsList,
     showedFilms: filmsList.slice(0, 8),
     filmsCount: 8,
+    film,
   });
   const tree = renderer
     .create(
         <Provider store={store}>
           <App
-            filmName={`Grand Budapest`}
-            filmGenre={`Drama`}
-            filmYear={`1985`}
+            film={film}
           />
         </Provider>
         , {

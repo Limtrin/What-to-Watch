@@ -4,6 +4,10 @@ import FilmPage from "../film-page/film-page.jsx";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
+import withActiveItem from "../../hocs/with-active-item/with-active-item.js";
+
+const FilmPageWrapped = withActiveItem(FilmPage);
+const MainWrapped = withActiveItem(Main);
 
 const headerClickHandler = () => {};
 
@@ -20,11 +24,11 @@ class App extends React.PureComponent {
   }
 
   _renderApp() {
-    const {filmName, filmGenre, filmYear, filmsList} = this.props;
+    const {film, filmsList} = this.props;
 
     if (this.state.chosenFilm) {
       return (
-        <FilmPage
+        <FilmPageWrapped
           film={this.state.chosenFilm}
           filmsList={filmsList}
           onHeaderClickHandler={headerClickHandler}
@@ -34,10 +38,8 @@ class App extends React.PureComponent {
     }
 
     return (
-      <Main
-        filmName={filmName}
-        filmGenre={filmGenre}
-        filmYear={filmYear}
+      <MainWrapped
+        film={film}
         onHeaderClickHandler={headerClickHandler}
         onFilmCardClickHandler={this._onFilmCardClickHandler}
       />
@@ -62,9 +64,30 @@ class App extends React.PureComponent {
 }
 
 App.propTypes = {
-  filmName: PropTypes.string.isRequired,
-  filmGenre: PropTypes.string.isRequired,
-  filmYear: PropTypes.string.isRequired,
+  film: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    year: PropTypes.number.isRequired,
+    image: PropTypes.string.isRequired,
+    poster: PropTypes.string.isRequired,
+    cover: PropTypes.string.isRequired,
+    preview: PropTypes.string.isRequired,
+    time: PropTypes.string.isRequired,
+    rating: PropTypes.number.isRequired,
+    votes: PropTypes.number.isRequired,
+    director: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    reviews: PropTypes.arrayOf(
+        PropTypes.shape({
+          rating: PropTypes.number.isRequired,
+          date: PropTypes.string.isRequired,
+          author: PropTypes.string.isRequired,
+          text: PropTypes.string.isRequired
+        }).isRequired
+    ).isRequired,
+    starring: PropTypes.arrayOf(PropTypes.string).isRequired,
+  }),
   filmsList: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
@@ -92,7 +115,8 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  filmsList: state.filmsList
+  filmsList: state.filmsList,
+  film: state.film
 });
 
 export {App};
