@@ -5,6 +5,8 @@ import GenresList from "../genres-list/genres-list.jsx";
 import ShowMoreButton from "../show-more-button/show-more-button.jsx";
 import withActiveItem from "../../hocs/with-active-item/with-active-item.js";
 import FullVideoPlayer from "../full-video-player/full-video-player.jsx";
+import {AuthorizationStatus} from "../../reducer/user/user.js";
+import {NavLink} from "react-router-dom";
 
 const FilmsListWrapped = withActiveItem(FilmsList);
 const GenresListWrapped = withActiveItem(GenresList);
@@ -12,7 +14,7 @@ const GenresListWrapped = withActiveItem(GenresList);
 
 const Main = (props) => {
 
-  const {film, onHeaderClickHandler, onFilmCardClickHandler, onItemEnterHandler, onItemLeaveHandler, activeItem} = props;
+  const {film, onHeaderClickHandler, onFilmCardClickHandler, onItemEnterHandler, onItemLeaveHandler, activeItem, authorizationStatus} = props;
   const {name: filmName, genre: filmGenre, year: filmYear, cover, poster} = film;
 
   return (
@@ -32,12 +34,17 @@ const Main = (props) => {
               <span className="logo__letter logo__letter--3">W</span>
             </a>
           </div>
-
-          <div className="user-block">
-            <div className="user-block__avatar">
-              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-            </div>
-          </div>
+          {
+            (authorizationStatus === AuthorizationStatus.AUTH) ?
+              (<div className="user-block">
+                <div className="user-block__avatar">
+                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+                </div>
+              </div>) : (
+                <div className="user-block"><NavLink to="/auth-dev">Sign In</NavLink></div>
+              )
+          }
+          
         </header>
 
         <div className="movie-card__wrap">
@@ -112,6 +119,7 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
+  authorizationStatus: PropTypes.string.isRequired,
   film: PropTypes.shape({
     id: PropTypes.string,
     name: PropTypes.string,

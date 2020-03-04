@@ -5,6 +5,10 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import withActiveItem from "../../hocs/with-active-item/with-active-item.js";
+import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
+import {getPromFilm, getFilmsList} from "../../reducer/data/selectors.js";
+import {Operation as UserOperation, AuthorizationStatus} from "../../reducer/user/user.js";
+import SignIn from "../sign-in/sign-in.jsx";
 
 const FilmPageWrapped = withActiveItem(FilmPage);
 const MainWrapped = withActiveItem(Main);
@@ -24,7 +28,7 @@ class App extends React.PureComponent {
   }
 
   _renderApp() {
-    const {film, filmsList} = this.props;
+    const {film, filmsList, authorizationStatus} = this.props;
 
     if (this.state.chosenFilm) {
       return (
@@ -39,6 +43,7 @@ class App extends React.PureComponent {
 
     return (
       <MainWrapped
+        authorizationStatus={authorizationStatus}
         film={film}
         onHeaderClickHandler={headerClickHandler}
         onFilmCardClickHandler={this._onFilmCardClickHandler}
@@ -47,7 +52,7 @@ class App extends React.PureComponent {
   }
 
   render() {
-    const {filmsList} = this.props;
+    const {filmsList, login, authorizationStatus} = this.props;
     return (
       <BrowserRouter>
         <Switch>
@@ -57,6 +62,16 @@ class App extends React.PureComponent {
           <Route exact path="/dev-film">
             <FilmPage film={filmsList[0]}/>
           </Route>
+          <Route exact path="/auth-dev" render={() => {
+            if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
+              return <SignIn
+                onSubmit={login}
+              />;
+            } else if (authorizationStatus === AuthorizationStatus.AUTH) {
+              return this._renderApp();
+            }
+            return null;
+          }} />
         </Switch>
       </BrowserRouter>
     );
@@ -64,6 +79,8 @@ class App extends React.PureComponent {
 }
 
 App.propTypes = {
+  authorizationStatus: PropTypes.string.isRequired,
+  login: PropTypes.func.isRequired,
   film: PropTypes.shape({
     id: PropTypes.string,
     name: PropTypes.string,
@@ -115,10 +132,17 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  filmsList: state.filmsList,
-  film: state.film
+  authorizationStatus: getAuthorizationStatus(state),
+  filmsList: getFilmsList(state),
+  film: getPromFilm(state)
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  login(authData) {
+    dispatch(UserOperation.login(authData));
+  },
 });
 
 export {App};
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
