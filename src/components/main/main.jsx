@@ -44,7 +44,6 @@ const Main = (props) => {
                 <div className="user-block"><NavLink to="/auth-dev">Sign In</NavLink></div>
               )
           }
-          
         </header>
 
         <div className="movie-card__wrap">
