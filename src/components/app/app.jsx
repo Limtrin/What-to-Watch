@@ -65,28 +65,28 @@ class App extends React.PureComponent {
 
 App.propTypes = {
   film: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired,
-    image: PropTypes.string.isRequired,
-    poster: PropTypes.string.isRequired,
-    cover: PropTypes.string.isRequired,
-    preview: PropTypes.string.isRequired,
-    time: PropTypes.string.isRequired,
-    rating: PropTypes.number.isRequired,
-    votes: PropTypes.number.isRequired,
-    director: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
+    id: PropTypes.string,
+    name: PropTypes.string,
+    genre: PropTypes.string,
+    year: PropTypes.number,
+    image: PropTypes.string,
+    poster: PropTypes.string,
+    cover: PropTypes.string,
+    preview: PropTypes.string,
+    time: PropTypes.string,
+    rating: PropTypes.number,
+    votes: PropTypes.number,
+    director: PropTypes.string,
+    description: PropTypes.string,
     reviews: PropTypes.arrayOf(
         PropTypes.shape({
-          rating: PropTypes.number.isRequired,
-          date: PropTypes.string.isRequired,
-          author: PropTypes.string.isRequired,
-          text: PropTypes.string.isRequired
-        }).isRequired
-    ).isRequired,
-    starring: PropTypes.arrayOf(PropTypes.string).isRequired,
+          rating: PropTypes.number,
+          date: PropTypes.string,
+          author: PropTypes.string,
+          text: PropTypes.string
+        })
+    ),
+    starring: PropTypes.arrayOf(PropTypes.string),
   }),
   filmsList: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
