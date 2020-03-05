@@ -135,11 +135,14 @@ Main.propTypes = {
     description: PropTypes.string,
     reviews: PropTypes.arrayOf(
         PropTypes.shape({
-          rating: PropTypes.number,
-          date: PropTypes.string,
-          author: PropTypes.string,
-          text: PropTypes.string
-        })
+          rating: PropTypes.number.isRequired,
+          date: PropTypes.string.isRequired,
+          author: PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            name: PropTypes.string.isRequired,
+          }).isRequired,
+          text: PropTypes.string.isRequired
+        }).isRequired
     ),
     starring: PropTypes.arrayOf(PropTypes.string),
   }),

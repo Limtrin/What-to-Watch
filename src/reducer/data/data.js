@@ -1,5 +1,6 @@
 import {extend} from "../../utils.js";
 import adapter from "./adapter.js";
+import {commentsAdapter} from "./adapter.js";
 
 const initialState = {
   filmsList: [],
@@ -37,12 +38,14 @@ const ActionCreator = {
   resetFilmsCount: () => ({
     type: ActionType.RESET_FILMS_COUNT,
   }),
+
   loadFilms: (films) => {
     return {
       type: ActionType.LOAD_FILMS,
       payload: films,
     };
   },
+
   loadPromoFilm: (films) => {
     return {
       type: ActionType.LOAD_PROMO_FILM,
@@ -51,11 +54,22 @@ const ActionCreator = {
   },
 };
 
+const loadComments = (item) => (dispatch, getState, api) => {
+  return api.get(`/comments/${item.id}`)
+    .then((response) => {
+      item.reviews = response.data.map((review) => commentsAdapter(review));
+    });
+};
+
 const Operation = {
   loadFilms: () => (dispatch, getState, api) => {
     return api.get(`/films`)
       .then((response) => {
-        const adaptedData = response.data.map((item) => adapter(item));
+        const adaptedData = response.data.map((item) => {
+          const adaptedItem = adapter(item);
+          dispatch(loadComments(adaptedItem));
+          return adaptedItem;
+        });
         dispatch(ActionCreator.loadFilms(adaptedData));
       });
   },

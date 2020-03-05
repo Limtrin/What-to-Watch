@@ -4,7 +4,7 @@ import Tabs from '../tabs/tabs.jsx';
 import SimilarFilms from '../similar-films/similar-films.jsx';
 import FullVideoPlayer from "../full-video-player/full-video-player.jsx";
 
-const FilmPage = ({film, filmsList, onHeaderClickHandler, onFilmCardClickHandler, onItemEnterHandler, onItemLeaveHandler, activeItem}) => {
+const FilmPage = ({film, filmsList, onHeaderClickHandler, onFilmCardClickHandler, onItemEnterHandler, onItemLeaveHandler, activeItem, authorizationStatus}) => {
   return (
     <React.Fragment>
       <section className="movie-card movie-card--full">
@@ -58,7 +58,7 @@ const FilmPage = ({film, filmsList, onHeaderClickHandler, onFilmCardClickHandler
                   </svg>
                   <span>My list</span>
                 </button>
-                <a href="add-review.html" className="btn movie-card__button">Add review</a>
+                { authorizationStatus === `AUTH` ? <a href="/dev-review" className="btn movie-card__button">Add review</a> : null }
               </div>
             </div>
           </div>
@@ -111,6 +111,7 @@ const FilmPage = ({film, filmsList, onHeaderClickHandler, onFilmCardClickHandler
 export default FilmPage;
 
 FilmPage.propTypes = {
+  authorizationStatus: PropTypes.string.isRequired,
   film: PropTypes.shape({
     id: PropTypes.string,
     name: PropTypes.string,
@@ -127,11 +128,14 @@ FilmPage.propTypes = {
     description: PropTypes.string,
     reviews: PropTypes.arrayOf(
         PropTypes.shape({
-          rating: PropTypes.number,
-          date: PropTypes.string,
-          author: PropTypes.string,
-          text: PropTypes.string
-        })
+          rating: PropTypes.number.isRequired,
+          date: PropTypes.string.isRequired,
+          author: PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            name: PropTypes.string.isRequired,
+          }).isRequired,
+          text: PropTypes.string.isRequired
+        }).isRequired
     ),
     starring: PropTypes.arrayOf(PropTypes.string),
   }),
@@ -154,10 +158,13 @@ FilmPage.propTypes = {
             PropTypes.shape({
               rating: PropTypes.number.isRequired,
               date: PropTypes.string.isRequired,
-              author: PropTypes.string.isRequired,
+              author: PropTypes.shape({
+                id: PropTypes.number.isRequired,
+                name: PropTypes.string.isRequired,
+              }).isRequired,
               text: PropTypes.string.isRequired
             }).isRequired
-        ).isRequired,
+        ),
         starring: PropTypes.arrayOf(PropTypes.string).isRequired,
       }).isRequired
   ),

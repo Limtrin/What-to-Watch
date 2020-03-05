@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import moment from "moment";
 
 const TAB_NAME = {
   overview: `Overview`,
@@ -103,14 +104,14 @@ class Tabs extends React.PureComponent {
 
         {currentTab === TAB_NAME.reviews && (<div className="movie-card__reviews movie-card__row">
           <div className="movie-card__reviews-col">
-            {film.reviews.map((review, index) => (
-              <div className="review" key={index + review.author}>
+            {film.reviews.map((review) => (
+              <div className="review" key={review.id}>
                 <blockquote className="review__quote">
                   <p className="review__text">{review.text}</p>
                   <footer className="review__details">
-                    <cite className="review__author">{review.author}</cite>
-                    <time className="review__date" dateTime="2019-12-15">
-                      {review.date}
+                    <cite className="review__author">{review.author.name}</cite>
+                    <time className="review__date" dateTime={review.date}>
+                      {moment(review.date).format(`MMMM D, YYYY`)}
                     </time>
                   </footer>
                 </blockquote>
@@ -144,10 +145,13 @@ Tabs.propTypes = {
         PropTypes.shape({
           rating: PropTypes.number.isRequired,
           date: PropTypes.string.isRequired,
-          author: PropTypes.string.isRequired,
+          author: PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            name: PropTypes.string.isRequired,
+          }).isRequired,
           text: PropTypes.string.isRequired
         }).isRequired
-    ).isRequired,
+    ),
     starring: PropTypes.arrayOf(PropTypes.string).isRequired,
   }).isRequired,
 };
