@@ -7,10 +7,12 @@ import {Route, Switch} from "react-router-dom";
 import withActiveItem from "../../hocs/with-active-item/with-active-item.js";
 import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
 import {getPromFilm, getFilmsList} from "../../reducer/data/selectors.js";
-import {Operation as UserOperation, AuthorizationStatus} from "../../reducer/user/user.js";
+import {Operation as UserOperation} from "../../reducer/user/user.js";
 import {Operation as CommentsOperation} from "../../reducer/review/review.js";
+import {Operation as DataOperation} from "../../reducer/data/data.js";
 import SignIn from "../sign-in/sign-in.jsx";
-import AddReview from "../add-review/add-review.jsx";
+import {Router} from "react-router-dom";
+import history from "../../history.js";
 
 const FilmPageWrapped = withActiveItem(FilmPage);
 const MainWrapped = withActiveItem(Main);
@@ -30,7 +32,7 @@ class App extends React.PureComponent {
   }
 
   _renderApp() {
-    const {film, filmsList, authorizationStatus} = this.props;
+    const {film, filmsList, authorizationStatus, changeFavoriteStatus} = this.props;
 
     if (this.state.chosenFilm) {
       return (
@@ -40,6 +42,7 @@ class App extends React.PureComponent {
           filmsList={filmsList}
           onHeaderClickHandler={headerClickHandler}
           onFilmCardClickHandler={this._onFilmCardClickHandler}
+          onFilmFavoriteStatusClickHandler={changeFavoriteStatus}
         />
       );
     }
@@ -50,40 +53,33 @@ class App extends React.PureComponent {
         film={film}
         onHeaderClickHandler={headerClickHandler}
         onFilmCardClickHandler={this._onFilmCardClickHandler}
+        onFilmFavoriteStatusClickHandler={changeFavoriteStatus}
       />
     );
   }
 
   render() {
-    const {login, authorizationStatus, sendComment} = this.props;
+    const {login} = this.props;
     return (
-      <Switch>
-        <Route exact path="/">
-          {this._renderApp()}
-        </Route>
-        <Route exact path="/dev-review">
-          <AddReview
-            filmId={1}
-            onSubmit={sendComment}
-          />
-        </Route>
-        <Route exact path="/auth-dev" render={() => {
-          if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
+      <Router history={history}>
+        <Switch>
+          <Route exact path="/">
+            {this._renderApp()}
+          </Route>
+          <Route exact path="/login" render={() => {
             return <SignIn
               onSubmit={login}
             />;
-          } else if (authorizationStatus === AuthorizationStatus.AUTH) {
-            return this._renderApp();
-          }
-          return null;
-        }} />
-      </Switch>
+          }} />
+        </Switch>
+      </Router>
     );
   }
 }
 
 App.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
+  changeFavoriteStatus: PropTypes.func.isRequired,
   sendComment: PropTypes.func.isRequired,
   login: PropTypes.func.isRequired,
   film: PropTypes.shape({
@@ -155,6 +151,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   sendComment(authData, filmId) {
     dispatch(CommentsOperation.sendComment(authData, filmId));
+  },
+  changeFavoriteStatus(filmId, status) {
+    dispatch(DataOperation.changeFavoriteStatus(filmId, status));
   },
 });
 

@@ -6,7 +6,7 @@ import ShowMoreButton from "../show-more-button/show-more-button.jsx";
 import withActiveItem from "../../hocs/with-active-item/with-active-item.js";
 import FullVideoPlayer from "../full-video-player/full-video-player.jsx";
 import {AuthorizationStatus} from "../../reducer/user/user.js";
-import {NavLink} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 const FilmsListWrapped = withActiveItem(FilmsList);
 const GenresListWrapped = withActiveItem(GenresList);
@@ -14,7 +14,7 @@ const GenresListWrapped = withActiveItem(GenresList);
 
 const Main = (props) => {
 
-  const {film, onHeaderClickHandler, onFilmCardClickHandler, onItemEnterHandler, onItemLeaveHandler, activeItem, authorizationStatus} = props;
+  const {film, onHeaderClickHandler, onFilmCardClickHandler, onItemEnterHandler, onItemLeaveHandler, activeItem, authorizationStatus, onFilmFavoriteStatusClickHandler} = props;
   const {name: filmName, genre: filmGenre, year: filmYear, cover, poster} = film;
 
   return (
@@ -37,11 +37,13 @@ const Main = (props) => {
           {
             (authorizationStatus === AuthorizationStatus.AUTH) ?
               (<div className="user-block">
-                <div className="user-block__avatar">
-                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-                </div>
+                <Link to="/mylist">
+                  <div className="user-block__avatar">
+                    <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+                  </div>
+                </Link>
               </div>) : (
-                <div className="user-block"><NavLink to="/auth-dev">Sign In</NavLink></div>
+                <div className="user-block"><Link to="/auth-dev">Sign In</Link></div>
               )
           }
         </header>
@@ -72,10 +74,21 @@ const Main = (props) => {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list movie-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
+                <button
+                  className="btn btn--list movie-card__button"
+                  type="button"
+                  onClick={() => {
+                    onFilmFavoriteStatusClickHandler(film.id, +!film.favorite);
+                  }}
+                >
+                  {film.favorite ?
+                    <svg viewBox="0 0 19 20" width="19" height="20">
+                      <use xlinkHref="#add"></use>
+                    </svg> :
+                    <svg viewBox="0 0 18 14" width="18" height="14">
+                      <use xlinkHref="#in-list"></use>
+                    </svg>
+                  }
                   <span>My list</span>
                 </button>
               </div>
@@ -119,6 +132,7 @@ const Main = (props) => {
 
 Main.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
+  onFilmFavoriteStatusClickHandler: PropTypes.func.isRequired,
   film: PropTypes.shape({
     id: PropTypes.string,
     name: PropTypes.string,
@@ -145,6 +159,7 @@ Main.propTypes = {
         }).isRequired
     ),
     starring: PropTypes.arrayOf(PropTypes.string),
+    favorite: PropTypes.bool,
   }),
   onHeaderClickHandler: PropTypes.func.isRequired,
   onFilmCardClickHandler: PropTypes.func.isRequired,
