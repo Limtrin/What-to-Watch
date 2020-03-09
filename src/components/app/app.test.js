@@ -6,6 +6,7 @@ import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import NameSpace from "../../reducer/name-space.js";
 import {AuthorizationStatus} from "../../reducer/user/user.js";
+import {BrowserRouter} from "react-router-dom";
 
 const mockStore = configureStore([]);
 
@@ -26,9 +27,11 @@ it(`Render App`, () => {
   const tree = renderer
     .create(
         <Provider store={store}>
-          <App
-            film={film}
-          />
+          <BrowserRouter>
+            <App
+              film={film}
+            />
+          </BrowserRouter>
         </Provider>
         , {
           createNodeMock: () => {

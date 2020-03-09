@@ -9,7 +9,7 @@ export const createAPI = (onUnauthorized) => {
   const api = axios.create({
     baseURL: `https://htmlacademy-react-3.appspot.com/wtw`,
     timeout: 1000 * 5,
-    withCredentials: false,
+    withCredentials: true,
   });
 
   const onSuccess = (response) => {

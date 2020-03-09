@@ -3,15 +3,19 @@ import Main from "../main/main.jsx";
 import FilmPage from "../film-page/film-page.jsx";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {Route, Switch} from "react-router-dom";
 import withActiveItem from "../../hocs/with-active-item/with-active-item.js";
 import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
 import {getPromFilm, getFilmsList} from "../../reducer/data/selectors.js";
 import {Operation as UserOperation, AuthorizationStatus} from "../../reducer/user/user.js";
+import {Operation as CommentsOperation} from "../../reducer/review/review.js";
 import SignIn from "../sign-in/sign-in.jsx";
+import AddReview from "../add-review/add-review.jsx";
+import withRating from "../../hocs/with-rating/with-rating.js";
 
 const FilmPageWrapped = withActiveItem(FilmPage);
 const MainWrapped = withActiveItem(Main);
+const AddReviewWrapped = withRating(AddReview);
 
 const headerClickHandler = () => {};
 
@@ -33,6 +37,7 @@ class App extends React.PureComponent {
     if (this.state.chosenFilm) {
       return (
         <FilmPageWrapped
+          authorizationStatus={authorizationStatus}
           film={this.state.chosenFilm}
           filmsList={filmsList}
           onHeaderClickHandler={headerClickHandler}
@@ -52,34 +57,36 @@ class App extends React.PureComponent {
   }
 
   render() {
-    const {filmsList, login, authorizationStatus} = this.props;
+    const {login, authorizationStatus, sendComment} = this.props;
     return (
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/">
-            {this._renderApp()}
-          </Route>
-          <Route exact path="/dev-film">
-            <FilmPage film={filmsList[0]}/>
-          </Route>
-          <Route exact path="/auth-dev" render={() => {
-            if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
-              return <SignIn
-                onSubmit={login}
-              />;
-            } else if (authorizationStatus === AuthorizationStatus.AUTH) {
-              return this._renderApp();
-            }
-            return null;
-          }} />
-        </Switch>
-      </BrowserRouter>
+      <Switch>
+        <Route exact path="/">
+          {this._renderApp()}
+        </Route>
+        <Route exact path="/dev-review">
+          <AddReviewWrapped
+            filmId={1}
+            onSubmit={sendComment}
+          />
+        </Route>
+        <Route exact path="/auth-dev" render={() => {
+          if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
+            return <SignIn
+              onSubmit={login}
+            />;
+          } else if (authorizationStatus === AuthorizationStatus.AUTH) {
+            return this._renderApp();
+          }
+          return null;
+        }} />
+      </Switch>
     );
   }
 }
 
 App.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
+  sendComment: PropTypes.func.isRequired,
   login: PropTypes.func.isRequired,
   film: PropTypes.shape({
     id: PropTypes.string,
@@ -97,11 +104,14 @@ App.propTypes = {
     description: PropTypes.string,
     reviews: PropTypes.arrayOf(
         PropTypes.shape({
-          rating: PropTypes.number,
-          date: PropTypes.string,
-          author: PropTypes.string,
-          text: PropTypes.string
-        })
+          rating: PropTypes.number.isRequired,
+          date: PropTypes.string.isRequired,
+          author: PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            name: PropTypes.string.isRequired,
+          }).isRequired,
+          text: PropTypes.string.isRequired
+        }).isRequired
     ),
     starring: PropTypes.arrayOf(PropTypes.string),
   }),
@@ -123,10 +133,13 @@ App.propTypes = {
         PropTypes.shape({
           rating: PropTypes.number.isRequired,
           date: PropTypes.string.isRequired,
-          author: PropTypes.string.isRequired,
+          author: PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            name: PropTypes.string.isRequired,
+          }).isRequired,
           text: PropTypes.string.isRequired
         }).isRequired
-    ).isRequired,
+    ),
     starring: PropTypes.arrayOf(PropTypes.string).isRequired,
   })).isRequired
 };
@@ -135,11 +148,15 @@ const mapStateToProps = (state) => ({
   authorizationStatus: getAuthorizationStatus(state),
   filmsList: getFilmsList(state),
   film: getPromFilm(state)
+
 });
 
 const mapDispatchToProps = (dispatch) => ({
   login(authData) {
     dispatch(UserOperation.login(authData));
+  },
+  sendComment(authData, filmId) {
+    dispatch(CommentsOperation.sendComment(authData, filmId));
   },
 });
 

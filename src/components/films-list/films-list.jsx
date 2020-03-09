@@ -45,10 +45,13 @@ FilmsList.propTypes = {
         PropTypes.shape({
           rating: PropTypes.number.isRequired,
           date: PropTypes.string.isRequired,
-          author: PropTypes.string.isRequired,
+          author: PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            name: PropTypes.string.isRequired,
+          }).isRequired,
           text: PropTypes.string.isRequired
         }).isRequired
-    ).isRequired,
+    ),
     starring: PropTypes.arrayOf(PropTypes.string).isRequired,
   })).isRequired,
   onHeaderClickHandler: PropTypes.func.isRequired,

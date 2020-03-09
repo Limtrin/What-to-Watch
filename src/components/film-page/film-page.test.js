@@ -5,6 +5,8 @@ import {film, filmsList} from "../../mocks/test-mocks.js";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import NameSpace from "../../reducer/name-space.js";
+import {AuthorizationStatus} from "../../reducer/user/user.js";
+
 
 const mockStore = configureStore([]);
 
@@ -20,6 +22,7 @@ it(`<FilmPage /> should render correctly`, () => {
     .create(
         <Provider store={store}>
           <FilmPage
+            authorizationStatus={AuthorizationStatus.NO_AUTH}
             film={film}
             filmsList={filmsList}
             onFilmCardClickHandler={() => {}}

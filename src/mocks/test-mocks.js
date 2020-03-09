@@ -17,19 +17,28 @@ export const filmsList = [
       {
         rating: 10,
         date: `March 15, 2019`,
-        author: `Jane Doe`,
+        author: {
+          id: 1,
+          name: `Jane Doe`
+        },
         text: `Fantastic!`
       },
       {
         rating: 10,
         date: `March 15, 2019`,
-        author: `Jane Doe`,
+        author: {
+          id: 1,
+          name: `Jane Doe`
+        },
         text: `Fantastic!`
       },
       {
         rating: 10,
         date: `March 15, 2019`,
-        author: `Jane Doe`,
+        author: {
+          id: 1,
+          name: `Jane Doe`
+        },
         text: `Fantastic!`
       }
     ],
@@ -61,19 +70,28 @@ export const filmsList = [
       {
         rating: 10,
         date: `March 15, 2019`,
-        author: `Jane Doe`,
+        author: {
+          id: 1,
+          name: `Jane Doe`
+        },
         text: `Fantastic!`
       },
       {
         rating: 10,
         date: `March 15, 2019`,
-        author: `Jane Doe`,
+        author: {
+          id: 1,
+          name: `Jane Doe`
+        },
         text: `Fantastic!`
       },
       {
         rating: 10,
         date: `March 15, 2019`,
-        author: `Jane Doe`,
+        author: {
+          id: 1,
+          name: `Jane Doe`
+        },
         text: `Fantastic!`
       }
     ],
@@ -107,19 +125,28 @@ export const film = {
     {
       rating: 10,
       date: `March 15, 2019`,
-      author: `Jane Doe`,
+      author: {
+        id: 1,
+        name: `Jane Doe`
+      },
       text: `Fantastic!`
     },
     {
       rating: 10,
       date: `March 15, 2019`,
-      author: `Jane Doe`,
+      author: {
+        id: 1,
+        name: `Jane Doe`
+      },
       text: `Fantastic!`
     },
     {
       rating: 10,
       date: `March 15, 2019`,
-      author: `Jane Doe`,
+      author: {
+        id: 1,
+        name: `Jane Doe`
+      },
       text: `Fantastic!`
     }
   ],
