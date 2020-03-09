@@ -11,9 +11,11 @@ import {Operation as UserOperation, AuthorizationStatus} from "../../reducer/use
 import {Operation as CommentsOperation} from "../../reducer/review/review.js";
 import SignIn from "../sign-in/sign-in.jsx";
 import AddReview from "../add-review/add-review.jsx";
+import withRating from "../../hocs/with-rating/with-rating.js";
 
 const FilmPageWrapped = withActiveItem(FilmPage);
 const MainWrapped = withActiveItem(Main);
+const AddReviewWrapped = withRating(AddReview);
 
 const headerClickHandler = () => {};
 
@@ -62,7 +64,7 @@ class App extends React.PureComponent {
           {this._renderApp()}
         </Route>
         <Route exact path="/dev-review">
-          <AddReview
+          <AddReviewWrapped
             filmId={1}
             onSubmit={sendComment}
           />

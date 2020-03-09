@@ -1,40 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {ActionCreator} from '../../reducer/review/review.js';
-import {connect} from 'react-redux';
-import {getText, getSendStatus, getFormBlock} from '../../reducer/review/selectors';
 
 class AddReview extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      rating: 5,
-    };
-
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleRatingChange = this.handleRatingChange.bind(this);
-  }
-
-  handleRatingChange(e) {
-    this.setState({rating: e.target.value});
-  }
-
-  handleChange(e) {
-    this.props.updateNewCommentText(e.target.value);
-  }
-
-  handleSubmit(evt) {
-    const {onSubmit, filmId} = this.props;
-
-    evt.preventDefault();
-
-    onSubmit({
-      text: this.props.textValue,
-      rating: this.state.rating * 2,
-    }, filmId);
-  }
-
   render() {
     const postDisabled = this.props.textValue.length < 40 || this.props.textValue.length > 400;
     return (
@@ -79,22 +46,42 @@ class AddReview extends React.PureComponent {
         </div>
 
         <div className="add-review">
-          <form action="#" className="add-review__form" onSubmit={this.handleSubmit}>
+          <form
+            action="#"
+            className="add-review__form"
+            onSubmit={(e) => {
+              this.props.handleSubmit(e);
+            }}>
             <div className="rating">
               <div className="rating__stars">
-                <input className="rating__input" id="star-1" type="radio" name="rating" value="1" onChange={this.handleRatingChange}/>
+                <input className="rating__input" id="star-1" type="radio" name="rating" value="1"
+                  onChange={(e) => {
+                    this.props.handleRatingChange(e);
+                  }}/>
                 <label className="rating__label" htmlFor="star-1">Rating 1</label>
 
-                <input className="rating__input" id="star-2" type="radio" name="rating" value="2" onChange={this.handleRatingChange}/>
+                <input className="rating__input" id="star-2" type="radio" name="rating" value="2"
+                  onChange={(e) => {
+                    this.props.handleRatingChange(e);
+                  }}/>
                 <label className="rating__label" htmlFor="star-2">Rating 2</label>
 
-                <input className="rating__input" id="star-3" type="radio" name="rating" value="3" onChange={this.handleRatingChange}/>
+                <input className="rating__input" id="star-3" type="radio" name="rating" value="3"
+                  onChange={(e) => {
+                    this.props.handleRatingChange(e);
+                  }}/>
                 <label className="rating__label" htmlFor="star-3">Rating 3</label>
 
-                <input className="rating__input" id="star-4" type="radio" name="rating" value="4" onChange={this.handleRatingChange}/>
+                <input className="rating__input" id="star-4" type="radio" name="rating" value="4"
+                  onChange={(e) => {
+                    this.props.handleRatingChange(e);
+                  }}/>
                 <label className="rating__label" htmlFor="star-4">Rating 4</label>
 
-                <input className="rating__input" id="star-5" type="radio" name="rating" value="5" onChange={this.handleRatingChange}/>
+                <input className="rating__input" id="star-5" type="radio" name="rating" value="5"
+                  onChange={(e) => {
+                    this.props.handleRatingChange(e);
+                  }}/>
                 <label className="rating__label" htmlFor="star-5">Rating 5</label>
               </div>
             </div>
@@ -106,7 +93,9 @@ class AddReview extends React.PureComponent {
                 id="review-text"
                 placeholder="Review text"
                 value={this.props.textValue}
-                onChange={this.handleChange}
+                onChange={(e) => {
+                  this.props.handleChange(e);
+                }}
               />
               <div className="add-review__submit">
                 <div style={{margin: `0 auto`}}>{this.props.sendStatusValue}</div>
@@ -123,6 +112,9 @@ class AddReview extends React.PureComponent {
 }
 
 AddReview.propTypes = {
+  handleChange: PropTypes.func.isRequired,
+  handleRatingChange: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   filmId: PropTypes.number.isRequired,
   updateNewCommentText: PropTypes.func.isRequired,
@@ -131,42 +123,4 @@ AddReview.propTypes = {
   formBlock: PropTypes.bool.isRequired,
 };
 
-let mapStateToProps = (state) => {
-  return {
-    textValue: getText(state),
-    sendStatusValue: getSendStatus(state),
-    formBlock: getFormBlock(state),
-  };
-};
-
-let mapDispatchToProps = (dispatch) => {
-  return {
-    updateNewCommentText: (text) => {
-      dispatch(ActionCreator.updateNewCommentText(text));
-    },
-  };
-};
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(AddReview);
-
-// GenresList.propTypes = {
-//   currentGenre: PropTypes.string.isRequired,
-//   onGenreButtonClick: PropTypes.func.isRequired,
-// };
-
-// const mapStateToProps = (state) => ({
-//   currentGenre: getGenres(state)
-// });
-
-// const mapDispatchToProps = (dispatch) => ({
-//   onGenreButtonClick: (genre) => {
-//     dispatch(ActionCreator.changeGenre(genre));
-//     dispatch(ActionCreator.changeFilmsList());
-//     dispatch(ActionCreator.resetFilmsCount());
-//     dispatch(ActionCreator.showMoreFilms());
-//   }
-// });
-
-export {AddReview};
-// export default connect(mapStateToProps, mapDispatchToProps)(GenresList);
+export default AddReview;
