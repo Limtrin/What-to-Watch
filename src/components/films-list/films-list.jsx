@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from "react-redux";
 import FilmCard from '../film-card/film-card.jsx';
 import withVideo from '../../hocs/with-video/with-video.js';
+import {getShowedFilms} from '../../reducer/data/selectors.js';
 
 const FilmCardWrapper = withVideo(FilmCard);
 
@@ -57,7 +58,7 @@ FilmsList.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  filmsList: state.showedFilms
+  filmsList: getShowedFilms(state)
 });
 
 export {FilmsList};

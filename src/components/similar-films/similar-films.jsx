@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {FilmsList} from "../films-list/films-list.jsx";
 import withActiveItem from "../../hocs/with-active-item/with-active-item.js";
+import {getFilmsList} from "../../reducer/data/selectors.js";
 
 
 const FilmsListWrapped = withActiveItem(FilmsList);
@@ -73,7 +74,7 @@ SimilarFilms.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  filmsList: state.filmsCurrent
+  filmsList: getFilmsList(state),
 });
 
 export {SimilarFilms};
