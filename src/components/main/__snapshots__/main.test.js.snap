@@ -9,7 +9,7 @@ Array [
       className="movie-card__bg"
     >
       <img
-        alt="The Grand Budapest Hotel"
+        alt="War of the Worlds"
         src="img/bg-the-grand-budapest-hotel.jpg"
       />
     </div>
@@ -155,7 +155,7 @@ Array [
         className="catalog__genres-list"
       >
         <li
-          className="catalog__genres-item catalog__genres-item--active"
+          className="catalog__genres-item "
         >
           <a
             className="catalog__genres-link"

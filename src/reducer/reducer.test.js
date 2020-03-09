@@ -1,22 +1,22 @@
 import {reducer, ActionType} from "./reducer.js";
-import {FilmsList} from "./mocks/films.js";
-import {Film} from "./mocks/film.js";
+import {FilmsList} from "../mocks/films.js";
+import {Film} from "../mocks/film.js";
 
 it(`Reducer without additional parameters should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual({
     genre: `All genres`,
-    filmsList: FilmsList,
-    filmsCurrent: FilmsList,
-    showedFilms: FilmsList.slice(0, 8),
+    filmsList: [],
+    filmsCurrent: [],
+    showedFilms: [],
     filmsCount: 8,
-    film: Film,
+    film: {},
   });
 });
 
 it(`Reducer should change film list`, () => {
   expect(reducer({
-    genre: `Documentary`,
     filmsList: FilmsList,
+    genre: `Documentary`,
     filmsCurrent: FilmsList,
     showedFilms: FilmsList.slice(0, 8),
     filmsCount: 8,
@@ -24,8 +24,8 @@ it(`Reducer should change film list`, () => {
   }, {
     type: ActionType.CHANGE_FILMS_LIST,
   })).toEqual({
-    genre: `Documentary`,
     filmsList: FilmsList,
+    genre: `Documentary`,
     filmsCurrent: [{
       id: `shutter-island`,
       name: `Shutter Island`,
@@ -84,8 +84,8 @@ it(`Reducer should change film list`, () => {
 
 it(`Reducer should change genre`, () => {
   expect(reducer({
-    genre: `Documentary`,
     filmsList: FilmsList,
+    genre: `Documentary`,
     filmsCurrent: FilmsList,
     showedFilms: FilmsList.slice(0, 8),
     filmsCount: 8,
@@ -94,8 +94,8 @@ it(`Reducer should change genre`, () => {
     type: ActionType.CHANGE_GENRE,
     payload: `Comedies`,
   })).toEqual({
-    genre: `Comedies`,
     filmsList: FilmsList,
+    genre: `Comedies`,
     filmsCurrent: FilmsList,
     showedFilms: FilmsList.slice(0, 8),
     filmsCount: 8,
@@ -105,8 +105,8 @@ it(`Reducer should change genre`, () => {
 
 it(`Reducer should show more films`, () => {
   expect(reducer({
-    genre: `Documentary`,
     filmsList: FilmsList,
+    genre: `Documentary`,
     filmsCurrent: FilmsList,
     showedFilms: FilmsList.slice(0, 8),
     filmsCount: 8,
@@ -115,8 +115,8 @@ it(`Reducer should show more films`, () => {
     type: ActionType.SHOW_MORE_FILMS,
     payload: 8,
   })).toEqual({
-    genre: `Documentary`,
     filmsList: FilmsList,
+    genre: `Documentary`,
     filmsCurrent: FilmsList,
     showedFilms: FilmsList.slice(0, 16),
     filmsCount: 16,
@@ -127,8 +127,8 @@ it(`Reducer should show more films`, () => {
 
 it(`Reducer should reset films count`, () => {
   expect(reducer({
-    genre: `Documentary`,
     filmsList: FilmsList,
+    genre: `Documentary`,
     filmsCurrent: FilmsList,
     showedFilms: FilmsList.slice(0, 8),
     filmsCount: 16,
@@ -136,8 +136,8 @@ it(`Reducer should reset films count`, () => {
   }, {
     type: ActionType.RESET_FILMS_COUNT,
   })).toEqual({
-    genre: `Documentary`,
     filmsList: FilmsList,
+    genre: `Documentary`,
     filmsCurrent: FilmsList,
     showedFilms: FilmsList.slice(0, 8),
     filmsCount: 0,

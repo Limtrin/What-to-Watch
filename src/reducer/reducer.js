@@ -1,14 +1,13 @@
-import {extend} from "./utils.js";
-import {FilmsList} from "./mocks/films.js";
-import {Film} from "./mocks/film.js";
+import {extend} from "../utils.js";
+import adapter from "./adapter.js";
 
 const initialState = {
+  filmsList: [],
+  film: {},
   genre: `All genres`,
-  filmsList: FilmsList,
-  filmsCurrent: FilmsList,
-  showedFilms: FilmsList.slice(0, 8),
+  filmsCurrent: [],
+  showedFilms: [],
   filmsCount: 8,
-  film: Film,
 };
 
 const ActionType = {
@@ -16,6 +15,8 @@ const ActionType = {
   CHANGE_FILMS_LIST: `CHANGE_FILMS_LIST`,
   SHOW_MORE_FILMS: `SHOW_MORE_FILMS`,
   RESET_FILMS_COUNT: `RESET_FILMS_COUNT`,
+  LOAD_FILMS: `LOAD_FILMS`,
+  LOAD_PROMO_FILM: `LOAD_PROMO_FILM`
 };
 
 const ActionCreator = {
@@ -36,6 +37,35 @@ const ActionCreator = {
   resetFilmsCount: () => ({
     type: ActionType.RESET_FILMS_COUNT,
   }),
+  loadFilms: (films) => {
+    return {
+      type: ActionType.LOAD_FILMS,
+      payload: films,
+    };
+  },
+  loadPromoFilm: (films) => {
+    return {
+      type: ActionType.LOAD_PROMO_FILM,
+      payload: films,
+    };
+  },
+};
+
+const Operation = {
+  loadFilms: () => (dispatch, getState, api) => {
+    return api.get(`/films`)
+      .then((response) => {
+        const adaptedData = response.data.map((item) => adapter(item));
+        dispatch(ActionCreator.loadFilms(adaptedData));
+      });
+  },
+  loadPromoFilm: () => (dispatch, getState, api) => {
+    return api.get(`/films/promo`)
+      .then((response) => {
+        const adaptedData = adapter(response.data);
+        dispatch(ActionCreator.loadPromoFilm(adaptedData));
+      });
+  },
 };
 
 const reducer = (state = initialState, action) => {
@@ -69,10 +99,22 @@ const reducer = (state = initialState, action) => {
       return extend(state, {
         filmsCount: 0
       });
+
+    case ActionType.LOAD_FILMS:
+      return extend(state, {
+        filmsList: action.payload,
+        filmsCurrent: action.payload,
+        showedFilms: action.payload.slice(0, state.filmsCount),
+      });
+
+    case ActionType.LOAD_PROMO_FILM:
+      return extend(state, {
+        film: action.payload,
+      });
   }
 
   return state;
 };
 
 
-export {reducer, ActionType, ActionCreator};
+export {reducer, Operation, ActionType, ActionCreator};
