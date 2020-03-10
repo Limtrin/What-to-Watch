@@ -29,6 +29,7 @@ it(`<FilmPage /> should render correctly`, () => {
             onHeaderClickHandler={() => {}}
             onItemEnterHandler={() => {}}
             onItemLeaveHandler={() => {}}
+            onFilmFavoriteStatusClickHandler={() => {}}
             activeItem={null}
           />
         </Provider>, {

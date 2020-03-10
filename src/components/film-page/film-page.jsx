@@ -4,7 +4,7 @@ import Tabs from '../tabs/tabs.jsx';
 import SimilarFilms from '../similar-films/similar-films.jsx';
 import FullVideoPlayer from "../full-video-player/full-video-player.jsx";
 
-const FilmPage = ({film, filmsList, onHeaderClickHandler, onFilmCardClickHandler, onItemEnterHandler, onItemLeaveHandler, activeItem, authorizationStatus}) => {
+const FilmPage = ({film, filmsList, onHeaderClickHandler, onFilmCardClickHandler, onItemEnterHandler, onItemLeaveHandler, activeItem, authorizationStatus, onFilmFavoriteStatusClickHandler}) => {
   return (
     <React.Fragment>
       <section className="movie-card movie-card--full">
@@ -52,13 +52,24 @@ const FilmPage = ({film, filmsList, onHeaderClickHandler, onFilmCardClickHandler
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list movie-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
+                <button
+                  className="btn btn--list movie-card__button"
+                  type="button"
+                  onClick={() => {
+                    onFilmFavoriteStatusClickHandler(film.id, +!film.favorite);
+                  }}
+                >
+                  {film.favorite ?
+                    <svg viewBox="0 0 19 20" width="19" height="20">
+                      <use xlinkHref="#add"></use>
+                    </svg> :
+                    <svg viewBox="0 0 18 14" width="18" height="14">
+                      <use xlinkHref="#in-list"></use>
+                    </svg>
+                  }
                   <span>My list</span>
                 </button>
-                { authorizationStatus === `AUTH` ? <a href="/dev-review" className="btn movie-card__button">Add review</a> : null }
+                { authorizationStatus === `AUTH` ? <a href="/login" className="btn movie-card__button">Add review</a> : null }
               </div>
             </div>
           </div>
@@ -112,6 +123,7 @@ export default FilmPage;
 
 FilmPage.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
+  onFilmFavoriteStatusClickHandler: PropTypes.func.isRequired,
   film: PropTypes.shape({
     id: PropTypes.string,
     name: PropTypes.string,
@@ -138,6 +150,7 @@ FilmPage.propTypes = {
         }).isRequired
     ),
     starring: PropTypes.arrayOf(PropTypes.string),
+    favorite: PropTypes.bool,
   }),
   filmsList: PropTypes.arrayOf(
       PropTypes.shape({
@@ -166,6 +179,7 @@ FilmPage.propTypes = {
             }).isRequired
         ),
         starring: PropTypes.arrayOf(PropTypes.string).isRequired,
+        favorite: PropTypes.bool,
       }).isRequired
   ),
   onHeaderClickHandler: PropTypes.func,
