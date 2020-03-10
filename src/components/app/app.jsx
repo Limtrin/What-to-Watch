@@ -11,13 +11,10 @@ import {Operation as UserOperation} from "../../reducer/user/user.js";
 import {Operation as CommentsOperation} from "../../reducer/review/review.js";
 import {Operation as DataOperation} from "../../reducer/data/data.js";
 import SignIn from "../sign-in/sign-in.jsx";
-<<<<<<< HEAD
 import AddReview from "../add-review/add-review.jsx";
 import withRating from "../../hocs/with-rating/with-rating.js";
-=======
 import {Router} from "react-router-dom";
 import history from "../../history.js";
->>>>>>> 9671a0d364e157a70d2e240bed3d1d2ee1f01d0f
 
 const FilmPageWrapped = withActiveItem(FilmPage);
 const MainWrapped = withActiveItem(Main);
@@ -67,27 +64,12 @@ class App extends React.PureComponent {
   render() {
     const {login} = this.props;
     return (
-<<<<<<< HEAD
-      <Switch>
-        <Route exact path="/">
-          {this._renderApp()}
-        </Route>
-        <Route exact path="/dev-review">
-          <AddReviewWrapped
-            filmId={1}
-            onSubmit={sendComment}
-          />
-        </Route>
-        <Route exact path="/auth-dev" render={() => {
-          if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
-=======
       <Router history={history}>
         <Switch>
           <Route exact path="/">
             {this._renderApp()}
           </Route>
           <Route exact path="/login" render={() => {
->>>>>>> 9671a0d364e157a70d2e240bed3d1d2ee1f01d0f
             return <SignIn
               onSubmit={login}
             />;
