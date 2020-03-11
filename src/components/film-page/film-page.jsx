@@ -4,7 +4,8 @@ import Tabs from '../tabs/tabs.jsx';
 import SimilarFilms from '../similar-films/similar-films.jsx';
 import FullVideoPlayer from "../full-video-player/full-video-player.jsx";
 
-const FilmPage = ({film, filmsList, onHeaderClickHandler, onFilmCardClickHandler, onItemEnterHandler, onItemLeaveHandler, activeItem, authorizationStatus, onFilmFavoriteStatusClickHandler}) => {
+const FilmPage = (props) => {
+  const {film, filmsList, onHeaderClickHandler, onFilmCardClickHandler, onItemEnterHandler, onItemLeaveHandler, activeItem, authorizationStatus, onFilmFavoriteStatusClickHandler} = props;
   return (
     <React.Fragment>
       <section className="movie-card movie-card--full">
