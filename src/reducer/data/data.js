@@ -9,6 +9,7 @@ const initialState = {
   filmsCurrent: [],
   showedFilms: [],
   filmsCount: 8,
+  myListFilms: null,
 };
 
 const ActionType = {
@@ -19,6 +20,7 @@ const ActionType = {
   LOAD_FILMS: `LOAD_FILMS`,
   LOAD_PROMO_FILM: `LOAD_PROMO_FILM`,
   CHANGE_FAVORITE_STATUS: `CHANGE_FAVORITE_STATUS`,
+  LOAD_MY_LIST_FILMS: `LOAD_MY_LIST_FILMS`,
 };
 
 const ActionCreator = {
@@ -60,6 +62,13 @@ const ActionCreator = {
       payload: filmId,
     };
   },
+
+  loadMyListFilms: (films) => {
+    return {
+      type: ActionType.LOAD_MY_LIST_FILMS,
+      payload: films,
+    };
+  },
 };
 
 const loadComments = (item) => (dispatch, getState, api) => {
@@ -94,6 +103,19 @@ const Operation = {
         if (response.status === 200) {
           dispatch(ActionCreator.changeFavoriteStatus(filmId));
         }
+      });
+  },
+  loadMyListFilms: () => (dispatch, getState, api) => {
+    console.log(12);
+    return api.get(`/favorite`)
+      .then((response) => {
+        console.log(response);
+        const adaptedData = response.data.map((item) => {
+          const adaptedItem = adapter(item);
+          dispatch(loadComments(adaptedItem));
+          return adaptedItem;
+        });
+        dispatch(ActionCreator.loadMyListFilms(adaptedData));
       });
   },
 };
@@ -161,6 +183,11 @@ const reducer = (state = initialState, action) => {
         filmsCurrent,
         showedFilms,
         film: promoFilm,
+      });
+
+    case ActionType.LOAD_MY_LIST_FILMS:
+      return extend(state, {
+        myListFilms: action.payload,
       });
   }
 

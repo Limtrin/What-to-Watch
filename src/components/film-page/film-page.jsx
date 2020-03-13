@@ -7,7 +7,7 @@ import FullVideoPlayer from "../full-video-player/full-video-player.jsx";
 const FilmPage = (props) => {
   const {film, filmsList, onHeaderClickHandler, onFilmCardClickHandler, onItemEnterHandler, onItemLeaveHandler, activeItem, authorizationStatus, onFilmFavoriteStatusClickHandler} = props;
   return (
-    <React.Fragment>
+     <React.Fragment>
       <section className="movie-card movie-card--full">
         <div className="movie-card__hero">
           <div className="movie-card__bg">
