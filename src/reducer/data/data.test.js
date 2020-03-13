@@ -10,6 +10,7 @@ it(`Reducer without additional parameters should return initial state`, () => {
     showedFilms: [],
     filmsCount: 8,
     film: {},
+    myListFilms: null,
   });
 });
 
@@ -21,6 +22,7 @@ it(`Reducer should change film list`, () => {
     showedFilms: FilmsList.slice(0, 8),
     filmsCount: 8,
     film: Film,
+    myListFilms: null,
   }, {
     type: ActionType.CHANGE_FILMS_LIST,
   })).toEqual({
@@ -91,6 +93,7 @@ it(`Reducer should change film list`, () => {
     showedFilms: FilmsList.slice(0, 8),
     filmsCount: 8,
     film: Film,
+    myListFilms: null,
   });
 });
 
@@ -102,6 +105,7 @@ it(`Reducer should change genre`, () => {
     showedFilms: FilmsList.slice(0, 8),
     filmsCount: 8,
     film: Film,
+    myListFilms: null,
   }, {
     type: ActionType.CHANGE_GENRE,
     payload: `Comedies`,
@@ -112,6 +116,7 @@ it(`Reducer should change genre`, () => {
     showedFilms: FilmsList.slice(0, 8),
     filmsCount: 8,
     film: Film,
+    myListFilms: null,
   });
 });
 
@@ -123,6 +128,7 @@ it(`Reducer should show more films`, () => {
     showedFilms: FilmsList.slice(0, 8),
     filmsCount: 8,
     film: Film,
+    myListFilms: null,
   }, {
     type: ActionType.SHOW_MORE_FILMS,
     payload: 8,
@@ -133,6 +139,7 @@ it(`Reducer should show more films`, () => {
     showedFilms: FilmsList.slice(0, 16),
     filmsCount: 16,
     film: Film,
+    myListFilms: null,
   });
 });
 
@@ -145,6 +152,7 @@ it(`Reducer should reset films count`, () => {
     showedFilms: FilmsList.slice(0, 8),
     filmsCount: 16,
     film: Film,
+    myListFilms: null,
   }, {
     type: ActionType.RESET_FILMS_COUNT,
   })).toEqual({
@@ -154,6 +162,7 @@ it(`Reducer should reset films count`, () => {
     showedFilms: FilmsList.slice(0, 8),
     filmsCount: 0,
     film: Film,
+    myListFilms: null,
   });
 });
 

@@ -28,7 +28,8 @@ exports[`<FilmsList /> should render correctly 1`] = `
     >
       <a
         className="small-movie-card__link"
-        href="movie-page.html"
+        href="/films/shutter-island"
+        onClick={[Function]}
       >
         Shutter Island
       </a>
@@ -58,7 +59,8 @@ exports[`<FilmsList /> should render correctly 1`] = `
     >
       <a
         className="small-movie-card__link"
-        href="movie-page.html"
+        href="/films/snatch"
+        onClick={[Function]}
       >
         Snatch
       </a>

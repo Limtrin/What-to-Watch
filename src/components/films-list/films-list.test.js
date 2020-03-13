@@ -5,6 +5,7 @@ import {filmsList} from "../../mocks/test-mocks.js";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import NameSpace from "../../reducer/name-space.js";
+import {BrowserRouter} from "react-router-dom";
 
 const mockStore = configureStore([]);
 
@@ -14,19 +15,23 @@ it(`<FilmsList /> should render correctly`, () => {
       genre: `All genres`,
       filmsList,
       filmsCurrent: filmsList,
-      showedFilms: filmsList
+      showedFilms: filmsList,
+      myListFilms: null
     }
   });
   const tree = renderer
     .create(
-        <Provider store={store}>
-          <FilmsList
-            onHeaderClickHandler = {() => {}}
-            onFilmCardClickHandler = {() => {}}
-            onItemEnterHandler = {() => {}}
-            onItemLeaveHandler = {() => {}}
-          />
-        </Provider>, {
+        <BrowserRouter>
+          <Provider store={store}>
+            <FilmsList
+              onHeaderClickHandler = {() => {}}
+              onFilmCardClickHandler = {() => {}}
+              onItemEnterHandler = {() => {}}
+              onItemLeaveHandler = {() => {}}
+            />
+          </Provider>
+        </BrowserRouter>
+        , {
           createNodeMock: () => {
             return {};
           }

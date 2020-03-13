@@ -106,10 +106,8 @@ const Operation = {
       });
   },
   loadMyListFilms: () => (dispatch, getState, api) => {
-    console.log(12);
     return api.get(`/favorite`)
       .then((response) => {
-        console.log(response);
         const adaptedData = response.data.map((item) => {
           const adaptedItem = adapter(item);
           dispatch(loadComments(adaptedItem));

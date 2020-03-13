@@ -5,8 +5,8 @@ import {createStore, applyMiddleware} from "redux";
 import {composeWithDevTools} from 'redux-devtools-extension';
 import {Provider} from "react-redux";
 import reducer from "./reducer/reducer.js";
-import {Operation as DataOperation} from "./reducer/data/data.js";
 import {Operation as UserOperation, ActionCreator, AuthorizationStatus} from "./reducer/user/user.js";
+import {Operation as DataOperation} from "./reducer/data/data.js";
 import createAPI from "./api.js";
 import thunk from "redux-thunk";
 import withActiveItem from "./hocs/with-active-item/with-active-item";
@@ -25,6 +25,10 @@ const store = createStore(
         applyMiddleware(thunk.withExtraArgument(api))
     )
 );
+
+store.dispatch(DataOperation.loadPromoFilm());
+store.dispatch(DataOperation.loadFilms());
+store.dispatch(UserOperation.checkAuth());
 
 ReactDOM.render(
     <Provider store={store}>

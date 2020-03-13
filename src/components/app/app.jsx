@@ -40,10 +40,6 @@ class App extends React.PureComponent {
     this.setState({chosenFilm: film});
   }
 
-  componentDidMount() {
-    this.props.loading();
-  }
-
   render() {
     const {film, filmsList, authorizationStatus, changeFavoriteStatus, login, sendComment, onItemLeaveHandler} = this.props;
     return (
@@ -73,7 +69,7 @@ class App extends React.PureComponent {
             />;
           }} />
           <Route exact path="/films/:id" render={(props) => {
-            const chosenFilm = filmsList.find((film) => film.id === props.match.params.id);
+            const chosenFilm = filmsList.find((item) => item.id === props.match.params.id);
             return chosenFilm && <FilmPageWrapped
               authorizationStatus={authorizationStatus}
               film={chosenFilm}
@@ -90,7 +86,7 @@ class App extends React.PureComponent {
             />;
           }} />
           <Route exact path="/films/:id/player" render={(props) => {
-            const chosenFilm = filmsList.find((film) => film.id === props.match.params.id);
+            const chosenFilm = filmsList.find((item) => item.id === props.match.params.id);
             return chosenFilm && <FullVideoPlayer
               film={chosenFilm}
               onItemLeaveHandler={onItemLeaveHandler}
@@ -160,7 +156,9 @@ App.propTypes = {
         }).isRequired
     ),
     starring: PropTypes.arrayOf(PropTypes.string).isRequired,
-  })).isRequired
+  })).isRequired,
+  loading: PropTypes.func,
+  onItemLeaveHandler: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
@@ -172,11 +170,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   login(authData) {
     dispatch(UserOperation.login(authData));
-  },
-  loading() {
-    dispatch(DataOperation.loadPromoFilm());
-    dispatch(DataOperation.loadFilms());
-    dispatch(UserOperation.checkAuth());
   },
   sendComment(authData, filmId) {
     dispatch(CommentsOperation.sendComment(authData, filmId));

@@ -50,20 +50,20 @@ class MyList extends React.PureComponent {
           </header>
 
           <section className="catalog">
-          <h2 className="catalog__title visually-hidden">Catalog</h2>
+            <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <div className="catalog__movies-list">
-          {filmsList.map((item) => (
-            <FilmCardWrapper
-                key={item.id}
-                film={item}
-                onHeaderClickHandler={onHeaderClickHandler}
-                onFilmCardClickHandler={onFilmCardClickHandler}
-                onCardMouseEnterHandler={onItemEnterHandler}
-                onCardMouseLeaveHandler={onItemLeaveHandler}
-              />
-            ))}
-          </div>
+            <div className="catalog__movies-list">
+              {filmsList.map((item) => (
+                <FilmCardWrapper
+                  key={item.id}
+                  film={item}
+                  onHeaderClickHandler={onHeaderClickHandler}
+                  onFilmCardClickHandler={onFilmCardClickHandler}
+                  onCardMouseEnterHandler={onItemEnterHandler}
+                  onCardMouseLeaveHandler={onItemLeaveHandler}
+                />
+              ))}
+            </div>
 
           </section>
 
@@ -83,9 +83,9 @@ class MyList extends React.PureComponent {
         </section>
       </>
     );
-  };
+  }
 }
-  
+
 MyList.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   onFilmFavoriteStatusClickHandler: PropTypes.func.isRequired,
@@ -130,7 +130,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   loading() {
-    dispatch(DataOperation.loadMyListFilms())
+    dispatch(DataOperation.loadMyListFilms());
   }
 });
 
