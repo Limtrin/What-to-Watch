@@ -18,7 +18,6 @@ import withRating from "../../hocs/with-rating/with-rating.js";
 
 const FilmPageWrapped = withActiveItem(FilmPage);
 const MainWrapped = withActiveItem(Main);
-const AddReviewWrapped = withRating(AddReview);
 
 const headerClickHandler = () => {};
 
