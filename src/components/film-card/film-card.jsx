@@ -5,7 +5,6 @@ import {Link} from 'react-router-dom';
 const FilmCard = (props) => {
   const {film, onHeaderClickHandler, handleMouseEnter, handleMouseLeave, onFilmCardClickHandler, renderPlayer} = props;
   const {name, image, preview} = film;
-
   return (
     <article
       className="small-movie-card catalog__movies-card"

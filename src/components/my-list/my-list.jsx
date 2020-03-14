@@ -1,14 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
-import withActiveItem from "../../hocs/with-active-item/with-active-item.js";
-import {AuthorizationStatus} from "../../reducer/user/user.js";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import FilmCard from '../film-card/film-card.jsx';
 import {getMyListFilms} from "../../reducer/data/selectors.js";
 import {Operation as DataOperation} from "../../reducer/data/data.js";
+import withVideo from '../../hocs/with-video/with-video.js';
 
-const FilmCardWrapper = withActiveItem(FilmCard);
+const FilmCardWrapper = withVideo(FilmCard);
 
 class MyList extends React.PureComponent {
   constructor(props) {
@@ -20,33 +19,26 @@ class MyList extends React.PureComponent {
   }
 
   render() {
-    const {filmsList, onHeaderClickHandler, onFilmCardClickHandler, onItemEnterHandler, onItemLeaveHandler, authorizationStatus} = this.props;
+    const {filmsList, onHeaderClickHandler, onFilmCardClickHandler, onItemEnterHandler, onItemLeaveHandler} = this.props;
     return filmsList && (
       <>
-        <section className="movie-card">
-          <header className="page-header movie-card__head">
+        <div className="user-page">
+          <header className="page-header user-page__head">
             <div className="logo">
-              <a className="logo__link">
+              <Link to="/" className="logo__link">
                 <span className="logo__letter logo__letter--1">W</span>
                 <span className="logo__letter logo__letter--2">T</span>
                 <span className="logo__letter logo__letter--3">W</span>
-              </a>
+              </Link>
             </div>
 
             <h1 className="page-title user-page__title">My list</h1>
 
-            {
-              (authorizationStatus === AuthorizationStatus.AUTH) ?
-                (<div className="user-block">
-                  <Link to="/mylist">
-                    <div className="user-block__avatar">
-                      <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-                    </div>
-                  </Link>
-                </div>) : (
-                  <div className="user-block"><Link to="/auth-dev">Sign In</Link></div>
-                )
-            }
+            <div className="user-block">
+              <div className="user-block__avatar">
+                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+              </div>
+            </div>
           </header>
 
           <section className="catalog">
@@ -80,14 +72,13 @@ class MyList extends React.PureComponent {
               <p>© 2019 What to watch Ltd.</p>
             </div>
           </footer>
-        </section>
+        </div>
       </>
     );
   }
 }
 
 MyList.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired,
   onFilmFavoriteStatusClickHandler: PropTypes.func.isRequired,
   filmsList: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,

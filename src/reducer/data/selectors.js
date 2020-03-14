@@ -30,3 +30,14 @@ export const getFilmsCount = (state) => {
 export const getMyListFilms = (state) => {
   return state[NAME_SPACE].myListFilms;
 };
+
+export const getGenresList = (state) => {
+  const genres = [`All genres`];
+  state[NAME_SPACE].filmsList.map((film) => {
+    if (!genres.includes(film.genre)) {
+      genres.push(film.genre);
+    }
+  });
+  return genres;
+};
+

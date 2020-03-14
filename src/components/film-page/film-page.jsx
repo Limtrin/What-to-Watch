@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Tabs from '../tabs/tabs.jsx';
 import SimilarFilms from '../similar-films/similar-films.jsx';
-import FullVideoPlayer from "../full-video-player/full-video-player.jsx";
+import {AuthorizationStatus} from '../../reducer/user/user.js';
+import {Link} from 'react-router-dom';
 
 const FilmPage = (props) => {
-  const {film, filmsList, onHeaderClickHandler, onFilmCardClickHandler, onItemEnterHandler, onItemLeaveHandler, activeItem, authorizationStatus, onFilmFavoriteStatusClickHandler} = props;
+  const {film, filmsList, onHeaderClickHandler, onFilmCardClickHandler, authorizationStatus, onFilmFavoriteStatusClickHandler} = props;
   return (
     <React.Fragment>
       <section className="movie-card movie-card--full">
@@ -18,18 +19,24 @@ const FilmPage = (props) => {
 
           <header className="page-header movie-card__head">
             <div className="logo">
-              <a href="main.html" className="logo__link">
+              <Link to="/" className="logo__link">
                 <span className="logo__letter logo__letter--1">W</span>
                 <span className="logo__letter logo__letter--2">T</span>
                 <span className="logo__letter logo__letter--3">W</span>
-              </a>
+              </Link>
             </div>
-
-            <div className="user-block">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-            </div>
+            {
+              (authorizationStatus === AuthorizationStatus.AUTH) ?
+                (<div className="user-block">
+                  <Link to="/mylist">
+                    <div className="user-block__avatar">
+                      <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+                    </div>
+                  </Link>
+                </div>) : (
+                  <div className="user-block"><Link to="/login">Sign In</Link></div>
+                )
+            }
           </header>
 
           <div className="movie-card__wrap">
@@ -41,10 +48,8 @@ const FilmPage = (props) => {
               </p>
 
               <div className="movie-card__buttons">
-                <button
-                  onClick={() => {
-                    onItemEnterHandler(film);
-                  }}
+                <Link
+                  to={`/films/${film.id}/player`}
                   className="btn btn--play movie-card__button"
                   type="button"
                 >
@@ -52,25 +57,42 @@ const FilmPage = (props) => {
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
-                </button>
-                <button
-                  className="btn btn--list movie-card__button"
-                  type="button"
-                  onClick={() => {
-                    onFilmFavoriteStatusClickHandler(film.id, +!film.favorite);
-                  }}
-                >
-                  {film.favorite ?
+                </Link>
+                {authorizationStatus === AuthorizationStatus.AUTH ?
+                <>
+                  <button
+                    className="btn btn--list movie-card__button"
+                    type="button"
+                    onClick={() => {
+                      onFilmFavoriteStatusClickHandler(film.id, +!film.favorite);
+                    }}
+                  >
+                    {!film.favorite ?
+                      <svg viewBox="0 0 19 20" width="19" height="20">
+                        <use xlinkHref="#add"></use>
+                      </svg> :
+                      <svg viewBox="0 0 18 14" width="18" height="14">
+                        <use xlinkHref="#in-list"></use>
+                      </svg>
+                    }
+                    <span>My list</span>
+                  </button>
+                  <Link to={`/films/${film.id}/review`} className="btn movie-card__button">Add review</Link>
+                </> :
+                <>
+                  <Link
+                    to="/login"
+                    className="btn btn--list movie-card__button"
+                    type="button"
+                  >
                     <svg viewBox="0 0 19 20" width="19" height="20">
                       <use xlinkHref="#add"></use>
-                    </svg> :
-                    <svg viewBox="0 0 18 14" width="18" height="14">
-                      <use xlinkHref="#in-list"></use>
                     </svg>
-                  }
-                  <span>My list</span>
-                </button>
-                { authorizationStatus === `AUTH` ? <a href="/login" className="btn movie-card__button">Add review</a> : null }
+                    <span>My list</span>
+                  </Link>
+                  <Link to={`/login`} className="btn movie-card__button">Add review</Link>
+                </>
+                }
               </div>
             </div>
           </div>
@@ -115,7 +137,6 @@ const FilmPage = (props) => {
           </div>
         </footer>
       </div>
-      {activeItem && (<FullVideoPlayer film={film} onItemLeaveHandler={onItemLeaveHandler}/>)}
     </React.Fragment >
   );
 };
@@ -185,7 +206,4 @@ FilmPage.propTypes = {
   ),
   onHeaderClickHandler: PropTypes.func,
   onFilmCardClickHandler: PropTypes.func,
-  onItemEnterHandler: PropTypes.func,
-  onItemLeaveHandler: PropTypes.func,
-  activeItem: PropTypes.any,
 };

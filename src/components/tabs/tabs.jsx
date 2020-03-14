@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
+import {ratingTransition} from "../../utils";
 
 const TAB_NAME = {
   overview: `Overview`,
@@ -54,7 +55,7 @@ class Tabs extends React.PureComponent {
             <div className="movie-rating">
               <div className="movie-rating__score">{film.rating}</div>
               <p className="movie-rating__meta">
-                <span className="movie-rating__level">Very good</span>
+                <span className="movie-rating__level">{ratingTransition(+film.rating)}</span>
                 <span className="movie-rating__count">{film.votes} ratings</span>
               </p>
             </div>
@@ -88,7 +89,7 @@ class Tabs extends React.PureComponent {
             <div className="movie-card__text-col">
               <p className="movie-card__details-item">
                 <strong className="movie-card__details-name">Run Time</strong>
-                <span className="movie-card__details-value">{film.time}</span>
+                <span className="movie-card__details-value">{film.time} minutes</span>
               </p>
               <p className="movie-card__details-item">
                 <strong className="movie-card__details-name">Genre</strong>

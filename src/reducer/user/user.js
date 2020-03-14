@@ -49,7 +49,6 @@ const Operation = {
     })
       .then(() => {
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
-        window.location = `/`;
       });
   },
 };
