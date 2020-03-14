@@ -13,9 +13,12 @@ import {Operation as DataOperation} from "../../reducer/data/data.js";
 import SignIn from "../sign-in/sign-in.jsx";
 import {Router} from "react-router-dom";
 import history from "../../history.js";
+import AddReview from "../add-review/add-review.jsx";
+import withRating from "../../hocs/with-rating/with-rating.js";
 
 const FilmPageWrapped = withActiveItem(FilmPage);
 const MainWrapped = withActiveItem(Main);
+const AddReviewWrapped = withRating(AddReview);
 
 const headerClickHandler = () => {};
 
