@@ -17,7 +17,8 @@ const ActionType = {
   SHOW_MORE_FILMS: `SHOW_MORE_FILMS`,
   RESET_FILMS_COUNT: `RESET_FILMS_COUNT`,
   LOAD_FILMS: `LOAD_FILMS`,
-  LOAD_PROMO_FILM: `LOAD_PROMO_FILM`
+  LOAD_PROMO_FILM: `LOAD_PROMO_FILM`,
+  CHANGE_FAVORITE_STATUS: `CHANGE_FAVORITE_STATUS`,
 };
 
 const ActionCreator = {
@@ -52,6 +53,13 @@ const ActionCreator = {
       payload: films,
     };
   },
+
+  changeFavoriteStatus: (filmId) => {
+    return {
+      type: ActionType.CHANGE_FAVORITE_STATUS,
+      payload: filmId,
+    };
+  },
 };
 
 const loadComments = (item) => (dispatch, getState, api) => {
@@ -78,6 +86,14 @@ const Operation = {
       .then((response) => {
         const adaptedData = adapter(response.data);
         dispatch(ActionCreator.loadPromoFilm(adaptedData));
+      });
+  },
+  changeFavoriteStatus: (filmId, status) => (dispatch, getState, api) => {
+    return api.post(`/favorite/${filmId}/${status}`)
+      .then((response) => {
+        if (response.status === 200) {
+          dispatch(ActionCreator.changeFavoriteStatus(filmId));
+        }
       });
   },
 };
@@ -124,6 +140,27 @@ const reducer = (state = initialState, action) => {
     case ActionType.LOAD_PROMO_FILM:
       return extend(state, {
         film: action.payload,
+      });
+
+    case ActionType.CHANGE_FAVORITE_STATUS:
+      const changedFilmsList = state.filmsList.map((film) => {
+        if (film.id === action.payload) {
+          film.favorite = !film.favorite;
+        } return film;
+      });
+      let filmsCurrent;
+      if (state.genre === `All genres`) {
+        filmsCurrent = state.filmsList;
+      } else {
+        filmsCurrent = state.filmsList.filter((film) => film.genre === state.genre);
+      }
+      const showedFilms = filmsCurrent.slice(0, state.filmsCount);
+      const promoFilm = state.film.id === action.payload ? extend(state, extend(state.film, {favorite: !state.film.favorite})) : state.film;
+      return extend(state, {
+        filmsList: changedFilmsList,
+        filmsCurrent,
+        showedFilms,
+        film: promoFilm,
       });
   }
 

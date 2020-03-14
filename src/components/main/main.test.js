@@ -29,6 +29,7 @@ it(`Render Main`, () => {
               onHeaderClickHandler={() => {}}
               onFilmCardClickHandler={() => {}}
               onItemEnterHandler={() => {}}
+              onFilmFavoriteStatusClickHandler={() => {}}
               onItemLeaveHandler={() => {}}
               activeItem={null}
             />
