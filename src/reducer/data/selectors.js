@@ -26,3 +26,18 @@ export const getShowedFilms = (state) => {
 export const getFilmsCount = (state) => {
   return state[NAME_SPACE].filmsCount;
 };
+
+export const getMyListFilms = (state) => {
+  return state[NAME_SPACE].myListFilms;
+};
+
+export const getGenresList = (state) => {
+  const genres = [`All genres`];
+  state[NAME_SPACE].filmsList.map((film) => {
+    if (!genres.includes(film.genre)) {
+      genres.push(film.genre);
+    }
+  });
+  return genres;
+};
+

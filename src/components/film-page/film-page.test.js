@@ -6,6 +6,7 @@ import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import NameSpace from "../../reducer/name-space.js";
 import {AuthorizationStatus} from "../../reducer/user/user.js";
+import {BrowserRouter} from "react-router-dom";
 
 
 const mockStore = configureStore([]);
@@ -20,19 +21,21 @@ it(`<FilmPage /> should render correctly`, () => {
   });
   const tree = renderer
     .create(
-        <Provider store={store}>
-          <FilmPage
-            authorizationStatus={AuthorizationStatus.NO_AUTH}
-            film={film}
-            filmsList={filmsList}
-            onFilmCardClickHandler={() => {}}
-            onHeaderClickHandler={() => {}}
-            onItemEnterHandler={() => {}}
-            onItemLeaveHandler={() => {}}
-            onFilmFavoriteStatusClickHandler={() => {}}
-            activeItem={null}
-          />
-        </Provider>, {
+        <BrowserRouter>
+          <Provider store={store}>
+            <FilmPage
+              authorizationStatus={AuthorizationStatus.NO_AUTH}
+              film={film}
+              filmsList={filmsList}
+              onFilmCardClickHandler={() => {}}
+              onHeaderClickHandler={() => {}}
+              onItemEnterHandler={() => {}}
+              onItemLeaveHandler={() => {}}
+              onFilmFavoriteStatusClickHandler={() => {}}
+              activeItem={null}
+            />
+          </Provider>
+        </BrowserRouter>, {
           createNodeMock: () => {
             return {};
           }

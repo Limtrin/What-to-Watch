@@ -8,6 +8,7 @@ it(`<GenreList /> should render correctly`, () => {
         <GenresList
           currentGenre={`All genres`}
           onGenreButtonClick={() => {}}
+          genresList={[`All grenres`, `Thriller`]}
         />
     )
     .toJSON();

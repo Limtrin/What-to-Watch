@@ -79,6 +79,7 @@ class FullVideoPlayer extends React.PureComponent {
         <button
           onClick={() => {
             this.props.onItemLeaveHandler();
+            history.back();
           }}
           type="button"
           className="player__exit"

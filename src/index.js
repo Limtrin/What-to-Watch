@@ -5,10 +5,13 @@ import {createStore, applyMiddleware} from "redux";
 import {composeWithDevTools} from 'redux-devtools-extension';
 import {Provider} from "react-redux";
 import reducer from "./reducer/reducer.js";
-import {Operation as DataOperation} from "./reducer/data/data.js";
 import {Operation as UserOperation, ActionCreator, AuthorizationStatus} from "./reducer/user/user.js";
+import {Operation as DataOperation} from "./reducer/data/data.js";
 import createAPI from "./api.js";
 import thunk from "redux-thunk";
+import withActiveItem from "./hocs/with-active-item/with-active-item";
+
+const AppWrapped = withActiveItem(App);
 
 const onUnauthorized = () => {
   store.dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
@@ -29,7 +32,7 @@ store.dispatch(UserOperation.checkAuth());
 
 ReactDOM.render(
     <Provider store={store}>
-      <App />
+      <AppWrapped />
     </Provider>,
     document.querySelector(`#root`)
 );

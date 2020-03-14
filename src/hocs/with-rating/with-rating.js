@@ -50,7 +50,7 @@ const withRating = (Component) => {
 
   WithRating.propTypes = {
     onSubmit: PropTypes.func.isRequired,
-    filmId: PropTypes.number.isRequired,
+    filmId: PropTypes.string.isRequired,
     updateNewCommentText: PropTypes.func.isRequired,
     textValue: PropTypes.string.isRequired,
     sendStatusValue: PropTypes.string.isRequired,

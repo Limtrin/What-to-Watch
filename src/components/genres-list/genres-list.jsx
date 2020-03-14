@@ -1,25 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import genres from '../../mocks/genres';
 import {ActionCreator} from '../../reducer/data/data.js';
 import {connect} from 'react-redux';
-import {getGenres} from '../../reducer/data/selectors';
+import {getGenres, getGenresList} from '../../reducer/data/selectors';
 
-const GenresList = ({currentGenre, onGenreButtonClick}) => {
+const GenresList = ({currentGenre, onGenreButtonClick, genresList}) => {
   return (
     <ul className="catalog__genres-list">
-      {genres.map((genre, i) => {
+      {genresList.map((genre) => {
         return (
-          <li key={`${i}-${genre.title}`} className={`catalog__genres-item ${currentGenre === genre ? `catalog__genres-item--active` : ``}`}>
+          <li key={`${genre}`} className={`catalog__genres-item ${currentGenre === genre ? `catalog__genres-item--active` : ``}`}>
             <a
               href="#"
               className="catalog__genres-link"
               onClick={(e) => {
                 e.preventDefault();
-                onGenreButtonClick(genre.genre);
+                onGenreButtonClick(genre);
               }}
             >
-              {genre.title}
+              {genre}
             </a>
           </li>
         );
@@ -30,11 +29,13 @@ const GenresList = ({currentGenre, onGenreButtonClick}) => {
 
 GenresList.propTypes = {
   currentGenre: PropTypes.string.isRequired,
+  genresList: PropTypes.array.isRequired,
   onGenreButtonClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  currentGenre: getGenres(state)
+  currentGenre: getGenres(state),
+  genresList: getGenresList(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

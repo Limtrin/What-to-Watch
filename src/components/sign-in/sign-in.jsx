@@ -1,9 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
+import validator from "email-validator";
 
 class SignIn extends React.PureComponent {
   constructor(props) {
     super(props);
+
+    this.state = {
+      loginError: false,
+      passwordError: false,
+    };
 
     this.loginRef = React.createRef();
     this.passwordRef = React.createRef();
@@ -15,6 +21,20 @@ class SignIn extends React.PureComponent {
     const {onSubmit} = this.props;
 
     evt.preventDefault();
+
+    if (!validator.validate(this.loginRef.current.value)) {
+      this.setState({loginError: true});
+      return;
+    } else {
+      this.setState({loginError: false});
+    }
+
+    if (this.passwordRef.current.value.length === 0) {
+      this.setState({passwordError: true});
+      return;
+    } else {
+      this.setState({passwordError: false});
+    }
 
     onSubmit({
       login: this.loginRef.current.value,
@@ -39,8 +59,12 @@ class SignIn extends React.PureComponent {
 
         <div className="sign-in user-page__content">
           <form action="" className="sign-in__form" onSubmit={this.handleSubmit}>
+            <div className="sign-in__message">
+              {this.state.passwordError && <p>We can’t recognize this email <br/> and password combination. Please try again.</p>}
+              {this.state.loginError && <p>Please enter a valid email address</p>}
+            </div>
             <div className="sign-in__fields">
-              <div className="sign-in__field">
+              <div className={`sign-in__field ${this.state.loginError ? `sign-in__field--error` : null}`}>
                 <input className="sign-in__input" type="email" placeholder="Email address" name="user-email" id="user-email" ref={this.loginRef} />
                 <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
               </div>

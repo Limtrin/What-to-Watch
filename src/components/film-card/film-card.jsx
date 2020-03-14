@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 
 const FilmCard = (props) => {
   const {film, onHeaderClickHandler, handleMouseEnter, handleMouseLeave, onFilmCardClickHandler, renderPlayer} = props;
   const {name, image, preview} = film;
-
   return (
     <article
       className="small-movie-card catalog__movies-card"
@@ -22,7 +22,7 @@ const FilmCard = (props) => {
       <h3
         onClick={onHeaderClickHandler}
         className="small-movie-card__title">
-        <a className="small-movie-card__link" href="movie-page.html">{name}</a>
+        <Link to={`/films/` + film.id} className="small-movie-card__link" href="movie-page.html">{name}</Link>
       </h3>
     </article>
   );

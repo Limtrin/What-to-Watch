@@ -29,7 +29,8 @@ Array [
         >
           <a
             className="logo__link"
-            href="main.html"
+            href="/"
+            onClick={[Function]}
           >
             <span
               className="logo__letter logo__letter--1"
@@ -51,16 +52,12 @@ Array [
         <div
           className="user-block"
         >
-          <div
-            className="user-block__avatar"
+          <a
+            href="/login"
+            onClick={[Function]}
           >
-            <img
-              alt="User avatar"
-              height="63"
-              src="img/avatar.jpg"
-              width="63"
-            />
-          </div>
+            Sign In
+          </a>
         </div>
       </header>
       <div
@@ -91,8 +88,9 @@ Array [
           <div
             className="movie-card__buttons"
           >
-            <button
+            <a
               className="btn btn--play movie-card__button"
+              href="/films/war-of-the-worlds/player"
               onClick={[Function]}
               type="button"
             >
@@ -108,25 +106,33 @@ Array [
               <span>
                 Play
               </span>
-            </button>
-            <button
+            </a>
+            <a
               className="btn btn--list movie-card__button"
+              href="/login"
               onClick={[Function]}
               type="button"
             >
               <svg
-                height="14"
-                viewBox="0 0 18 14"
-                width="18"
+                height="20"
+                viewBox="0 0 19 20"
+                width="19"
               >
                 <use
-                  xlinkHref="#in-list"
+                  xlinkHref="#add"
                 />
               </svg>
               <span>
                 My list
               </span>
-            </button>
+            </a>
+            <a
+              className="btn movie-card__button"
+              href="/login"
+              onClick={[Function]}
+            >
+              Add review
+            </a>
           </div>
         </div>
       </div>
@@ -205,7 +211,7 @@ Array [
               <span
                 className="movie-rating__level"
               >
-                Very good
+                Very Good
               </span>
               <span
                 className="movie-rating__count"
