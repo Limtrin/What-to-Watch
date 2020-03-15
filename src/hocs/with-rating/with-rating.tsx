@@ -1,11 +1,25 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {ActionCreator} from '../../reducer/review/review.js';
+import * as React from "react";
+import {ActionCreator} from '../../reducer/review/review';
 import {connect} from 'react-redux';
 import {getText, getSendStatus, getFormBlock} from '../../reducer/review/selectors';
+import {Subtract} from "utility-types";
+
+interface State {
+  rating: number;
+}
+
+interface InjectingProps {
+  handleSubmit: () => void;
+  handleChange: () => void;
+  handleRatingChange: () => void;
+}
 
 const withRating = (Component) => {
-  class WithRating extends React.PureComponent {
+
+  type P = React.ComponentProps<typeof Component>;
+  type T = Subtract<P, InjectingProps>;
+
+  class WithRating extends React.PureComponent<T, State> {
     constructor(props) {
       super(props);
       this.state = {
@@ -48,16 +62,7 @@ const withRating = (Component) => {
     }
   }
 
-  WithRating.propTypes = {
-    onSubmit: PropTypes.func.isRequired,
-    filmId: PropTypes.string.isRequired,
-    updateNewCommentText: PropTypes.func.isRequired,
-    textValue: PropTypes.string.isRequired,
-    sendStatusValue: PropTypes.string.isRequired,
-    formBlock: PropTypes.bool.isRequired,
-  };
-
-  let mapStateToProps = (state) => {
+  const mapStateToProps = (state) => {
     return {
       textValue: getText(state),
       sendStatusValue: getSendStatus(state),
@@ -65,7 +70,7 @@ const withRating = (Component) => {
     };
   };
 
-  let mapDispatchToProps = (dispatch) => {
+  const mapDispatchToProps = (dispatch) => {
     return {
       updateNewCommentText: (text) => {
         dispatch(ActionCreator.updateNewCommentText(text));

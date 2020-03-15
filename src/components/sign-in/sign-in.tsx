@@ -1,8 +1,18 @@
-import React from "react";
-import PropTypes from "prop-types";
-import validator from "email-validator";
+import * as React from "react";
+import * as validator from "email-validator";
 
-class SignIn extends React.PureComponent {
+interface Props {
+  onSubmit: (data: {login: string; password: string}) => void;
+}
+
+interface State {
+  loginError: boolean;
+  passwordError: boolean;
+}
+
+class SignIn extends React.PureComponent<Props, State> {
+  private loginRef: React.RefObject<HTMLInputElement>;
+  private passwordRef: React.RefObject<HTMLInputElement>;
   constructor(props) {
     super(props);
 
@@ -96,9 +106,5 @@ class SignIn extends React.PureComponent {
     );
   }
 }
-
-SignIn.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
 
 export default SignIn;

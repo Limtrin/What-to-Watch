@@ -1,15 +1,26 @@
-import React from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
-import FilmCard from '../film-card/film-card.jsx';
-import {getMyListFilms} from "../../reducer/data/selectors.js";
-import {Operation as DataOperation} from "../../reducer/data/data.js";
-import withVideo from '../../hocs/with-video/with-video.js';
+import FilmCard from '../film-card/film-card';
+import {getMyListFilms} from "../../reducer/data/selectors";
+import {Operation as DataOperation} from "../../reducer/data/data";
+import withVideo from '../../hocs/with-video/with-video';
+import {FilmsType, FilmType} from "../../types";
 
 const FilmCardWrapper = withVideo(FilmCard);
 
-class MyList extends React.PureComponent {
+interface Props {
+  onFilmFavoriteStatusClickHandler: () => void;
+  filmsList: FilmsType;
+  onHeaderClickHandler: () => void;
+  onFilmCardClickHandler: () => void;
+  onItemEnterHandler: () => void;
+  onItemLeaveHandler: () => void;
+  loading: () => void;
+  activeItem: FilmType;
+}
+
+class MyList extends React.PureComponent<Props> {
   constructor(props) {
     super(props);
   }
@@ -77,43 +88,6 @@ class MyList extends React.PureComponent {
     );
   }
 }
-
-MyList.propTypes = {
-  onFilmFavoriteStatusClickHandler: PropTypes.func.isRequired,
-  filmsList: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired,
-    image: PropTypes.string.isRequired,
-    poster: PropTypes.string.isRequired,
-    cover: PropTypes.string.isRequired,
-    preview: PropTypes.string.isRequired,
-    time: PropTypes.string.isRequired,
-    rating: PropTypes.number.isRequired,
-    votes: PropTypes.number.isRequired,
-    director: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    reviews: PropTypes.arrayOf(
-        PropTypes.shape({
-          rating: PropTypes.number.isRequired,
-          date: PropTypes.string.isRequired,
-          author: PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            name: PropTypes.string.isRequired,
-          }).isRequired,
-          text: PropTypes.string.isRequired
-        }).isRequired
-    ),
-    starring: PropTypes.arrayOf(PropTypes.string).isRequired,
-  })),
-  onHeaderClickHandler: PropTypes.func.isRequired,
-  onFilmCardClickHandler: PropTypes.func.isRequired,
-  onItemEnterHandler: PropTypes.func,
-  onItemLeaveHandler: PropTypes.func,
-  loading: PropTypes.func,
-  activeItem: PropTypes.any,
-};
 
 const mapStateToProps = (state) => ({
   filmsList: getMyListFilms(state)

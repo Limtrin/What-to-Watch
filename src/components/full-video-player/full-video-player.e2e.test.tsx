@@ -1,8 +1,10 @@
-import React from "react";
-import Enzyme, {mount} from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
-import FullVideoPlayer from "./full-video-player.jsx";
-import {film} from "../../mocks/test-mocks.js";
+import * as React from "react";
+import * as Enzyme from "enzyme";
+import {mount} from "enzyme";
+import * as Adapter from "enzyme-adapter-react-16";
+import FullVideoPlayer from "./full-video-player";
+import {film} from "../../mocks/test-mocks";
+import {noop} from "../../utils";
 
 Enzyme.configure({
   adapter: new Adapter()
@@ -12,10 +14,10 @@ it(`Should change state isPlaying`, () => {
   const videoPlayer = mount(
       <FullVideoPlayer
         film={film}
-        onItemLeaveHandler={() => {}}
+        onItemLeaveHandler={noop}
       />);
 
-  window.HTMLMediaElement.prototype.play = () => {};
+  window.HTMLMediaElement.prototype.play = noop;
 
   const {_videoRef} = videoPlayer.instance();
 

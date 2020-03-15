@@ -23,3 +23,7 @@ export const ratingTransition = (rating) => {
   }
   return filmRating;
 };
+
+export const noop = () => {
+  // do nothing
+};

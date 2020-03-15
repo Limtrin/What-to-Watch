@@ -1,7 +1,7 @@
-import React from "react";
-import renderer from "react-test-renderer";
-import VideoPlayer from "./video-player.jsx";
-import {film} from "../../mocks/test-mocks.js";
+import * as React from "react";
+import * as renderer from "react-test-renderer";
+import VideoPlayer from "./video-player";
+import {film} from "../../mocks/test-mocks";
 
 it(`<VideoPlayer /> should render correctly`, () => {
   const {name, image, preview} = film;

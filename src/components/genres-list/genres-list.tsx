@@ -1,10 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {ActionCreator} from '../../reducer/data/data.js';
+import * as React from "react";
+import {ActionCreator} from '../../reducer/data/data';
 import {connect} from 'react-redux';
 import {getGenres, getGenresList} from '../../reducer/data/selectors';
 
-const GenresList = ({currentGenre, onGenreButtonClick, genresList}) => {
+interface Props {
+  currentGenre: string;
+  genresList: string[];
+  onGenreButtonClick: (genre: string) => void;
+}
+
+const GenresList: React.FunctionComponent<Props> = ({currentGenre, onGenreButtonClick, genresList}: Props) => {
   return (
     <ul className="catalog__genres-list">
       {genresList.map((genre) => {
@@ -25,12 +30,6 @@ const GenresList = ({currentGenre, onGenreButtonClick, genresList}) => {
       })}
     </ul>
   );
-};
-
-GenresList.propTypes = {
-  currentGenre: PropTypes.string.isRequired,
-  genresList: PropTypes.array.isRequired,
-  onGenreButtonClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

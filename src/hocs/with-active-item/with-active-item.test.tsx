@@ -1,8 +1,8 @@
-import React from "react";
+import * as React from "react";
 import {configure, shallow} from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
-import withActiveItem from "./with-active-item.js";
-import {film} from "../../mocks/test-mocks.js";
+import * as Adapter from "enzyme-adapter-react-16";
+import withActiveItem from "./with-active-item";
+import {film} from "../../mocks/test-mocks";
 
 configure({adapter: new Adapter()});
 

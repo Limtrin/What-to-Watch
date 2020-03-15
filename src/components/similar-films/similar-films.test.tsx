@@ -1,10 +1,11 @@
-import React from "react";
-import renderer from "react-test-renderer";
+import * as React from "react";
+import * as renderer from "react-test-renderer";
 import SimilarFIlms from "./similar-films";
-import {filmsList, film} from "../../mocks/test-mocks.js";
+import {filmsList, film} from "../../mocks/test-mocks";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
-import NameSpace from "../../reducer/name-space.js";
+import NameSpace from "../../reducer/name-space";
+import {noop} from "../../utils";
 
 const mockStore = configureStore([]);
 
@@ -21,8 +22,8 @@ it(`Should render SimilarFilms component`, () => {
         <Provider store={store}>
           <SimilarFIlms
             film={film}
-            onFilmCardClickHandler={() => {}}
-            onHeaderClickHandler={() => {}}
+            onFilmCardClickHandler={noop}
+            onHeaderClickHandler={noop}
           />
         </Provider>, {
           createNodeMock: () => {

@@ -1,14 +1,15 @@
-import React from "react";
-import renderer from "react-test-renderer";
-import FullVideoPlayer from "./full-video-player.jsx";
-import {film} from "../../mocks/test-mocks.js";
+import * as React from "react";
+import * as renderer from "react-test-renderer";
+import FullVideoPlayer from "./full-video-player";
+import {film} from "../../mocks/test-mocks";
+import {noop} from "../../utils";
 
 it(`<FullVideoPlayer /> should render correctly`, () => {
   const tree = renderer
     .create(
         <FullVideoPlayer
           film={film}
-          onItemLeaveHandler={() => {}}
+          onItemLeaveHandler={noop}
         />, {
           createNodeMock: () => {
             return {};

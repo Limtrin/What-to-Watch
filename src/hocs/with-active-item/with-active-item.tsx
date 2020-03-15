@@ -1,7 +1,23 @@
-import React from 'react';
+import * as React from "react";
+import {FilmType} from "../../types";
+import {Subtract} from "utility-types";
+
+interface State {
+  activeItem: FilmType | null;
+}
+
+interface InjectingProps {
+  onItemLeaveHandler: () => void;
+  onItemEnterHandler: () => void;
+  activeItem: () => void;
+}
 
 const withActiveItem = (Component) => {
-  class WithActiveItem extends React.PureComponent {
+
+  type P = React.ComponentProps<typeof Component>;
+  type T = Subtract<P, InjectingProps>;
+
+  class WithActiveItem extends React.PureComponent<T, State> {
     constructor(props) {
       super(props);
       this.state = {activeItem: null};

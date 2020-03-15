@@ -1,19 +1,25 @@
-import React from "react";
-import PropTypes from "prop-types";
-import FilmsList from "../films-list/films-list.jsx";
-import GenresList from "../genres-list/genres-list.jsx";
-import ShowMoreButton from "../show-more-button/show-more-button.jsx";
-import withActiveItem from "../../hocs/with-active-item/with-active-item.js";
-import {AuthorizationStatus} from "../../reducer/user/user.js";
+import * as React from "react";
+import FilmsList from "../films-list/films-list";
+import GenresList from "../genres-list/genres-list";
+import ShowMoreButton from "../show-more-button/show-more-button";
+import withActiveItem from "../../hocs/with-active-item/with-active-item";
+import {AuthorizationStatus} from "../../reducer/user/user";
 import {Link} from "react-router-dom";
+import {FilmType} from "../../types";
 
 const FilmsListWrapped = withActiveItem(FilmsList);
 const GenresListWrapped = withActiveItem(GenresList);
 
+interface Props {
+  authorizationStatus: string;
+  onFilmFavoriteStatusClickHandler: (id: string, status: number) => void;
+  film: FilmType;
+  onFilmCardClickHandler: (film: FilmType | null) => void;
+}
 
-const Main = (props) => {
+const Main: React.FunctionComponent<Props> = (props: Props) => {
 
-  const {film, onHeaderClickHandler, onFilmCardClickHandler, authorizationStatus, onFilmFavoriteStatusClickHandler} = props;
+  const {film, onFilmCardClickHandler, authorizationStatus, onFilmFavoriteStatusClickHandler} = props;
   const {name: filmName, genre: filmGenre, year: filmYear, cover, poster} = film;
 
   return (
@@ -117,7 +123,6 @@ const Main = (props) => {
           <GenresListWrapped />
 
           <FilmsListWrapped
-            onHeaderClickHandler={onHeaderClickHandler}
             onFilmCardClickHandler={onFilmCardClickHandler}
           />
 
@@ -141,41 +146,5 @@ const Main = (props) => {
     </>
   );
 };
-
-Main.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired,
-  onFilmFavoriteStatusClickHandler: PropTypes.func.isRequired,
-  film: PropTypes.shape({
-    id: PropTypes.string,
-    name: PropTypes.string,
-    genre: PropTypes.string,
-    year: PropTypes.number,
-    image: PropTypes.string,
-    poster: PropTypes.string,
-    cover: PropTypes.string,
-    preview: PropTypes.string,
-    time: PropTypes.string,
-    rating: PropTypes.number,
-    votes: PropTypes.number,
-    director: PropTypes.string,
-    description: PropTypes.string,
-    reviews: PropTypes.arrayOf(
-        PropTypes.shape({
-          rating: PropTypes.number.isRequired,
-          date: PropTypes.string.isRequired,
-          author: PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            name: PropTypes.string.isRequired,
-          }).isRequired,
-          text: PropTypes.string.isRequired
-        }).isRequired
-    ),
-    starring: PropTypes.arrayOf(PropTypes.string),
-    favorite: PropTypes.bool,
-  }),
-  onHeaderClickHandler: PropTypes.func.isRequired,
-  onFilmCardClickHandler: PropTypes.func.isRequired,
-};
-
 
 export default Main;

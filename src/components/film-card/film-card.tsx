@@ -1,9 +1,17 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from "react";
 import {Link} from 'react-router-dom';
+import {FilmType} from "../../types";
 
-const FilmCard = (props) => {
-  const {film, onHeaderClickHandler, handleMouseEnter, handleMouseLeave, onFilmCardClickHandler, renderPlayer} = props;
+interface Props {
+  film: FilmType;
+  handleMouseEnter: (film: FilmType) => void;
+  handleMouseLeave: () => void;
+  onFilmCardClickHandler: (film: FilmType) => void;
+  renderPlayer: (name: string, image: string, preview: string) => React.ReactNode;
+}
+
+const FilmCard: React.FunctionComponent<Props> = (props: Props) => {
+  const {film, handleMouseEnter, handleMouseLeave, onFilmCardClickHandler, renderPlayer} = props;
   const {name, image, preview} = film;
   return (
     <article
@@ -20,30 +28,11 @@ const FilmCard = (props) => {
         {renderPlayer(name, image, preview)}
       </div>
       <h3
-        onClick={onHeaderClickHandler}
         className="small-movie-card__title">
         <Link to={`/films/` + film.id} className="small-movie-card__link" href="movie-page.html">{name}</Link>
       </h3>
     </article>
   );
-};
-
-FilmCard.propTypes = {
-  film: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired,
-    image: PropTypes.string.isRequired,
-    poster: PropTypes.string.isRequired,
-    cover: PropTypes.string.isRequired,
-    preview: PropTypes.string.isRequired,
-  }).isRequired,
-  onHeaderClickHandler: PropTypes.func.isRequired,
-  handleMouseEnter: PropTypes.func.isRequired,
-  handleMouseLeave: PropTypes.func.isRequired,
-  onFilmCardClickHandler: PropTypes.func.isRequired,
-  renderPlayer: PropTypes.func.isRequired,
 };
 
 export default FilmCard;

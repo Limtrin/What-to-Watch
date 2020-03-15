@@ -1,11 +1,11 @@
-import React from "react";
-import renderer from "react-test-renderer";
-import App from "./app.jsx";
-import {filmsList, film} from "../../mocks/test-mocks.js";
+import * as React from "react";
+import * as renderer from "react-test-renderer";
+import App from "./app";
+import {filmsList, film} from "../../mocks/test-mocks";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
-import NameSpace from "../../reducer/name-space.js";
-import {AuthorizationStatus} from "../../reducer/user/user.js";
+import NameSpace from "../../reducer/name-space";
+import {AuthorizationStatus} from "../../reducer/user/user";
 import {BrowserRouter} from "react-router-dom";
 
 const mockStore = configureStore([]);

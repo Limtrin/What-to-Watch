@@ -1,12 +1,20 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Tabs from '../tabs/tabs.jsx';
-import SimilarFilms from '../similar-films/similar-films.jsx';
-import {AuthorizationStatus} from '../../reducer/user/user.js';
+import * as React from "react";
+import Tabs from '../tabs/tabs';
+import SimilarFilms from '../similar-films/similar-films';
+import {AuthorizationStatus} from '../../reducer/user/user';
 import {Link} from 'react-router-dom';
+import {FilmsType, FilmType} from "../../types";
 
-const FilmPage = (props) => {
-  const {film, filmsList, onHeaderClickHandler, onFilmCardClickHandler, authorizationStatus, onFilmFavoriteStatusClickHandler} = props;
+interface Props {
+  authorizationStatus: string;
+  onFilmFavoriteStatusClickHandler: (id: string, status: number) => void;
+  film: FilmType;
+  filmsList: FilmsType;
+  onFilmCardClickHandler: (film: FilmType | null) => void;
+}
+
+const FilmPage: React.FunctionComponent<Props> = (props: Props) => {
+  const {film, filmsList, onFilmCardClickHandler, authorizationStatus, onFilmFavoriteStatusClickHandler} = props;
   return (
     <React.Fragment>
       <section className="movie-card movie-card--full">
@@ -118,7 +126,6 @@ const FilmPage = (props) => {
           <SimilarFilms
             film={film}
             filmsList={filmsList}
-            onHeaderClickHandler={onHeaderClickHandler}
             onFilmCardClickHandler={onFilmCardClickHandler}
           />
         </section>
@@ -142,68 +149,3 @@ const FilmPage = (props) => {
 };
 
 export default FilmPage;
-
-FilmPage.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired,
-  onFilmFavoriteStatusClickHandler: PropTypes.func.isRequired,
-  film: PropTypes.shape({
-    id: PropTypes.string,
-    name: PropTypes.string,
-    genre: PropTypes.string,
-    year: PropTypes.number,
-    image: PropTypes.string,
-    poster: PropTypes.string,
-    cover: PropTypes.string,
-    preview: PropTypes.string,
-    time: PropTypes.string,
-    rating: PropTypes.number,
-    votes: PropTypes.number,
-    director: PropTypes.string,
-    description: PropTypes.string,
-    reviews: PropTypes.arrayOf(
-        PropTypes.shape({
-          rating: PropTypes.number.isRequired,
-          date: PropTypes.string.isRequired,
-          author: PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            name: PropTypes.string.isRequired,
-          }).isRequired,
-          text: PropTypes.string.isRequired
-        }).isRequired
-    ),
-    starring: PropTypes.arrayOf(PropTypes.string),
-    favorite: PropTypes.bool,
-  }),
-  filmsList: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        genre: PropTypes.string.isRequired,
-        year: PropTypes.number.isRequired,
-        image: PropTypes.string.isRequired,
-        poster: PropTypes.string.isRequired,
-        cover: PropTypes.string.isRequired,
-        preview: PropTypes.string.isRequired,
-        time: PropTypes.string.isRequired,
-        rating: PropTypes.number.isRequired,
-        votes: PropTypes.number.isRequired,
-        director: PropTypes.string.isRequired,
-        description: PropTypes.string.isRequired,
-        reviews: PropTypes.arrayOf(
-            PropTypes.shape({
-              rating: PropTypes.number.isRequired,
-              date: PropTypes.string.isRequired,
-              author: PropTypes.shape({
-                id: PropTypes.number.isRequired,
-                name: PropTypes.string.isRequired,
-              }).isRequired,
-              text: PropTypes.string.isRequired
-            }).isRequired
-        ),
-        starring: PropTypes.arrayOf(PropTypes.string).isRequired,
-        favorite: PropTypes.bool,
-      }).isRequired
-  ),
-  onHeaderClickHandler: PropTypes.func,
-  onFilmCardClickHandler: PropTypes.func,
-};

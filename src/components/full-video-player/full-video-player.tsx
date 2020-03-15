@@ -1,7 +1,19 @@
-import React from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
+import {FilmType} from "../../types";
 
-class FullVideoPlayer extends React.PureComponent {
+interface Props {
+  film: FilmType;
+  onItemLeaveHandler: () => void;
+}
+
+interface State {
+  isPlaying: boolean;
+  progress: number;
+  progressValue: number;
+}
+
+class FullVideoPlayer extends React.PureComponent<Props, State> {
+  private _videoRef: React.RefObject<HTMLVideoElement>;
   constructor(props) {
     super(props);
 
@@ -9,7 +21,7 @@ class FullVideoPlayer extends React.PureComponent {
 
     this.state = {
       isPlaying: false,
-      progress: ``,
+      progress: 0,
       progressValue: 0
     };
   }
@@ -133,36 +145,5 @@ class FullVideoPlayer extends React.PureComponent {
     );
   }
 }
-
-FullVideoPlayer.propTypes = {
-  film: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired,
-    image: PropTypes.string.isRequired,
-    poster: PropTypes.string.isRequired,
-    cover: PropTypes.string.isRequired,
-    preview: PropTypes.string.isRequired,
-    time: PropTypes.string.isRequired,
-    rating: PropTypes.number.isRequired,
-    votes: PropTypes.number.isRequired,
-    director: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    reviews: PropTypes.arrayOf(
-        PropTypes.shape({
-          rating: PropTypes.number.isRequired,
-          date: PropTypes.string.isRequired,
-          author: PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            name: PropTypes.string.isRequired,
-          }).isRequired,
-          text: PropTypes.string.isRequired
-        }).isRequired
-    ),
-    starring: PropTypes.arrayOf(PropTypes.string).isRequired,
-  }),
-  onItemLeaveHandler: PropTypes.func.isRequired,
-};
 
 export default FullVideoPlayer;

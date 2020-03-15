@@ -1,12 +1,13 @@
-import React from "react";
-import renderer from "react-test-renderer";
-import Main from "./main.jsx";
+import * as React from "react";
+import * as renderer from "react-test-renderer";
+import Main from "./main";
 import {Provider} from "react-redux";
-import {filmsList, film} from "../../mocks/test-mocks.js";
+import {filmsList, film} from "../../mocks/test-mocks";
 import configureStore from "redux-mock-store";
 import {BrowserRouter} from "react-router-dom";
-import NameSpace from "../../reducer/name-space.js";
-import {AuthorizationStatus} from "../../reducer/user/user.js";
+import NameSpace from "../../reducer/name-space";
+import {AuthorizationStatus} from "../../reducer/user/user";
+import {noop} from "../../utils";
 
 const mockStore = configureStore([]);
 
@@ -26,12 +27,8 @@ it(`Render Main`, () => {
             <Main
               authorizationStatus={AuthorizationStatus.NO_AUTH}
               film={film}
-              onHeaderClickHandler={() => {}}
-              onFilmCardClickHandler={() => {}}
-              onItemEnterHandler={() => {}}
-              onFilmFavoriteStatusClickHandler={() => {}}
-              onItemLeaveHandler={() => {}}
-              activeItem={null}
+              onFilmCardClickHandler={noop}
+              onFilmFavoriteStatusClickHandler={noop}
             />
           </BrowserRouter >
         </Provider>, {

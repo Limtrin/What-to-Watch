@@ -1,8 +1,9 @@
-import React from "react";
+import * as React from "react";
 import {configure, shallow} from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
-import withVideo from "./with-video.js";
-import {film} from "../../mocks/test-mocks.js";
+import * as Adapter from "enzyme-adapter-react-16";
+import withVideo from "./with-video";
+import {film} from "../../mocks/test-mocks";
+import {noop} from "../../utils";
 
 configure({adapter: new Adapter()});
 
@@ -13,10 +14,10 @@ it(`Should change withVideo`, () => {
   const wrapper = shallow(
       <MockComponentWrapped
         film={film}
-        onHeaderClickHandler={() => {}}
-        onFilmCardClickHandler={() => {}}
-        onCardMouseEnterHandler={() => {}}
-        onCardMouseLeaveHandler={() => {}}
+        onHeaderClickHandler={noop}
+        onFilmCardClickHandler={noop}
+        onCardMouseEnterHandler={noop}
+        onCardMouseLeaveHandler={noop}
       />);
 
   wrapper.instance().handleMouseEnter(film);

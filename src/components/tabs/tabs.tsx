@@ -1,7 +1,7 @@
-import React from "react";
-import PropTypes from "prop-types";
-import moment from "moment";
+import * as React from "react";
+import * as moment from "moment";
 import {ratingTransition} from "../../utils";
+import {FilmType} from "../../types";
 
 const TAB_NAME = {
   overview: `Overview`,
@@ -11,7 +11,15 @@ const TAB_NAME = {
 
 const TAB_LIST = [TAB_NAME.overview, TAB_NAME.details, TAB_NAME.reviews];
 
-class Tabs extends React.PureComponent {
+interface Props {
+  film: FilmType;
+}
+
+interface State {
+  currentTab: string;
+}
+
+class Tabs extends React.PureComponent<Props, State> {
   constructor(props) {
     super(props);
 
@@ -126,35 +134,5 @@ class Tabs extends React.PureComponent {
     );
   }
 }
-
-Tabs.propTypes = {
-  film: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired,
-    image: PropTypes.string.isRequired,
-    poster: PropTypes.string.isRequired,
-    cover: PropTypes.string.isRequired,
-    preview: PropTypes.string.isRequired,
-    time: PropTypes.string.isRequired,
-    rating: PropTypes.number.isRequired,
-    votes: PropTypes.number.isRequired,
-    director: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    reviews: PropTypes.arrayOf(
-        PropTypes.shape({
-          rating: PropTypes.number.isRequired,
-          date: PropTypes.string.isRequired,
-          author: PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            name: PropTypes.string.isRequired,
-          }).isRequired,
-          text: PropTypes.string.isRequired
-        }).isRequired
-    ),
-    starring: PropTypes.arrayOf(PropTypes.string).isRequired,
-  }).isRequired,
-};
 
 export default Tabs;

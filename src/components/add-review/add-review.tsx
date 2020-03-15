@@ -1,8 +1,21 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from "react";
 import {Link} from 'react-router-dom';
+import {FilmType} from "../../types";
 
-const AddReview = (props) => {
+interface Props {
+  handleChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  handleRatingChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+  onSubmit: () => void;
+  filmId: string;
+  updateNewCommentText: () => void;
+  textValue: string;
+  sendStatusValue: string;
+  formBlock: boolean;
+  film: FilmType;
+}
+
+const AddReview: React.FunctionComponent<Props> = (props: Props) => {
   const postDisabled = props.textValue.length < 40 || props.textValue.length > 400;
   return (
     <section className="movie-card movie-card--full">
@@ -110,45 +123,6 @@ const AddReview = (props) => {
 
     </section>
   );
-};
-
-AddReview.propTypes = {
-  handleChange: PropTypes.func.isRequired,
-  handleRatingChange: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  filmId: PropTypes.string.isRequired,
-  updateNewCommentText: PropTypes.func.isRequired,
-  textValue: PropTypes.string.isRequired,
-  sendStatusValue: PropTypes.string.isRequired,
-  formBlock: PropTypes.bool.isRequired,
-  film: PropTypes.shape({
-    id: PropTypes.string,
-    name: PropTypes.string,
-    genre: PropTypes.string,
-    year: PropTypes.number,
-    image: PropTypes.string,
-    poster: PropTypes.string,
-    cover: PropTypes.string,
-    preview: PropTypes.string,
-    time: PropTypes.string,
-    rating: PropTypes.number,
-    votes: PropTypes.number,
-    director: PropTypes.string,
-    description: PropTypes.string,
-    reviews: PropTypes.arrayOf(
-        PropTypes.shape({
-          rating: PropTypes.number.isRequired,
-          date: PropTypes.string.isRequired,
-          author: PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            name: PropTypes.string.isRequired,
-          }).isRequired,
-          text: PropTypes.string.isRequired
-        }).isRequired
-    ),
-    starring: PropTypes.arrayOf(PropTypes.string),
-  }),
 };
 
 export default AddReview;

@@ -1,10 +1,16 @@
-import React from "react";
-import PropTypes from "prop-types";
-import {ActionCreator} from '../../reducer/data/data.js';
+import * as React from "react";
+import {ActionCreator} from '../../reducer/data/data';
 import {connect} from "react-redux";
-import {getfilmCurrent, getFilmsCount} from "../../reducer/data/selectors.js";
+import {getfilmCurrent, getFilmsCount} from "../../reducer/data/selectors";
+import {FilmsType} from "../../types";
 
-const ShowMoreButton = ({filmsCurrent, filmsCount, onShowMoreButtonClick}) => {
+interface Props {
+  filmsCurrent: FilmsType;
+  filmsCount: number;
+  onShowMoreButtonClick: () => void;
+}
+
+const ShowMoreButton: React.FunctionComponent<Props> = ({filmsCurrent, filmsCount, onShowMoreButtonClick}: Props) => {
 
   return filmsCurrent.length > filmsCount ? <div className="catalog__more">
     <button
@@ -17,21 +23,6 @@ const ShowMoreButton = ({filmsCurrent, filmsCount, onShowMoreButtonClick}) => {
     >Show more</button>
   </div> : null;
 };
-
-ShowMoreButton.propTypes = {
-  filmsCurrent: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired,
-    image: PropTypes.string.isRequired,
-    poster: PropTypes.string.isRequired,
-    cover: PropTypes.string.isRequired
-  })).isRequired,
-  filmsCount: PropTypes.number,
-  onShowMoreButtonClick: PropTypes.func.isRequired,
-};
-
 
 const mapStateToProps = (state) => ({
   filmsCurrent: getfilmCurrent(state),

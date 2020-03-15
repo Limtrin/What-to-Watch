@@ -1,11 +1,12 @@
-import React from "react";
-import renderer from "react-test-renderer";
-import FilmsList from "./films-list.jsx";
-import {filmsList} from "../../mocks/test-mocks.js";
+import * as React from "react";
+import * as renderer from "react-test-renderer";
+import FilmsList from "./films-list";
+import {filmsList} from "../../mocks/test-mocks";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
-import NameSpace from "../../reducer/name-space.js";
+import NameSpace from "../../reducer/name-space";
 import {BrowserRouter} from "react-router-dom";
+import {noop} from "../../utils";
 
 const mockStore = configureStore([]);
 
@@ -24,10 +25,10 @@ it(`<FilmsList /> should render correctly`, () => {
         <BrowserRouter>
           <Provider store={store}>
             <FilmsList
-              onHeaderClickHandler = {() => {}}
-              onFilmCardClickHandler = {() => {}}
-              onItemEnterHandler = {() => {}}
-              onItemLeaveHandler = {() => {}}
+              onHeaderClickHandler = {noop}
+              onFilmCardClickHandler = {noop}
+              onItemEnterHandler = {noop}
+              onItemLeaveHandler = {noop}
             />
           </Provider>
         </BrowserRouter>

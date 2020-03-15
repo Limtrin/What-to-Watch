@@ -1,8 +1,9 @@
-import React from "react";
-import renderer from "react-test-renderer";
-import FilmCard from "./film-card.jsx";
-import {film} from "../../mocks/test-mocks.js";
+import * as React from "react";
+import * as renderer from "react-test-renderer";
+import FilmCard from "./film-card";
+import {film} from "../../mocks/test-mocks";
 import {BrowserRouter} from "react-router-dom";
+import {noop} from "../../utils";
 
 it(`<FilmCard /> should render correctly`, () => {
   const tree = renderer
@@ -10,11 +11,10 @@ it(`<FilmCard /> should render correctly`, () => {
         <BrowserRouter>
           <FilmCard
             film={film}
-            handleMouseEnter={() => {}}
-            handleMouseLeave={() => {}}
-            onHeaderClickHandler={() => {}}
-            onFilmCardClickHandler={() => {}}
-            renderPlayer={()=>{}}
+            handleMouseEnter={noop}
+            handleMouseLeave={noop}
+            onFilmCardClickHandler={noop}
+            renderPlayer={() => null}
           />
         </BrowserRouter>
         , {

@@ -1,9 +1,25 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import VideoPlayer from '../../components/video-player/video-player.jsx';
+import * as React from "react";
+import {Subtract} from "utility-types";
+import VideoPlayer from '../../components/video-player/video-player';
+
+interface State {
+  isPlaying: boolean;
+}
+
+interface InjectingProps {
+  handleMouseEnter: () => void;
+  handleMouseLeave: () => void;
+  renderPlayer: (name: string, image: string, src: string) => React.ReactNode;
+}
 
 const withVideo = (Component) => {
-  class WithVideo extends React.PureComponent {
+
+  type P = React.ComponentProps<typeof Component>;
+  type T = Subtract<P, InjectingProps>;
+
+  class WithVideo extends React.PureComponent<T, State> {
+    private timeoutOnMouseOver: ReturnType<typeof setTimeout>;
+
     constructor(props) {
       super(props);
 
@@ -51,22 +67,6 @@ const withVideo = (Component) => {
       );
     }
   }
-  WithVideo.propTypes = {
-    film: PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      genre: PropTypes.string.isRequired,
-      year: PropTypes.number.isRequired,
-      image: PropTypes.string.isRequired,
-      poster: PropTypes.string.isRequired,
-      cover: PropTypes.string.isRequired,
-      preview: PropTypes.string.isRequired,
-    }).isRequired,
-    onHeaderClickHandler: PropTypes.func.isRequired,
-    onCardMouseEnterHandler: PropTypes.func.isRequired,
-    onCardMouseLeaveHandler: PropTypes.func.isRequired,
-    onFilmCardClickHandler: PropTypes.func.isRequired
-  };
 
   return WithVideo;
 };
