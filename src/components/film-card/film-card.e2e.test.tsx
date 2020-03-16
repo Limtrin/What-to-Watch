@@ -20,6 +20,7 @@ it(`HandleMouseEnter get correct data`, () => {
         film={film}
         onFilmCardClickHandler={noop}
         renderPlayer={noop}
+        isPlaying={false}
       />
   );
 
@@ -39,6 +40,7 @@ it(`Should film card be pressed`, () => {
         film={film}
         onFilmCardClickHandler={onFilmCardClick}
         renderPlayer={() => null}
+        isPlaying={false}
       />
   );
 

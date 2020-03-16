@@ -10,6 +10,7 @@ interface InjectingProps {
   handleMouseEnter: () => void;
   handleMouseLeave: () => void;
   renderPlayer: (name: string, image: string, src: string) => React.ReactNode;
+  isPlaying: boolean;
 }
 
 const withVideo = (Component) => {
@@ -53,6 +54,7 @@ const withVideo = (Component) => {
           {...this.props}
           handleMouseEnter={this.handleMouseEnter}
           handleMouseLeave={this.handleMouseLeave}
+          isPlaying={this.state.isPlaying}
           renderPlayer={(name, image, src) => {
             return (
               <VideoPlayer

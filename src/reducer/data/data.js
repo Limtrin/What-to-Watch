@@ -75,6 +75,8 @@ const loadComments = (item) => (dispatch, getState, api) => {
   return api.get(`/comments/${item.id}`)
     .then((response) => {
       item.reviews = response.data.map((review) => commentsAdapter(review));
+    })
+    .catch(() => {
     });
 };
 
@@ -88,6 +90,8 @@ const Operation = {
           return adaptedItem;
         });
         dispatch(ActionCreator.loadFilms(adaptedData));
+      })
+      .catch(() => {
       });
   },
   loadPromoFilm: () => (dispatch, getState, api) => {
@@ -95,6 +99,8 @@ const Operation = {
       .then((response) => {
         const adaptedData = adapter(response.data);
         dispatch(ActionCreator.loadPromoFilm(adaptedData));
+      })
+      .catch(() => {
       });
   },
   changeFavoriteStatus: (filmId, status) => (dispatch, getState, api) => {
@@ -103,6 +109,8 @@ const Operation = {
         if (response.status === 200) {
           dispatch(ActionCreator.changeFavoriteStatus(filmId));
         }
+      })
+      .catch(() => {
       });
   },
   loadMyListFilms: () => (dispatch, getState, api) => {
@@ -114,6 +122,8 @@ const Operation = {
           return adaptedItem;
         });
         dispatch(ActionCreator.loadMyListFilms(adaptedData));
+      })
+      .catch(() => {
       });
   },
 };

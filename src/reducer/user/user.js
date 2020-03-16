@@ -37,8 +37,7 @@ const Operation = {
       .then(() => {
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
       })
-      .catch((err) => {
-        throw err;
+      .catch(() => {
       });
   },
 
@@ -50,6 +49,8 @@ const Operation = {
       .then(() => {
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
         window.location = `/`;
+      })
+      .catch(() => {
       });
   },
 };

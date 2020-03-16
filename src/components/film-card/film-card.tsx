@@ -8,10 +8,11 @@ interface Props {
   handleMouseLeave: () => void;
   onFilmCardClickHandler: (film: FilmType) => void;
   renderPlayer: (name: string, image: string, preview: string) => React.ReactNode;
+  isPlaying: boolean;
 }
 
 const FilmCard: React.FunctionComponent<Props> = (props: Props) => {
-  const {film, handleMouseEnter, handleMouseLeave, onFilmCardClickHandler, renderPlayer} = props;
+  const {film, handleMouseEnter, handleMouseLeave, onFilmCardClickHandler, renderPlayer, isPlaying} = props;
   const {name, image, preview} = film;
   return (
     <article
@@ -25,7 +26,7 @@ const FilmCard: React.FunctionComponent<Props> = (props: Props) => {
       }}
     >
       <div className="small-movie-card__image">
-        {renderPlayer(name, image, preview)}
+        {isPlaying ? renderPlayer(name, image, preview) : <img src={image} alt="Pulp Fiction" width="280" height="175"></img>}
       </div>
       <h3
         className="small-movie-card__title">
