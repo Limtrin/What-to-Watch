@@ -26,7 +26,10 @@ const FilmCard: React.FunctionComponent<Props> = (props: Props) => {
       }}
     >
       <div className="small-movie-card__image">
-        {isPlaying ? renderPlayer(name, image, preview) : <img src={image} alt="Pulp Fiction" width="280" height="175"></img>}
+        {isPlaying ?
+          renderPlayer(name, image, preview) :
+          <img src={image} alt="Pulp Fiction" width="280" height="175"></img>
+        }
       </div>
       <h3
         className="small-movie-card__title">
