@@ -13,9 +13,6 @@ class VideoPlayer extends React.PureComponent<Props, {}> {
     super(props);
 
     this._videoRef = React.createRef();
-    this.state = {
-      isPlaying: this.props.isPlaying
-    };
   }
 
   componentDidMount() {
@@ -51,12 +48,7 @@ class VideoPlayer extends React.PureComponent<Props, {}> {
         ref={this._videoRef}
         width="280"
         height="175"
-        onLoadStart={() => this.setState({
-          isPlaying: false
-        })}
-        onPlay={() => this.setState({
-          isPlaying: true,
-        })}
+        autoPlay
         poster={image}
       />
     );

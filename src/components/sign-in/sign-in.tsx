@@ -1,55 +1,19 @@
 import * as React from "react";
-import * as validator from "email-validator";
 
 interface Props {
-  onSubmit: (data: {login: string; password: string}) => void;
-}
-
-interface State {
+  handleSubmit: (login: React.RefObject<HTMLInputElement>, password: React.RefObject<HTMLInputElement>) => void;
   loginError: boolean;
   passwordError: boolean;
 }
 
-class SignIn extends React.PureComponent<Props, State> {
+class SignIn extends React.PureComponent<Props, {}> {
   private loginRef: React.RefObject<HTMLInputElement>;
   private passwordRef: React.RefObject<HTMLInputElement>;
   constructor(props) {
     super(props);
 
-    this.state = {
-      loginError: false,
-      passwordError: false,
-    };
-
     this.loginRef = React.createRef();
     this.passwordRef = React.createRef();
-
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleSubmit(evt) {
-    const {onSubmit} = this.props;
-
-    evt.preventDefault();
-
-    if (!validator.validate(this.loginRef.current.value)) {
-      this.setState({loginError: true});
-      return;
-    } else {
-      this.setState({loginError: false});
-    }
-
-    if (this.passwordRef.current.value.length === 0) {
-      this.setState({passwordError: true});
-      return;
-    } else {
-      this.setState({passwordError: false});
-    }
-
-    onSubmit({
-      login: this.loginRef.current.value,
-      password: this.passwordRef.current.value,
-    });
   }
 
   render() {
@@ -68,13 +32,16 @@ class SignIn extends React.PureComponent<Props, State> {
         </header>
 
         <div className="sign-in user-page__content">
-          <form action="" className="sign-in__form" onSubmit={this.handleSubmit}>
+          <form action="" className="sign-in__form" onSubmit={(evt) => {
+            evt.preventDefault();
+            this.props.handleSubmit(this.loginRef, this.passwordRef);
+          }}>
             <div className="sign-in__message">
-              {this.state.passwordError && <p>We can’t recognize this email <br/> and password combination. Please try again.</p>}
-              {this.state.loginError && <p>Please enter a valid email address</p>}
+              {this.props.passwordError && <p>We can’t recognize this email <br/> and password combination. Please try again.</p>}
+              {this.props.loginError && <p>Please enter a valid email address</p>}
             </div>
             <div className="sign-in__fields">
-              <div className={`sign-in__field ${this.state.loginError ? `sign-in__field--error` : null}`}>
+              <div className={`sign-in__field ${this.props.loginError ? `sign-in__field--error` : null}`}>
                 <input className="sign-in__input" type="email" placeholder="Email address" name="user-email" id="user-email" ref={this.loginRef} />
                 <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
               </div>

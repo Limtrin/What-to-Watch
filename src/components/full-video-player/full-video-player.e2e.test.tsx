@@ -10,22 +10,20 @@ Enzyme.configure({
   adapter: new Adapter()
 });
 
-it(`Should change state isPlaying`, () => {
+it(`Click by Play button calls callback`, () => {
+  const handlePlayButtonClick = jest.fn();
   const videoPlayer = mount(
       <FullVideoPlayer
         film={film}
         onItemLeaveHandler={noop}
+        isPlaying={false}
+        timer={`0`}
+        progressBar={{left: `14px`}}
+        onPlayClickHandler={handlePlayButtonClick}
+        onFullScreenClickHandler={noop}
+        progressValue={`0`}
       />);
 
-  window.HTMLMediaElement.prototype.play = noop;
-
-  const {_videoRef} = videoPlayer.instance();
-
-  jest.spyOn(_videoRef.current, `play`);
-
-  videoPlayer.instance().componentDidMount();
-
-  videoPlayer.find(`button.player__play`).simulate(`click`);
-
-  expect(videoPlayer.state(`isPlaying`)).toBe(true);
+  videoPlayer.find(`.player__play`).simulate(`click`);
+  expect(handlePlayButtonClick).toHaveBeenCalledTimes(1);
 });

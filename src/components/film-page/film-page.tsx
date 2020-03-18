@@ -4,6 +4,9 @@ import SimilarFilms from '../similar-films/similar-films';
 import {AuthorizationStatus} from '../../reducer/user/user';
 import {Link} from 'react-router-dom';
 import {FilmsType, FilmType} from "../../types";
+import withActiveItem from "../../hocs/with-active-item/with-active-item";
+
+const TabsWrapped = withActiveItem(Tabs);
 
 interface Props {
   authorizationStatus: string;
@@ -112,7 +115,7 @@ const FilmPage: React.FunctionComponent<Props> = (props: Props) => {
               <img src={film.poster} alt={film.name} width="218" height="327" />
             </div>
 
-            <Tabs
+            <TabsWrapped
               film={film}
             />
 

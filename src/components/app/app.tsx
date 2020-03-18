@@ -17,9 +17,13 @@ import {connect} from "react-redux";
 import {getAuthorizationStatus} from "../../reducer/user/selectors";
 import {getPromFilm, getFilmsList} from "../../reducer/data/selectors";
 import {FilmType, FilmsType} from "../../types";
+import withErrorsItem from "../../hocs/with-errors/with-errors";
+import withFullVideo from "../../hocs/with-full-video/with-full-video";
 
 const MyListWrapped = withActiveItem(MyList);
 const AddReviewWrapped = withRating(AddReview);
+const SignInWrapped = withErrorsItem(SignIn);
+const FillVideoWrapper = withFullVideo(FullVideoPlayer);
 
 interface Props {
   authorizationStatus: string;
@@ -30,21 +34,18 @@ interface Props {
   filmsList: FilmsType;
   loading: () => void;
   onItemLeaveHandler: () => void;
+  onItemEnterHandler: (film: FilmType) => void;
 }
 
 class App extends React.PureComponent<Props, {}> {
   constructor(props) {
     super(props);
-    this.state = {
-      chosenFilm: null,
-      currentFilm: null
-    };
 
     this._onFilmCardClickHandler = this._onFilmCardClickHandler.bind(this);
   }
 
   _onFilmCardClickHandler(film) {
-    this.setState({chosenFilm: film});
+    this.props.onItemEnterHandler(film);
     history.push(`/films/${film.id}`);
   }
 
@@ -78,7 +79,7 @@ class App extends React.PureComponent<Props, {}> {
           <Route exact path="/login" render={(props) => {
             return (authorizationStatus === AuthorizationStatus.AUTH) ?
               props.history.goBack() :
-              <SignIn onSubmit={login} />;
+              <SignInWrapped onSubmit={login} />;
           }} />
           <Route exact path="/films/:id" render={(props) => {
             const chosenFilm = filmsList.find((item) => item.id === props.match.params.id);
@@ -92,7 +93,7 @@ class App extends React.PureComponent<Props, {}> {
           }} />
           <Route exact path="/films/:id/player" render={(props) => {
             const chosenFilm = filmsList.find((item) => item.id === props.match.params.id);
-            return chosenFilm && <FullVideoPlayer
+            return chosenFilm && <FillVideoWrapper
               film={chosenFilm}
               onItemLeaveHandler={onItemLeaveHandler}
             />;

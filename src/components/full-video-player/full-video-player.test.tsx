@@ -10,7 +10,15 @@ it(`<FullVideoPlayer /> should render correctly`, () => {
         <FullVideoPlayer
           film={film}
           onItemLeaveHandler={noop}
-        />, {
+          isPlaying={false}
+          timer={`0`}
+          progressBar={{left: `14px`}}
+          onPlayClickHandler={noop}
+          onFullScreenClickHandler={noop}
+          progressValue={`0`}
+        >
+          <video />
+        </FullVideoPlayer>, {
           createNodeMock: () => {
             return {};
           }

@@ -3,7 +3,7 @@ import {FilmType} from "../../types";
 import {Subtract} from "utility-types";
 
 interface State {
-  activeItem: FilmType | null;
+  activeItem: FilmType | string | null;
 }
 
 interface InjectingProps {

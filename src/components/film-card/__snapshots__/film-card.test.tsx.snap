@@ -11,7 +11,7 @@ exports[`<FilmCard /> should render correctly 1`] = `
     className="small-movie-card__image"
   >
     <img
-      alt="Pulp Fiction"
+      alt="War of the Worlds"
       height="175"
       src="img/war-of-the-worlds.jpg"
       width="280"

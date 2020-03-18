@@ -3,7 +3,7 @@ import * as moment from "moment";
 import {ratingTransition} from "../../utils";
 import {FilmType} from "../../types";
 
-const TAB_NAME = {
+export const TAB_NAME = {
   overview: `Overview`,
   details: `Details`,
   reviews: `Reviews`
@@ -13,27 +13,20 @@ const TAB_LIST = [TAB_NAME.overview, TAB_NAME.details, TAB_NAME.reviews];
 
 interface Props {
   film: FilmType;
+  onItemLeaveHandler: () => void;
+  onItemEnterHandler: (item: string) => void;
+  activeItem: string;
 }
 
-interface State {
-  currentTab: string;
-}
-
-class Tabs extends React.PureComponent<Props, State> {
+class Tabs extends React.PureComponent<Props, {}> {
   constructor(props) {
     super(props);
 
-    this.state = {
-      currentTab: TAB_NAME.overview
-    };
-  }
-
-  _onNavChangeHandler(navItem) {
-    this.setState({currentTab: navItem});
+    this.props.onItemEnterHandler(TAB_NAME.overview);
   }
 
   render() {
-    const {currentTab} = this.state;
+    const {activeItem, onItemEnterHandler} = this.props;
     const {film} = this.props;
     return (
       <div className="movie-card__desc">
@@ -41,13 +34,13 @@ class Tabs extends React.PureComponent<Props, State> {
           <ul className="movie-nav__list">
             {TAB_LIST.map((navItem) => {
               return (
-                <li key={navItem} className={`movie-nav__item ` + (navItem === this.state.currentTab ? `movie-nav__item--active` : ``)}>
+                <li key={navItem} className={`movie-nav__item ` + (navItem === activeItem ? `movie-nav__item--active` : ``)}>
                   <a
                     href="#"
                     className="movie-nav__link"
                     onClick={(evt) => {
                       evt.preventDefault();
-                      this._onNavChangeHandler(navItem);
+                      onItemEnterHandler(navItem);
                     }}
                   >
                     {navItem}
@@ -58,7 +51,7 @@ class Tabs extends React.PureComponent<Props, State> {
           </ul>
         </nav>
 
-        {currentTab === TAB_NAME.overview && (
+        {activeItem === TAB_NAME.overview && (
           <>
             <div className="movie-rating">
               <div className="movie-rating__score">{film.rating}</div>
@@ -75,7 +68,7 @@ class Tabs extends React.PureComponent<Props, State> {
           </>
         )}
 
-        {currentTab === TAB_NAME.details && (
+        {activeItem === TAB_NAME.details && (
           <div className="movie-card__text movie-card__row">
             <div className="movie-card__text-col">
               <p className="movie-card__details-item">
@@ -111,7 +104,7 @@ class Tabs extends React.PureComponent<Props, State> {
           </div>
         )}
 
-        {currentTab === TAB_NAME.reviews && (<div className="movie-card__reviews movie-card__row">
+        {activeItem === TAB_NAME.reviews && (<div className="movie-card__reviews movie-card__row">
           <div className="movie-card__reviews-col">
             {film.reviews.map((review) => (
               <div className="review" key={review.id}>

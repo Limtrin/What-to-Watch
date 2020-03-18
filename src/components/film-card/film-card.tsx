@@ -28,12 +28,12 @@ const FilmCard: React.FunctionComponent<Props> = (props: Props) => {
       <div className="small-movie-card__image">
         {isPlaying ?
           renderPlayer(name, image, preview) :
-          <img src={image} alt="Pulp Fiction" width="280" height="175"></img>
+          <img src={image} alt={name} width="280" height="175"></img>
         }
       </div>
       <h3
         className="small-movie-card__title">
-        <Link to={`/films/` + film.id} className="small-movie-card__link" href="movie-page.html">{name}</Link>
+        <Link to={`/films/` + film.id} className="small-movie-card__link">{name}</Link>
       </h3>
     </article>
   );
