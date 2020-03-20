@@ -12,11 +12,11 @@ export const createAPI = (onUnauthorized) => {
     withCredentials: true,
   });
 
-  const onSuccess = (response) => {
+  const returnSuccess = (response) => {
     return response;
   };
 
-  const onFail = (err) => {
+  const returnFail = (err) => {
     const {response} = err;
 
     if (response.status === Error.UNAUTHORIZED) {
@@ -25,7 +25,7 @@ export const createAPI = (onUnauthorized) => {
     }
   };
 
-  api.interceptors.response.use(onSuccess, onFail);
+  api.interceptors.response.use(returnSuccess, returnFail);
 
   return api;
 };

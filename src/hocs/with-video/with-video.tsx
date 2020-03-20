@@ -52,8 +52,8 @@ const withVideo = (Component) => {
       return (
         <Component
           {...this.props}
-          handleMouseEnter={this.handleMouseEnter}
-          handleMouseLeave={this.handleMouseLeave}
+          onHandleMouseEnter={this.handleMouseEnter}
+          onHandleMouseLeave={this.handleMouseLeave}
           isPlaying={this.state.isPlaying}
           renderPlayer={(name, image, src) => {
             return (

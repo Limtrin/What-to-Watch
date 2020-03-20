@@ -1,8 +1,9 @@
 import * as React from "react";
-import {FilmType} from "../../types";
+import {FilmInterface} from "../../types";
+import history from "../../history";
 
 interface Props {
-  film: FilmType;
+  film: FilmInterface;
   onItemLeaveHandler: () => void;
   isPlaying: boolean;
   timer: string;
@@ -23,7 +24,7 @@ class FullVideoPlayer extends React.PureComponent<Props, {}> {
         <button
           onClick={() => {
             onItemLeaveHandler();
-            history.back();
+            history.goBack();
           }}
           type="button"
           className="player__exit"

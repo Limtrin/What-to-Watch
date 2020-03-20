@@ -15,8 +15,8 @@ it(`HandleMouseEnter get correct data`, () => {
 
   const filmCard = shallow(
       <FilmCard
-        handleMouseEnter={onCardMouseEnter}
-        handleMouseLeave={noop}
+        onHandleMouseEnter={onCardMouseEnter}
+        onHandleMouseLeave={noop}
         film={film}
         onFilmCardClickHandler={noop}
         renderPlayer={noop}
@@ -35,8 +35,8 @@ it(`Should film card be pressed`, () => {
 
   const main = shallow(
       <FilmCard
-        handleMouseEnter={noop}
-        handleMouseLeave={noop}
+        onHandleMouseEnter={noop}
+        onHandleMouseLeave={noop}
         film={film}
         onFilmCardClickHandler={onFilmCardClick}
         renderPlayer={() => null}

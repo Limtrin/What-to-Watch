@@ -1,20 +1,20 @@
 
-export interface AuthorType {
+export interface AuthorInterface {
     id: number,
     name: string,
 }
 
 
 
-export interface ReviewsType {
+export interface ReviewsInterface {
   id: number,
   rating: number,
   date: string,
-  author: AuthorType,
+  author: AuthorInterface,
   text: string,
 }
 
-export interface FilmType {
+export interface FilmInterface {
   id: string,
   name: string,
   genre: string,
@@ -28,9 +28,9 @@ export interface FilmType {
   votes: number,
   director: string,
   description: string,
-  reviews: ReviewsType[],
+  reviews: ReviewsInterface[],
   starring: string[],
   favorite: boolean,
 }
 
-export type FilmsType = FilmType[]
+export type FilmsInterface = FilmInterface[]

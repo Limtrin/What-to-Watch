@@ -14,3 +14,7 @@ export const getSendStatus = (state) => {
 export const getFormBlock = (state) => {
   return state[NAME_SPACE].formBlock;
 };
+
+export const getRating = (state) => {
+  return state[NAME_SPACE].rating;
+};

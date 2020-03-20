@@ -201,7 +201,7 @@ exports[`Render AddReview 1`] = `
           id="review-text"
           name="review-text"
           onChange={[Function]}
-          placeholder="Review text"
+          placeholder="Введите сообщение от 50 до 400 символов"
           value=""
         />
         <div

@@ -9,9 +9,8 @@ it(`Should <Tabs/> component render`, () => {
   const tree = renderer
     .create(
         <Tabs
-          onItemLeaveHandler={noop}
-          onItemEnterHandler={noop}
-          activeItem={TAB_NAME.overview}
+          onActiveTabHandler={noop}
+          activeTab={TAB_NAME.overview}
           film={film}
         />)
       .toJSON();

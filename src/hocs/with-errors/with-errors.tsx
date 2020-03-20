@@ -51,7 +51,7 @@ const withErrorsItem = (Component) => {
       return (
         <Component
           {...this.props}
-          handleSubmit={this.handleSubmit}
+          onHandleSubmit={this.handleSubmit}
           loginError={this.state.loginError}
           passwordError={this.state.passwordError}
         />

@@ -5,16 +5,16 @@ import ShowMoreButton from "../show-more-button/show-more-button";
 import withActiveItem from "../../hocs/with-active-item/with-active-item";
 import {AuthorizationStatus} from "../../reducer/user/user";
 import {Link} from "react-router-dom";
-import {FilmType} from "../../types";
+import {FilmInterface} from "../../types";
 
 const FilmsListWrapped = withActiveItem(FilmsList);
 const GenresListWrapped = withActiveItem(GenresList);
 
 interface Props {
   authorizationStatus: string;
-  onFilmFavoriteStatusClickHandler: (id: string, status: number) => void;
-  film: FilmType;
-  onFilmCardClickHandler: (film: FilmType | null) => void;
+  onFilmFavoriteStatusClickHandler: (film: string, status: number) => void;
+  film: FilmInterface;
+  onFilmCardClickHandler: (film: FilmInterface | null) => void;
 }
 
 const Main: React.FunctionComponent<Props> = (props: Props) => {
@@ -68,7 +68,7 @@ const Main: React.FunctionComponent<Props> = (props: Props) => {
 
               <div className="movie-card__buttons">
                 <Link
-                  to={`/films/${film.id}/player`}
+                  to={`/player/${film.id}`}
                   className="btn btn--play movie-card__button"
                   type="button"
                 >

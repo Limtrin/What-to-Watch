@@ -1,7 +1,8 @@
 import * as React from "react";
+import {Link} from 'react-router-dom';
 
 interface Props {
-  handleSubmit: (login: React.RefObject<HTMLInputElement>, password: React.RefObject<HTMLInputElement>) => void;
+  onHandleSubmit: (login: React.RefObject<HTMLInputElement>, password: React.RefObject<HTMLInputElement>) => void;
   loginError: boolean;
   passwordError: boolean;
 }
@@ -34,7 +35,7 @@ class SignIn extends React.PureComponent<Props, {}> {
         <div className="sign-in user-page__content">
           <form action="" className="sign-in__form" onSubmit={(evt) => {
             evt.preventDefault();
-            this.props.handleSubmit(this.loginRef, this.passwordRef);
+            this.props.onHandleSubmit(this.loginRef, this.passwordRef);
           }}>
             <div className="sign-in__message">
               {this.props.passwordError && <p>We can’t recognize this email <br/> and password combination. Please try again.</p>}
@@ -58,11 +59,11 @@ class SignIn extends React.PureComponent<Props, {}> {
 
         <footer className="page-footer">
           <div className="logo">
-            <a href="main.html" className="logo__link logo__link--light">
+            <Link to="/" className="logo__link logo__link--light">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
-            </a>
+            </Link>
           </div>
 
           <div className="copyright">

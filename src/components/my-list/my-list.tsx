@@ -5,19 +5,19 @@ import FilmCard from '../film-card/film-card';
 import {getMyListFilms} from "../../reducer/data/selectors";
 import {Operation as DataOperation} from "../../reducer/data/data";
 import withVideo from '../../hocs/with-video/with-video';
-import {FilmsType, FilmType} from "../../types";
+import {FilmsInterface, FilmInterface} from "../../types";
 
 const FilmCardWrapper = withVideo(FilmCard);
 
 interface Props {
   onFilmFavoriteStatusClickHandler: () => void;
-  filmsList: FilmsType;
+  filmsList: FilmsInterface;
   onHeaderClickHandler: () => void;
   onFilmCardClickHandler: () => void;
   onItemEnterHandler: () => void;
   onItemLeaveHandler: () => void;
   loading: () => void;
-  activeItem: FilmType;
+  activeItem: FilmInterface | null;
 }
 
 class MyList extends React.PureComponent<Props> {

@@ -98,7 +98,7 @@ Array [
           >
             <a
               className="btn btn--play movie-card__button"
-              href="/films/war-of-the-worlds/player"
+              href="/player/war-of-the-worlds"
               onClick={[Function]}
               type="button"
             >

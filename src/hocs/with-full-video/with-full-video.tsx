@@ -1,8 +1,8 @@
 import * as React from "react";
-import {FilmType} from "../../types";
+import {FilmInterface} from "../../types";
 
 interface Props {
-  film: FilmType;
+  film: FilmInterface;
   onItemLeaveHandler: () => void;
 }
 
@@ -26,28 +26,8 @@ const withFullVideo = (Component) => {
         progressValue: 0
       };
 
-      this.onPlayClickHandler = this.onPlayClickHandler.bind(this);
-      this.onFullScreenClickHandler = this.onFullScreenClickHandler.bind(this);
-    }
-
-    play() {
-      const video = this._videoRef.current;
-
-      if (this.state.isPlaying) {
-        video.play();
-      } else {
-        video.pause();
-      }
-    }
-
-    onPlayClickHandler() {
-      this.setState({isPlaying: !this.state.isPlaying}, this.play);
-    }
-
-
-    onFullScreenClickHandler() {
-      const video = this._videoRef.current;
-      video.requestFullscreen();
+      this.playClickHandler = this.playClickHandler.bind(this);
+      this.fullScreenClickHandler = this.fullScreenClickHandler.bind(this);
     }
 
     componentDidMount() {
@@ -87,6 +67,25 @@ const withFullVideo = (Component) => {
       video.onpause = null;
     }
 
+    play() {
+      const video = this._videoRef.current;
+
+      if (this.state.isPlaying) {
+        video.play();
+      } else {
+        video.pause();
+      }
+    }
+
+    playClickHandler() {
+      this.setState({isPlaying: !this.state.isPlaying}, this.play);
+    }
+
+    fullScreenClickHandler() {
+      const video = this._videoRef.current;
+      video.requestFullscreen();
+    }
+
     render() {
       const timer = this.state.progress ? `0:00:${(this.state.progress < 10) ? `0` + this.state.progress : this.state.progress}` : `0:00:00`;
       const progressBar = {
@@ -100,8 +99,8 @@ const withFullVideo = (Component) => {
           progressBar={progressBar}
           timer={timer}
           isPlaying={this.state.isPlaying}
-          onFullScreenClickHandler={this.onFullScreenClickHandler}
-          onPlayClickHandler={this.onPlayClickHandler}
+          onFullScreenClickHandler={this.fullScreenClickHandler}
+          onPlayClickHandler={this.playClickHandler}
           progressValue={progressValue}
         >
           <video

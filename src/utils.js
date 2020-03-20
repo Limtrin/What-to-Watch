@@ -25,5 +25,5 @@ export const ratingTransition = (rating) => {
 };
 
 export const noop = () => {
-  // do nothing
+  // заглушка для тестов
 };

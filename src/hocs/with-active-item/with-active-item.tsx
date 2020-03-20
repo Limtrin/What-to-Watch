@@ -1,15 +1,15 @@
 import * as React from "react";
-import {FilmType} from "../../types";
+import {FilmInterface} from "../../types";
 import {Subtract} from "utility-types";
 
 interface State {
-  activeItem: FilmType | string | null;
+  activeItem: FilmInterface | string | null;
 }
 
 interface InjectingProps {
-  onItemLeaveHandler: () => void;
-  onItemEnterHandler: () => void;
-  activeItem: () => void;
+  itemLeaveHandler: () => void;
+  itemEnterHandler: () => void;
+  activeItem: FilmInterface | string | null;
 }
 
 const withActiveItem = (Component) => {
@@ -21,17 +21,17 @@ const withActiveItem = (Component) => {
     constructor(props) {
       super(props);
       this.state = {activeItem: null};
-      this.onItemEnterHandler = this.onItemEnterHandler.bind(this);
-      this.onItemLeaveHandler = this.onItemLeaveHandler.bind(this);
+      this.itemEnterHandler = this.itemEnterHandler.bind(this);
+      this.itemLeaveHandler = this.itemLeaveHandler.bind(this);
     }
 
-    onItemEnterHandler(item) {
+    itemEnterHandler(item) {
       this.setState({
         activeItem: item
       });
     }
 
-    onItemLeaveHandler() {
+    itemLeaveHandler() {
       this.setState({
         activeItem: null
       });
@@ -42,8 +42,8 @@ const withActiveItem = (Component) => {
         <Component
           {...this.props}
           activeItem={this.state.activeItem}
-          onItemEnterHandler={this.onItemEnterHandler}
-          onItemLeaveHandler={this.onItemLeaveHandler}
+          onItemEnterHandler={this.itemEnterHandler}
+          onItemLeaveHandler={this.itemLeaveHandler}
         >
 
         </Component>

@@ -1,26 +1,26 @@
 import * as React from "react";
 import {Link} from 'react-router-dom';
-import {FilmType} from "../../types";
+import {FilmInterface} from "../../types";
 
 interface Props {
-  film: FilmType;
-  handleMouseEnter: (film: FilmType) => void;
-  handleMouseLeave: () => void;
-  onFilmCardClickHandler: (film: FilmType) => void;
+  film: FilmInterface;
+  onHandleMouseEnter: (film: FilmInterface) => void;
+  onHandleMouseLeave: () => void;
+  onFilmCardClickHandler: (film: FilmInterface) => void;
   renderPlayer: (name: string, image: string, preview: string) => React.ReactNode;
   isPlaying: boolean;
 }
 
 const FilmCard: React.FunctionComponent<Props> = (props: Props) => {
-  const {film, handleMouseEnter, handleMouseLeave, onFilmCardClickHandler, renderPlayer, isPlaying} = props;
+  const {film, onHandleMouseEnter, onHandleMouseLeave, onFilmCardClickHandler, renderPlayer, isPlaying} = props;
   const {name, image, preview} = film;
   return (
     <article
       className="small-movie-card catalog__movies-card"
       onMouseEnter={() => {
-        handleMouseEnter(film);
+        onHandleMouseEnter(film);
       }}
-      onMouseLeave={handleMouseLeave}
+      onMouseLeave={onHandleMouseLeave}
       onClick={() => {
         onFilmCardClickHandler(film);
       }}

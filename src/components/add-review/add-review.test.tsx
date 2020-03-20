@@ -4,24 +4,40 @@ import AddReview from "./add-review";
 import {film} from "../../mocks/test-mocks";
 import {noop} from "../../utils";
 import {BrowserRouter} from "react-router-dom";
+import {Provider} from "react-redux";
+import configureStore from "redux-mock-store";
+import NameSpace from "../../reducer/name-space";
+
+const mockStore = configureStore([]);
 
 it(`Render AddReview`, () => {
+  const store = mockStore({
+    [NameSpace.REVIEW]: {
+      text: ``,
+      sendStatusMessage: ``,
+      formBlock: false,
+      rating: 5,
+    }
+  });
+
   const addReview = renderer
     .create(
-        <BrowserRouter>
-          <AddReview
-            filmId={`1`}
-            onSubmit={noop}
-            film={film}
-            handleChange={noop}
-            handleRatingChange={noop}
-            handleSubmit={noop}
-            formBlock={true}
-            updateNewCommentText={noop}
-            textValue={``}
-            sendStatusValue={``}
-          />
-        </BrowserRouter>, {
+        <Provider store={store}>
+          <BrowserRouter>
+            <AddReview
+              filmId={`1`}
+              onSubmit={noop}
+              film={film}
+              formBlock={true}
+              updateNewCommentText={noop}
+              textValue={``}
+              sendStatusValue={``}
+              changeSendStatusText={noop}
+              rating={5}
+              changeRating={noop}
+            />
+          </BrowserRouter>
+        </Provider>, {
           createNodeMock: () => {
             return {};
           }

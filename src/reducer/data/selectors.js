@@ -15,8 +15,12 @@ export const getGenres = (state) => {
   return state[NAME_SPACE].genre;
 };
 
-export const getfilmCurrent = (state) => {
-  return state[NAME_SPACE].filmsCurrent;
+export const getfilmsCurrent = (state) => {
+  const genre = state[NAME_SPACE].genre;
+  if (genre === `All genres`) {
+    return state[NAME_SPACE].filmsList;
+  }
+  return state[NAME_SPACE].filmsList.filter((film) => film.genre === genre);
 };
 
 export const getShowedFilms = (state) => {

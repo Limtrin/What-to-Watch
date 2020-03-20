@@ -3,17 +3,17 @@ import Tabs from '../tabs/tabs';
 import SimilarFilms from '../similar-films/similar-films';
 import {AuthorizationStatus} from '../../reducer/user/user';
 import {Link} from 'react-router-dom';
-import {FilmsType, FilmType} from "../../types";
-import withActiveItem from "../../hocs/with-active-item/with-active-item";
+import {FilmsInterface, FilmInterface} from "../../types";
+import withActiveTab from "../../hocs/with-active-tab/with-active-tab";
 
-const TabsWrapped = withActiveItem(Tabs);
+const TabsWrapped = withActiveTab(Tabs);
 
 interface Props {
   authorizationStatus: string;
-  onFilmFavoriteStatusClickHandler: (id: string, status: number) => void;
-  film: FilmType;
-  filmsList: FilmsType;
-  onFilmCardClickHandler: (film: FilmType | null) => void;
+  onFilmFavoriteStatusClickHandler: (film: string, status: number) => void;
+  film: FilmInterface;
+  filmsList: FilmsInterface;
+  onFilmCardClickHandler: (film: FilmInterface | null) => void;
 }
 
 const FilmPage: React.FunctionComponent<Props> = (props: Props) => {
@@ -60,7 +60,7 @@ const FilmPage: React.FunctionComponent<Props> = (props: Props) => {
 
               <div className="movie-card__buttons">
                 <Link
-                  to={`/films/${film.id}/player`}
+                  to={`/player/${film.id}`}
                   className="btn btn--play movie-card__button"
                   type="button"
                 >
@@ -135,11 +135,11 @@ const FilmPage: React.FunctionComponent<Props> = (props: Props) => {
 
         <footer className="page-footer">
           <div className="logo">
-            <a href="main.html" className="logo__link logo__link--light">
+            <Link to="/" className="logo__link logo__link--light">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
-            </a>
+            </Link>
           </div>
 
           <div className="copyright">

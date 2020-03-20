@@ -1,7 +1,7 @@
 import * as React from "react";
 import Main from "../main/main";
 import FilmPage from "../film-page/film-page";
-import {Route, Switch, Router} from "react-router-dom";
+import {Route, Switch, Router, Redirect} from "react-router-dom";
 import FullVideoPlayer from "../full-video-player/full-video-player";
 import withActiveItem from "../../hocs/with-active-item/with-active-item";
 import {Operation as UserOperation, AuthorizationStatus} from "../../reducer/user/user";
@@ -9,19 +9,17 @@ import {Operation as CommentsOperation} from "../../reducer/review/review";
 import {Operation as DataOperation} from "../../reducer/data/data";
 import SignIn from "../sign-in/sign-in";
 import AddReview from "../add-review/add-review";
-import withRating from "../../hocs/with-rating/with-rating";
 import history from "../../history";
 import MyList from "../my-list/my-list";
 import PrivateRoute from "../private-route/private-route";
 import {connect} from "react-redux";
 import {getAuthorizationStatus} from "../../reducer/user/selectors";
 import {getPromFilm, getFilmsList} from "../../reducer/data/selectors";
-import {FilmType, FilmsType} from "../../types";
+import {FilmInterface, FilmsInterface} from "../../types";
 import withErrorsItem from "../../hocs/with-errors/with-errors";
 import withFullVideo from "../../hocs/with-full-video/with-full-video";
 
 const MyListWrapped = withActiveItem(MyList);
-const AddReviewWrapped = withRating(AddReview);
 const SignInWrapped = withErrorsItem(SignIn);
 const FillVideoWrapper = withFullVideo(FullVideoPlayer);
 
@@ -30,21 +28,21 @@ interface Props {
   changeFavoriteStatus: () => void;
   sendComment: () => void;
   login: () => void;
-  film: FilmType;
-  filmsList: FilmsType;
+  film: FilmInterface;
+  filmsList: FilmsInterface;
   loading: () => void;
   onItemLeaveHandler: () => void;
-  onItemEnterHandler: (film: FilmType) => void;
+  onItemEnterHandler: (film: FilmInterface) => void;
 }
 
 class App extends React.PureComponent<Props, {}> {
   constructor(props) {
     super(props);
 
-    this._onFilmCardClickHandler = this._onFilmCardClickHandler.bind(this);
+    this.filmCardClickHandler = this.filmCardClickHandler.bind(this);
   }
 
-  _onFilmCardClickHandler(film) {
+  filmCardClickHandler(film) {
     this.props.onItemEnterHandler(film);
     history.push(`/films/${film.id}`);
   }
@@ -58,7 +56,7 @@ class App extends React.PureComponent<Props, {}> {
             <Main
               authorizationStatus={authorizationStatus}
               film={film}
-              onFilmCardClickHandler={this._onFilmCardClickHandler}
+              onFilmCardClickHandler={this.filmCardClickHandler}
               onFilmFavoriteStatusClickHandler={changeFavoriteStatus}
             />
           </Route>
@@ -70,28 +68,30 @@ class App extends React.PureComponent<Props, {}> {
                 <MyListWrapped
                   authorizationStatus={authorizationStatus}
                   film={film}
-                  onFilmCardClickHandler={this._onFilmCardClickHandler}
+                  onFilmCardClickHandler={this.filmCardClickHandler}
                   onFilmFavoriteStatusClickHandler={changeFavoriteStatus}
                 />
               );
             }}
           />
-          <Route exact path="/login" render={(props) => {
+          <Route exact path="/login" render={() => {
             return (authorizationStatus === AuthorizationStatus.AUTH) ?
-              props.history.goBack() :
+              <Redirect to="/" /> :
               <SignInWrapped onSubmit={login} />;
           }} />
           <Route exact path="/films/:id" render={(props) => {
             const chosenFilm = filmsList.find((item) => item.id === props.match.params.id);
-            return chosenFilm && <FilmPage
-              authorizationStatus={authorizationStatus}
-              film={chosenFilm}
-              filmsList={filmsList}
-              onFilmCardClickHandler={this._onFilmCardClickHandler}
-              onFilmFavoriteStatusClickHandler={changeFavoriteStatus}
-            />;
+            return chosenFilm && (
+              <FilmPage
+                authorizationStatus={authorizationStatus}
+                film={chosenFilm}
+                filmsList={filmsList}
+                onFilmCardClickHandler={this.filmCardClickHandler}
+                onFilmFavoriteStatusClickHandler={changeFavoriteStatus}
+              />
+            );
           }} />
-          <Route exact path="/films/:id/player" render={(props) => {
+          <Route exact path="/player/:id" render={(props) => {
             const chosenFilm = filmsList.find((item) => item.id === props.match.params.id);
             return chosenFilm && <FillVideoWrapper
               film={chosenFilm}
@@ -104,7 +104,7 @@ class App extends React.PureComponent<Props, {}> {
             render={(props) => {
               const chosenFilm = filmsList.find((item) => item.id === props.match.params.id);
               return chosenFilm && (
-                <AddReviewWrapped
+                <AddReview
                   filmId={props.match.params.id}
                   onSubmit={sendComment}
                   film={chosenFilm}
@@ -118,18 +118,20 @@ class App extends React.PureComponent<Props, {}> {
   }
 }
 
-const mapStateToProps = (state) => ({
-  authorizationStatus: getAuthorizationStatus(state),
-  filmsList: getFilmsList(state),
-  film: getPromFilm(state)
-});
+const mapStateToProps = (state) => {
+  return {
+    authorizationStatus: getAuthorizationStatus(state),
+    filmsList: getFilmsList(state),
+    film: getPromFilm(state)
+  };
+};
 
 const mapDispatchToProps = (dispatch) => ({
   login(authData) {
     dispatch(UserOperation.login(authData));
   },
-  sendComment(authData, filmId) {
-    dispatch(CommentsOperation.sendComment(authData, filmId));
+  sendComment(authData, film) {
+    dispatch(CommentsOperation.sendComment(authData, film));
   },
   changeFavoriteStatus(filmId, status) {
     dispatch(DataOperation.changeFavoriteStatus(filmId, status));

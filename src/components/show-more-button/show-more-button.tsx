@@ -1,13 +1,13 @@
 import * as React from "react";
 import {ActionCreator} from '../../reducer/data/data';
 import {connect} from "react-redux";
-import {getfilmCurrent, getFilmsCount} from "../../reducer/data/selectors";
-import {FilmsType} from "../../types";
+import {getfilmsCurrent, getFilmsCount} from "../../reducer/data/selectors";
+import {FilmsInterface} from "../../types";
 
 interface Props {
-  filmsCurrent: FilmsType;
+  filmsCurrent: FilmsInterface;
   filmsCount: number;
-  onShowMoreButtonClick: () => void;
+  onShowMoreButtonClick: (filmsCount: number) => void;
 }
 
 const ShowMoreButton: React.FunctionComponent<Props> = ({filmsCurrent, filmsCount, onShowMoreButtonClick}: Props) => {
@@ -18,20 +18,20 @@ const ShowMoreButton: React.FunctionComponent<Props> = ({filmsCurrent, filmsCoun
       type="button"
       onClick={(e) => {
         e.preventDefault();
-        onShowMoreButtonClick();
+        onShowMoreButtonClick(filmsCount);
       }}
     >Show more</button>
   </div> : null;
 };
 
 const mapStateToProps = (state) => ({
-  filmsCurrent: getfilmCurrent(state),
+  filmsCurrent: getfilmsCurrent(state),
   filmsCount: getFilmsCount(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onShowMoreButtonClick: () => {
-    dispatch(ActionCreator.showMoreFilms());
+  onShowMoreButtonClick: (filmsCount) => {
+    dispatch(ActionCreator.changeFilmsCount(filmsCount + 8));
   }
 });
 

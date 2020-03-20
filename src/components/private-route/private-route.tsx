@@ -8,7 +8,7 @@ interface Props {
   authorizationStatus: string;
   exact: boolean;
   path: string;
-  render: (routeProps: React.ReactPropTypes) => void;
+  render: (props: React.ReactPropTypes) => void;
 }
 
 const PrivateRoute: React.FunctionComponent<Props> = (props: Props) => {
@@ -17,11 +17,8 @@ const PrivateRoute: React.FunctionComponent<Props> = (props: Props) => {
     <Route
       path={path}
       exact={exact}
-      render={ (routeProps) => {
-        if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
-          routeProps.history.push(path);
-        }
-        return authorizationStatus === AuthorizationStatus.NO_AUTH ? <Redirect to="/login" /> : render(routeProps);
+      render={ (routerProps) => {
+        return (authorizationStatus === AuthorizationStatus.NO_AUTH && path !== `/mylist` && path !== `/films/:id/review`) ? <Redirect to="/login" /> : render(routerProps);
       }}
     />
   );

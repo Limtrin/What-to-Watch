@@ -11,8 +11,8 @@ it(`<FilmCard /> should render correctly`, () => {
         <BrowserRouter>
           <FilmCard
             film={film}
-            handleMouseEnter={noop}
-            handleMouseLeave={noop}
+            onHandleMouseEnter={noop}
+            onHandleMouseLeave={noop}
             onFilmCardClickHandler={noop}
             renderPlayer={() => null}
             isPlaying={false}

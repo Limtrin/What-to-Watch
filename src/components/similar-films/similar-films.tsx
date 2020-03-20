@@ -3,11 +3,11 @@ import {connect} from "react-redux";
 import {FilmsList} from "../films-list/films-list";
 import withActiveItem from "../../hocs/with-active-item/with-active-item";
 import {getFilmsList} from "../../reducer/data/selectors";
-import {FilmsType, FilmType} from "../../types";
+import {FilmsInterface, FilmInterface} from "../../types";
 
 interface Props {
-  film: FilmType;
-  filmsList: FilmsType;
+  film: FilmInterface;
+  filmsList: FilmsInterface;
   onFilmCardClickHandler: () => void;
 }
 
