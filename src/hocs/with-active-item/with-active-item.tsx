@@ -7,8 +7,8 @@ interface State {
 }
 
 interface InjectingProps {
-  itemLeaveHandler: () => void;
-  itemEnterHandler: () => void;
+  onItemLeaveHandler: () => void;
+  onItemEnterHandler: () => void;
   activeItem: FilmInterface | string | null;
 }
 

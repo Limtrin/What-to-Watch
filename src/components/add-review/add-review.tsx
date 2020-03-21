@@ -46,10 +46,10 @@ class AddReview extends React.PureComponent<Props, State> {
 
   handleChange(e) {
     switch (true) {
-      case e.target.value.length < 50:
+      case e.target.value.length < MESSAGE_LIMIT.min:
         this.props.changeSendStatusText(`Ваше сообщение менее 50 символов`);
         break;
-      case e.target.value.length > 400:
+      case e.target.value.length > MESSAGE_LIMIT.max:
         this.props.changeSendStatusText(`Ваше сообщение больше 400 символов`);
         break;
       default:
