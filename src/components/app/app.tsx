@@ -13,7 +13,7 @@ import history from "../../history";
 import MyList from "../my-list/my-list";
 import PrivateRoute from "../private-route/private-route";
 import {connect} from "react-redux";
-import {getAuthorizationStatus} from "../../reducer/user/selectors";
+import {getAuthorizationStatus, getPendingStatus} from "../../reducer/user/selectors";
 import {getPromFilm, getFilmsList} from "../../reducer/data/selectors";
 import {FilmInterface, FilmsInterface} from "../../types";
 import withErrorsItem from "../../hocs/with-errors/with-errors";
@@ -31,6 +31,7 @@ interface Props {
   film: FilmInterface;
   filmsList: FilmsInterface;
   loading: () => void;
+  pending: boolean;
   onItemLeaveHandler: () => void;
   onItemEnterHandler: (film: FilmInterface) => void;
 }
@@ -38,25 +39,24 @@ interface Props {
 class App extends React.PureComponent<Props, {}> {
   constructor(props) {
     super(props);
-
-    this.filmCardClickHandler = this.filmCardClickHandler.bind(this);
+    this.handleFilmCardClick = this.handleFilmCardClick.bind(this);
   }
 
-  filmCardClickHandler(film) {
+  handleFilmCardClick(film) {
     this.props.onItemEnterHandler(film);
     history.push(`/films/${film.id}`);
   }
 
   render() {
-    const {film, filmsList, authorizationStatus, changeFavoriteStatus, login, sendComment, onItemLeaveHandler} = this.props;
-    return (
+    const {film, filmsList, authorizationStatus, changeFavoriteStatus, login, sendComment, onItemLeaveHandler, pending} = this.props;
+    return pending && (
       <Router history={history}>
         <Switch>
           <Route exact path="/">
             <Main
               authorizationStatus={authorizationStatus}
               film={film}
-              onFilmCardClickHandler={this.filmCardClickHandler}
+              onFilmCardClickHandler={this.handleFilmCardClick}
               onFilmFavoriteStatusClickHandler={changeFavoriteStatus}
             />
           </Route>
@@ -68,7 +68,7 @@ class App extends React.PureComponent<Props, {}> {
                 <MyListWrapped
                   authorizationStatus={authorizationStatus}
                   film={film}
-                  onFilmCardClickHandler={this.filmCardClickHandler}
+                  onFilmCardClickHandler={this.handleFilmCardClick}
                   onFilmFavoriteStatusClickHandler={changeFavoriteStatus}
                 />
               );
@@ -86,7 +86,7 @@ class App extends React.PureComponent<Props, {}> {
                 authorizationStatus={authorizationStatus}
                 film={chosenFilm}
                 filmsList={filmsList}
-                onFilmCardClickHandler={this.filmCardClickHandler}
+                onFilmCardClickHandler={this.handleFilmCardClick}
                 onFilmFavoriteStatusClickHandler={changeFavoriteStatus}
               />
             );
@@ -122,7 +122,8 @@ const mapStateToProps = (state) => {
   return {
     authorizationStatus: getAuthorizationStatus(state),
     filmsList: getFilmsList(state),
-    film: getPromFilm(state)
+    film: getPromFilm(state),
+    pending: getPendingStatus(state),
   };
 };
 

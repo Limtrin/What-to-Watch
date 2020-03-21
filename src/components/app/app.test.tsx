@@ -13,7 +13,8 @@ const mockStore = configureStore([]);
 it(`Render App`, () => {
   const store = mockStore({
     [NameSpace.USER]: {
-      authorizationStatus: AuthorizationStatus.NO_AUTH
+      authorizationStatus: AuthorizationStatus.NO_AUTH,
+      pending: true,
     },
     [NameSpace.DATA]: {
       genre: `All genres`,

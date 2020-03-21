@@ -23,10 +23,10 @@ const withActiveTab = (Component) => {
     constructor(props) {
       super(props);
       this.state = {activeTab: TAB_NAME.overview};
-      this.activeTabHandler = this.activeTabHandler.bind(this);
+      this.handleActiveTab = this.handleActiveTab.bind(this);
     }
 
-    activeTabHandler(item) {
+    handleActiveTab(item) {
       this.setState({
         activeTab: item
       });
@@ -37,7 +37,7 @@ const withActiveTab = (Component) => {
         <Component
           {...this.props}
           activeTab={this.state.activeTab}
-          onActiveTabHandler={this.activeTabHandler}
+          onActiveTabHandler={this.handleActiveTab}
         />
       );
     }

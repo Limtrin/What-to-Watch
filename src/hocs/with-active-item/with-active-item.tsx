@@ -21,17 +21,17 @@ const withActiveItem = (Component) => {
     constructor(props) {
       super(props);
       this.state = {activeItem: null};
-      this.itemEnterHandler = this.itemEnterHandler.bind(this);
-      this.itemLeaveHandler = this.itemLeaveHandler.bind(this);
+      this.handleItemEnter = this.handleItemEnter.bind(this);
+      this.handleItemLeave = this.handleItemLeave.bind(this);
     }
 
-    itemEnterHandler(item) {
+    handleItemEnter(item) {
       this.setState({
         activeItem: item
       });
     }
 
-    itemLeaveHandler() {
+    handleItemLeave() {
       this.setState({
         activeItem: null
       });
@@ -42,8 +42,8 @@ const withActiveItem = (Component) => {
         <Component
           {...this.props}
           activeItem={this.state.activeItem}
-          onItemEnterHandler={this.itemEnterHandler}
-          onItemLeaveHandler={this.itemLeaveHandler}
+          onItemEnterHandler={this.handleItemEnter}
+          onItemLeaveHandler={this.handleItemLeave}
         >
 
         </Component>

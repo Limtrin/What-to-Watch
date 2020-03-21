@@ -5,6 +5,10 @@ import {getText, getSendStatus, getFormBlock, getRating} from '../../reducer/rev
 import {Link} from 'react-router-dom';
 import {FilmInterface} from "../../types";
 
+const MESSAGE_LIMIT = {
+  min: 50,
+  max: 400
+};
 
 interface State {
   rating: number;
@@ -67,7 +71,7 @@ class AddReview extends React.PureComponent<Props, State> {
   }
 
   render() {
-    const postDisabled = this.props.textValue.length < 50 || this.props.textValue.length > 400;
+    const postDisabled = this.props.textValue.length < MESSAGE_LIMIT.min || this.props.textValue.length > MESSAGE_LIMIT.max;
     return (
       <section className="movie-card movie-card--full">
         <div className="movie-card__header">

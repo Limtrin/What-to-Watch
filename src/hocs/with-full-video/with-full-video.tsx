@@ -26,8 +26,8 @@ const withFullVideo = (Component) => {
         progressValue: 0
       };
 
-      this.playClickHandler = this.playClickHandler.bind(this);
-      this.fullScreenClickHandler = this.fullScreenClickHandler.bind(this);
+      this.handlePlayClick = this.handlePlayClick.bind(this);
+      this.handleFullScreenClick = this.handleFullScreenClick.bind(this);
     }
 
     componentDidMount() {
@@ -77,11 +77,11 @@ const withFullVideo = (Component) => {
       }
     }
 
-    playClickHandler() {
+    handlePlayClick() {
       this.setState({isPlaying: !this.state.isPlaying}, this.play);
     }
 
-    fullScreenClickHandler() {
+    handleFullScreenClick() {
       const video = this._videoRef.current;
       video.requestFullscreen();
     }
@@ -99,8 +99,8 @@ const withFullVideo = (Component) => {
           progressBar={progressBar}
           timer={timer}
           isPlaying={this.state.isPlaying}
-          onFullScreenClickHandler={this.fullScreenClickHandler}
-          onPlayClickHandler={this.playClickHandler}
+          onFullScreenClickHandler={this.handleFullScreenClick}
+          onPlayClickHandler={this.handlePlayClick}
           progressValue={progressValue}
         >
           <video

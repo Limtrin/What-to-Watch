@@ -27,9 +27,9 @@ it(`Should change isPlaying`, () => {
 
   wrapper.instance().componentDidMount();
 
-  wrapper.instance().playClickHandler();
+  wrapper.instance().handlePlayClick();
   expect(wrapper.state().isPlaying).toEqual(true);
 
-  wrapper.instance().playClickHandler();
+  wrapper.instance().handlePlayClick();
   expect(wrapper.state().isPlaying).toEqual(false);
 });

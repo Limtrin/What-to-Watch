@@ -19,9 +19,9 @@ it(`Should change ActiveTab`, () => {
 
   expect(wrapper.state().activeTab).toEqual(TAB_NAME.overview);
 
-  wrapper.instance().activeTabHandler(TAB_NAME.details);
+  wrapper.instance().handleActiveTab(TAB_NAME.details);
   expect(wrapper.state().activeTab).toEqual(TAB_NAME.details);
 
-  wrapper.instance().activeTabHandler(TAB_NAME.reviews);
+  wrapper.instance().handleActiveTab(TAB_NAME.reviews);
   expect(wrapper.state().activeTab).toEqual(TAB_NAME.reviews);
 });

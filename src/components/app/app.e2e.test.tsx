@@ -20,7 +20,8 @@ const mockStore = configureStore([]);
 it(`filmCardClickHandler calls onItemEnterHandler`, () => {
   const store = mockStore({
     [NameSpace.USER]: {
-      authorizationStatus: AuthorizationStatus.NO_AUTH
+      authorizationStatus: AuthorizationStatus.NO_AUTH,
+      pending: true,
     },
     [NameSpace.DATA]: {
       genre: `All genres`,
@@ -44,6 +45,6 @@ it(`filmCardClickHandler calls onItemEnterHandler`, () => {
       </Provider>
   ).find(App).children();
 
-  app.instance().filmCardClickHandler(film);
+  app.instance().handleFilmCardClick(film);
   expect(itemEnterHandler.mock.calls.length).toBe(1);
 });

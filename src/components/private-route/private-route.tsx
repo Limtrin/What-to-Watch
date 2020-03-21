@@ -18,7 +18,7 @@ const PrivateRoute: React.FunctionComponent<Props> = (props: Props) => {
       path={path}
       exact={exact}
       render={ (routerProps) => {
-        return (authorizationStatus === AuthorizationStatus.NO_AUTH && path !== `/mylist` && path !== `/films/:id/review`) ? <Redirect to="/login" /> : render(routerProps);
+        return (authorizationStatus === AuthorizationStatus.NO_AUTH) ? <Redirect to="/login" /> : render(routerProps);
       }}
     />
   );
